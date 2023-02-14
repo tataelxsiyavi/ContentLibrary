@@ -1,0 +1,670 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" href="maincss.css">
+
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+   <script type="text/javascript">
+
+
+  function userAction() {
+    var dStyle = document.getElementById("user-management-link").style.display;
+
+if(dStyle === "none"){
+  document.getElementById("user-arrow-down").style.display = "none";
+    document.getElementById("user-arrow-up").style.display = "block";
+    var elem = document.getElementById("user-arrow-up");
+    elem.className = "bi bi-chevron-up ms-auto ";
+
+
+document.getElementById("user-management-link").style.display = `block`;}
+else{
+  document.getElementById("user-arrow-up").style.display = "none";
+    document.getElementById("user-arrow-down").style.display = "block";
+    var elem = document.getElementById("user-arrow-down");
+    elem.className = "bi bi-chevron-down ms-auto ";
+
+
+document.getElementById("user-management-link").style.display = `none`;
+  }
+}
+  function userAction1() {
+    var dStyle = document.getElementById("marketing-link").style.display;
+
+if(dStyle === "none"){
+document.getElementById("marketing-arrow-down").style.display = "none";
+    document.getElementById("marketing-arrow-up").style.display = "block";
+    var elem = document.getElementById("marketing-arrow-up");
+    elem.className = "bi bi-chevron-up ms-auto animate";
+
+document.getElementById("marketing-link").style.display = `block`;}
+else{
+  document.getElementById("marketing-arrow-up").style.display = "none";
+    document.getElementById("marketing-arrow-down").style.display = "block";
+    var elem = document.getElementById("marketing-arrow-down");
+    elem.className = "bi bi-chevron-down ms-auto ";
+
+
+document.getElementById("marketing-link").style.display = `none`;
+  }
+}
+
+
+  function userAction2() {
+    var dStyle = document.getElementById("analytics-link").style.display;
+
+if(dStyle === "none") {
+
+    document.getElementById("analytics-arrow-down").style.display = "none";
+    document.getElementById("analytics-arrow-up").style.display = "block";
+    var elem = document.getElementById("analytics-arrow-up");
+    elem.className = "bi bi-chevron-up ms-auto animate";
+
+
+   
+    document.getElementById("analytics-link").style.display = `block`;
+}
+
+else {
+    
+    document.getElementById("analytics-arrow-up").style.display = "none";
+    document.getElementById("analytics-arrow-down").style.display = "block";
+    var elem = document.getElementById("analytics-arrow-down");
+    elem.className = "bi bi-chevron-down ms-auto ";
+
+    document.getElementById("analytics-link").style.display = `none`;
+}
+
+  }
+  function boxCheck(){
+    if(document.getElementById("check").checked){
+        document.querySelector(".details-table").style.display="block";
+        if(document.querySelector(".toast-main1").style.display === "block"){
+          document.querySelector(".toast-main1").style.display="none";
+        }
+        document.querySelector(".toast-main").style.display="block";
+        boxCheckAlert();
+    }
+    else{
+        document.querySelector(".details-table").style.display="none";
+        if(document.querySelector(".toast-main").style.display === "block"){
+          document.querySelector(".toast-main").style.display="none";
+        }
+        document.querySelector(".toast-main1").style.display="block";
+        boxCheckAlert();
+        
+
+        
+    }
+  }
+  function proceedClick(){
+    document.querySelector("#id01").style.display="none";
+    document.querySelector(".toast-main2").style.display="block";
+    document.body.scrollTop = 0;
+    document.documentElement.scrollTop = 0;
+    boxCheckAlert();
+  }
+
+  function boxCheckAlert()
+    {   
+      //Enable  
+    setTimeout(function(){
+      document.querySelector('.toast-main').style.display = 'none';
+    }, 3000);
+    
+    //Disable
+    setTimeout(function(){
+      document.querySelector('.toast-main1').style.display = 'none';
+    }, 3000);
+
+    //Proceed button event
+    setTimeout(function(){
+      document.querySelector('.toast-main2').style.display = 'none';
+    }, 3000);
+    }
+
+
+
+  </script>
+
+</head>
+
+
+<body>
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="index.html" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">FEE Admin</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar" >
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+         
+       
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+            <i class="bi bi-box-arrow-up-right"></i>
+            <!-- <span class="badge bg-success badge-number"></span> -->
+          </a><!-- End Messages Icon -->
+
+          
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Vidhya</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Content Management</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="Contentlibrary.html">
+              <i class="bi bi-circle"></i><span>Contents Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="Assetlibrary.html">
+              <i class="bi bi-circle"></i><span>Asset Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="Playlistlibrary.html">
+              <i class="bi bi-circle"></i><span>Playlist Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="Featuredsections.html">
+              <i class="bi bi-circle"></i><span>Featured Sections</span>
+            </a>
+          </li>
+          <li>
+            <a href="Contnentsettings.html">
+              <i class="bi bi-circle"></i><span>Content Settings</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End CMS Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-window-plus"></i><span>Website</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="Template.html">
+              <i class="bi bi-circle"></i><span>Template</span>
+            </a>
+          </li>
+          <li>
+            <a href="Domainname.html">
+              <i class="bi bi-circle"></i><span>Domain Name</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Website Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
+            <i class="bi bi-app"></i><span>App</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="Tryyourapp.html">
+              <i class="bi bi-circle"></i><span>Try Your App</span>
+            </a>
+          </li>
+          <li>
+            <a href="Apptemplate.html">
+              <i class="bi bi-circle"></i><span>App Template</span>
+            </a>
+          </li>
+          <li>
+            <a href="Mobileapps.html">
+              <i class="bi bi-circle"></i><span>Mobile Apps</span>
+            </a>
+          </li>
+          <li>
+            <a href="Tvapps.html">
+              <i class="bi bi-circle"></i><span>TV Apps</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End App Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-bar-chart"></i><span>Monetization</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="Pricing.html">
+              <i class="bi bi-circle"></i><span>Pricing</span>
+            </a>
+          </li>
+          <li>
+            <a href="Paymentgateways.html">
+              <i class="bi bi-circle"></i><span>Payment Gateway</span>
+            </a>
+          </li>
+          <li>
+            <a href="charts-echarts.html">
+              <i class="bi bi-circle"></i><span>Settings</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Monetization Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-play-circle"></i></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="playersettings.html">
+              <i class="bi bi-circle"></i><span>Player Settings</span>
+            </a>
+          </li>
+          <li>
+            <a href="Encodingprofile.html">
+              <i class="bi bi-circle"></i><span>Encoding Profile</span>
+            </a>
+          </li>
+          <li>
+            <a href="Advertisements.html">
+              <i class="bi bi-circle"></i><span>Advertisement</span>
+            </a>
+          </li>
+        </ul>
+      </li><!-- End Player Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction1()">
+          <i class="bi bi-play-circle"></i><span>Marketing</span><i class="bi bi-chevron-down ms-auto" id="marketing-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="marketing-arrow-up" style="display: none; margin-right: 0;"></i>
+        </a>
+        <ul id="marketing-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
+          <li>
+            <a href="Notificationcenter.html">
+              <i class="bi bi-circle"></i><span>Notification Center</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End Marketing Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="#" onclick="userAction()">
+          <i class="bi bi-play-circle"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto" id="user-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="user-arrow-up" style="display: none; margin-right: 0;"></i>
+        </a>
+        <ul class="nav-content collapse " data-bs-parent="#sidebar-nav" id="user-management-link" style="display: none;">
+          <li>
+            <a href="Registration&login.html">
+              <i class="bi bi-circle"></i><span>Registration & Login</span>
+            </a>
+          </li>
+          <li>
+            <a href="Userdetails.html">
+              <i class="bi bi-circle"></i><span>User details</span>
+            </a>
+          </li>
+        
+        </ul>
+      </li><!-- End user management Nav -->
+      <li class="nav-item">
+        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction2()">
+          <i class="bi bi-play-circle"></i><span>Analytics</span><i class="bi bi-chevron-down ms-auto" id="analytics-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="analytics-arrow-up" style="display: none; margin-right: 0;"></i>
+        </a>
+        <ul id="analytics-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
+          <li>
+            <a href="Insights.html">
+              <i class="bi bi-circle"></i><span>Insights</span>
+            </a>
+          </li>
+          <li>
+            <a href="Contentupload.html">
+              <i class="bi bi-circle"></i><span>Content Upload</span>
+            </a>
+          </li>
+            </ul>
+      </li><!-- End Analytics Nav -->
+
+     
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="users-profile.html">
+          <i class="bi bi-person"></i>
+          <span>Profile</span>
+        </a>
+      </li><!-- End Profile Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="Help.html">
+          <i class="bi bi-question-circle"></i>
+          <span>Help</span>
+        </a>
+      </li><!-- End Help Page Nav -->
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" href="Contact.html">
+          <i class="bi bi-envelope"></i>
+          <span>Contact</span>
+        </a>
+      </li><!-- End Contact Page Nav -->
+                 </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+    <div class="bulkUp">
+      <div class="pagetitle">
+        <h1>Content Management</h1>
+        <nav>
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+            <li class="breadcrumb-item active">Asset Library</li>
+           
+          </ol>
+        </nav>
+      </div>
+      <div class="toast-main" style="display: none;">
+        <div class="toast-body">
+          <div class="svg reset">
+            
+          <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#27AE60" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+            <path d="M17 9L11 16L8 13.5" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            </path>
+          </svg>
+          <span onclick="document.querySelector('.toast-main').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          </div>
+          <div class="msg">
+            <div class="title">Success</div>
+            <div class="subTitle">Bulk Upload Settings enabled successfully.It will take approximately 5 minutes to create your FTP account.</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="toast-main1" style="display: none;">
+      <div class="toast-body1">
+        <div class="svg reset1">
+          
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#27AE60" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M17 9L11 16L8 13.5" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          </path>
+        </svg>
+        <span onclick="document.querySelector('.toast-main1').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        </div>
+        <div class="msg1">
+          <div class="title">Success</div>
+          <div class="subTitle">Bulk Upload Settings disabled successfully.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="toast-main2" style="display: none;">
+      <div class="toast-body2">
+        <div class="svg reset2">
+          
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <path d="M12 22C17.5228 22 22 17.5228 22 12C22 6.47715 17.5228 2 12 2C6.47715 2 2 6.47715 2 12C2 17.5228 6.47715 22 12 22Z" fill="#27AE60" stroke="#27AE60" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+          <path d="M17 9L11 16L8 13.5" stroke="#F2F2F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          </path>
+        </svg>
+        <span onclick="document.querySelector('.toast-main2').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+        </div>
+        <div class="msg2">
+          <div class="title">Success</div>
+          <div class="subTitle">FTP Sync process started. You can check assets in video, audio, image library.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    
+
+    <section class="section dashboard">
+      <div class="row">
+        <div class="inside-content">
+            <div class="link">
+                <a href="Assetlibrary.html" style="color: rgb(99, 95, 95);">Video</a>
+                <a href="audio.html" style="margin-left: 20px; color:rgb(99, 95, 95);">Audio</a>
+                <a href="images.html" style="margin-left: 20px; color:  rgb(99, 95, 95);">Images</a>
+                <a href="file.html" style="margin-left: 20px;color: rgb(99, 95, 95);">File</a>
+                <a href="bulkUpload.html" style="margin-left: 20px;color: rgba(134, 5, 255, 0.895);">Bulk Uplaod</a>
+            </div>
+            <div class="inside-content-header">
+                <h2 class="breadcrumb-item active" style="font-family: cursive;">Bulk Upload</h2>
+            </div>
+            <div class="main">
+                <div class="toogle-btn">
+                    <label class="switch">
+                        <input type="checkbox" id="check" onchange="boxCheck();">
+                        <span class="slider round"></span>
+                    </label>
+                    <p class="bulk-text">Bulk Upload</p>
+                </div>
+                <p style="font-size: 12px; margin-left:13px;">You can sync medias after enabling this option</p>
+                <div class="details-table">
+                    <p style="font-weight: bold;">FTP Account Details</p>
+                    <table width="360" style="border: 0.2px solid grey;">
+                        <tr height="50" style="border-bottom: 1px solid gray;">
+                            <td width="70" style="font-weight:bold; margin-left: 30px;">&nbsp;&nbsp;&nbsp;Server</td>
+                            <td width="50" style="text-align: right;">52.86.193.110&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                        <tr height="50" style="border-bottom: 1px solid gray;">
+                            <td width="70" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;User Name</td>
+                            <td width="50" style="text-align: right;">Arun K&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                        <tr height="50" style="border-bottom: 1px solid gray;">
+                            <td width="70" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;Password</td>
+                            <td width="50" style="text-align: right;">Arun@2708&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                        <tr height="50" style="border-bottom: 1px solid gray;">
+                            <td width="70" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;Port</td>
+                            <td width="50" style="text-align: right;">21&nbsp;&nbsp;&nbsp;</td>
+                        </tr>
+                    </table>
+                    <div class="sync-btn">
+                        <button type="submit" onclick="document.getElementById('id01').style.display='block'" class="sync"><i class="bi bi-arrow-repeat"></i> Sync To Library</button>
+                        
+                      </div>
+                   </div>
+                   <div class="w3-container" >
+                    <div id="id01" style="display:none ;" class="w3-modal">
+                      <div class="w3-modal-content" style="height:50%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;background-color: white;">
+                        <div class="w3-container">
+                          <!-- <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span> -->
+                          <div class="bulk-popup">
+                            <i class="bi bi-exclamation-diamond-fill"></i>
+                            <p style="font-weight:bold; margin-left: 3px;">Are you sure you want to sync assets
+                              from your FTP server?</p>
+                          </div>
+                          <p style="font-weight: lighter;color:grey;font-size: 12px;margin-left: 16px;">Confirming this action will sync your assets from your FTP server.</p>
+                          
+                          <div style="margin-left: 18%;">
+                            <table width="360" style="border: 0.2px solid grey;">
+                              <tr height="50" style="border-bottom: 1px solid gray;">
+                                  <td width="70" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;Server</td>
+                                  <td width="50" style="text-align: right;">52.86.193.110&nbsp;&nbsp;&nbsp;</td>
+                              </tr>
+                              <tr height="50" style="border-bottom: 1px solid gray;">
+                                  <td width="70" style="font-weight:bold;">&nbsp;&nbsp;&nbsp;User Name</td>
+                                  <td width="50" style="text-align: right;">Arun K&nbsp;&nbsp;&nbsp;</td>
+                              </tr>
+                          </table>
+                          <div style="display: flex;flex-direction:row; margin-top: 20px; margin-left: 190px;">
+                            <button onclick="document.getElementById('id01').style.display='none'" style="border:none;font-size: 14px; border-radius: 3px;width: 80px;height: 35px;">Cancel</button>
+                            <button onclick="proceedClick();" style="margin-left: 10px;background-color: #18A0FB;border: none; color: white;font-size: 14px; border-radius: 3px;width: 80px;height: 35px;">Proceed</button>
+                          </div>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                  </div>
+                </div>
+                
+
+        <!-- Left side columns -->
+           
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+    
+      Designed by <a href="">Devil</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

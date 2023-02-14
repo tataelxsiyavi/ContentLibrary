@@ -28,14 +28,19 @@ public class PeopleLibrary {
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn()
-	private AssetLibrary assets;
+	private AssetLibrary people_asset;
 
 	public PeopleLibrary(String people_name, String bio,  AssetLibrary assets) {
 		super();
 		this.people_name = people_name;
 		this.bio = bio;
 		
-		this.assets = assets;
+		this.people_asset = assets;
+	}
+
+	public PeopleLibrary(long people_id) {
+		super();
+		this.people_id = people_id;
 	}
 	
 

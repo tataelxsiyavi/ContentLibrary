@@ -2,14 +2,15 @@ package com.content.model;
 
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
-import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -21,6 +22,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="content_library")
 public class ContentLibrary {
 	
 	@Id
@@ -31,32 +33,36 @@ public class ContentLibrary {
 	private String content_group;
 	private String content_name;
 	private String permalink;
-	@OneToOne
-	@JoinColumn(name="category_id_fk")
+	@OneToOne(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="category")
 	private Category categories;
 	private String story;
 	private String search_tags;
 	private String person_type;
-	@ManyToMany
-	@JoinColumn(name="content_people")
+	@ManyToMany(cascade = {CascadeType.MERGE})
+	@JoinColumn(name="content")
 	private List<PeopleLibrary> people_library;
 
-	@OneToOne
-	@JoinColumn(name="media_asset_id_fk")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="media_asset")
 	private AssetLibrary media_assets;
-	@OneToOne
-	@JoinColumn(name="additional_asset_id_fk")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="preview_asset")
+	private AssetLibrary preview_assets;
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="additional_asset")
 	private AssetLibrary additional_assets;
-	@OneToOne
-	@JoinColumn(name="thumbnail_asset_id_fk")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="thumbnail_asset")
 	private AssetLibrary thumbnail_assets;
-	@OneToOne
-	@JoinColumn(name="banner_asset_id_fk")
+	@OneToOne(cascade = {CascadeType.ALL})
+	@JoinColumn(name="banner_asset")
 	private AssetLibrary banner_assets;
+
 	public ContentLibrary(String content_type, String content_format, String content_group, String content_name,
 			String permalink, Category categories, String story, String search_tags, String person_type,
-			List<PeopleLibrary> people_library, AssetLibrary media_assets, AssetLibrary additional_assets,
-			AssetLibrary thumbnail_assets, AssetLibrary banner_assets) {
+			List<PeopleLibrary> people_library, AssetLibrary media_assets, AssetLibrary preview_assets,
+			AssetLibrary additional_assets, AssetLibrary thumbnail_assets, AssetLibrary banner_assets) {
 		super();
 		this.content_type = content_type;
 		this.content_format = content_format;
@@ -69,11 +75,11 @@ public class ContentLibrary {
 		this.person_type = person_type;
 		this.people_library = people_library;
 		this.media_assets = media_assets;
+		this.preview_assets = preview_assets;
 		this.additional_assets = additional_assets;
 		this.thumbnail_assets = thumbnail_assets;
 		this.banner_assets = banner_assets;
 	}
-	
 	
 
 }

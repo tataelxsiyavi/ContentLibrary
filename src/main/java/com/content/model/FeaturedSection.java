@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
+import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -19,6 +20,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 @ToString
+@Table(name="featured_section")
 public class FeaturedSection {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
@@ -29,10 +31,10 @@ public class FeaturedSection {
 	private String criteria;
 	private int    content_Limit;
 	@ManyToMany
-    @JoinColumn(name="category_id_fk")
+    @JoinColumn(name="category")
 	private List<Category> Category;
     @ManyToMany
-    @JoinColumn(name="content_id_fk")
+    @JoinColumn(name="content")
     private List<ContentLibrary> contentLibrary;
 	public FeaturedSection(String content_Type, String section_Name, String section_Type, String criteria,
 			int content_Limit, List<com.content.model.Category> category, List<ContentLibrary> contentLibrary) {

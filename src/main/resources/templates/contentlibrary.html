@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/maincss.css}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script th:src="@{/js/script.js}"></script> 
+
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="@{/index}" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">FEE Admin</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar" >
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+         
+       
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+            <i class="bi bi-box-arrow-up-right"></i>
+            <!-- <span class="badge bg-success badge-number"></span> -->
+          </a><!-- End Messages Icon -->
+
+          
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Vidhya</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Content Management</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="@{/contentlibrary}">
+              <i class="bi bi-circle"></i><span>Contents Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/assetlibrary}">
+              <i class="bi bi-circle"></i><span>Asset Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/playlistlibrary}">
+              <i class="bi bi-circle"></i><span>Playlist Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/featuredsections}">
+              <i class="bi bi-circle"></i><span>Featured Sections</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/contnentsettings}">
+              <i class="bi bi-circle"></i><span>Content Settings</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End CMS Nav -->
+
+     
+                 </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Content Management</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item active">Content Library</li>
+         
+        </ol>
+      </nav>
+    </div>
+
+
+
+    <section class="section dashboard" >
+      <div class="row">
+        <div class="inside-content">
+            <div class="link">
+                <a th:href="@{/contentlibrary}" style="color: rgba(134, 5, 255, 0.895);">Content library</a>
+                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgb(99, 95, 95);">People library</a>
+                <a th:href="@{/category}" style="margin-left: 20px; color: rgb(99, 95, 95);">Manage category</a>
+                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
+                
+            </div>
+            <div class="inside-content-header">
+                <h2 class="breadcrumb-item active">Content Library</h2>
+                <div class="inside-search-content">
+                    <form action="/action_page.php">
+                      <input type="text" placeholder="Search.." name="search">
+                      <button type="submit"><i class="bi bi-search"></i></button>
+                    </form>
+                </div>
+                <div class="inside-button-content">
+                    <a th:href="@{/addcontent}"style="font-size: 13px; margin-top:10px " ><i class="bi bi-plus" style="margin:2px" > Add Content</i></a>
+                </div>
+
+            </div>
+            <div class="table-div"  >
+             <div class ="thead-class" style="display: flex; height: 35px;">
+                    
+                        <p style="width: 55%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Content Name</p>
+                        <p style="width: 20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Category</p>
+                        <p style="width: 20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Monetization</p>
+                        <p style="width: 15%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">&nbsp;&nbsp;</p>
+                        
+                </div>
+            <table>
+               
+                <tbody>
+                    <tr height="40">
+                        <td width="410" style=" flex-direction:row; "><svg xmlns="http://www.w3.org/2000/svg" width="60" height="60" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+                            <path d="M0 1a1 1 0 0 1 1-1h14a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1H1a1 1 0 0 1-1-1V1zm4 0v6h8V1H4zm8 8H4v6h8V9zM1 1v2h2V1H1zm2 3H1v2h2V4zM1 7v2h2V7H1zm2 3H1v2h2v-2zm-2 3v2h2v-2H1zM15 1h-2v2h2V1zm-2 3v2h2V4h-2zm2 3h-2v2h2V7zm-2 3v2h2v-2h-2zm2 3h-2v2h2v-2z"/>
+                          </svg>
+                          
+                           <div style= "margin-right:180px; float:right;"> 
+                            <p  style="margin-left: 30px; margin-top: 18px; margin-bottom: 5px;">Woman_in_black</p>
+                              
+                              <p style="font-size: 10px; margin-left: 30px; margin-top: 18px">Content ID:cid2345<br>Full Name:Woman in black</p>
+                         </div>
+                          
+                        
+                        </td>
+                        <td width="290" style="margin-right: 100px;"> <i class="bi bi-music-note-beamed"> Audio</i></td>
+                        <td ><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-download"></i>&nbsp;&nbsp;&nbsp;&nbsp;<i class="bi bi-trash3-fill"></i></td>
+                    </tr>
+                </tbody>
+            </table>
+            </div>
+         <!--  Modal-->
+
+
+<!-- End General Form Elements -->
+<!-- modal end-->
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+        </div>
+        </div>
+      </div>
+      </div>
+    </section>
+
+   
+           
+
+  </main><!-- End #main -->
+
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+    
+      Designed by <a href="">Devil</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/chart.js/chart.umd.js"></script>
+  <script src="assets/vendor/echarts/echarts.min.js"></script>
+  <script src="assets/vendor/quill/quill.min.js"></script>
+  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

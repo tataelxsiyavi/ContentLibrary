@@ -1,0 +1,462 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Dashboard </title>
+  <meta content="" name="description">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link th:href="@{/assets/img/favicon.png}" rel="icon">
+  <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.gstatic.com" rel="preconnect">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/maincss.css}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script th:src="@{/js/script.js}"></script>   
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="header fixed-top d-flex align-items-center">
+
+    <div class="d-flex align-items-center justify-content-between">
+      <a href="@{/index}" class="logo d-flex align-items-center">
+        <img src="assets/img/logo.png" alt="">
+        <span class="d-none d-lg-block">FEE Admin</span>
+      </a>
+      <i class="bi bi-list toggle-sidebar-btn"></i>
+    </div><!-- End Logo -->
+
+    <div class="search-bar" >
+      <form class="search-form d-flex align-items-center" method="POST" action="#">
+        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
+        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
+      </form>
+    </div><!-- End Search Bar -->
+
+    <nav class="header-nav ms-auto">
+      <ul class="d-flex align-items-center">
+
+        <li class="nav-item d-block d-lg-none">
+          <a class="nav-link nav-icon search-bar-toggle " href="#">
+            <i class="bi bi-search"></i>
+          </a>
+        </li><!-- End Search Icon-->
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+            <i class="bi bi-bell"></i>
+            <span class="badge bg-primary badge-number">4</span>
+          </a><!-- End Notification Icon -->
+
+         
+       
+
+        <li class="nav-item dropdown">
+
+          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+            <i class="bi bi-box-arrow-up-right"></i>
+            <!-- <span class="badge bg-success badge-number"></span> -->
+          </a><!-- End Messages Icon -->
+
+          
+
+        </li><!-- End Messages Nav -->
+
+        <li class="nav-item dropdown pe-3">
+
+          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+            <span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
+          </a><!-- End Profile Iamge Icon -->
+
+          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+            <li class="dropdown-header">
+              <h6>Vidhya</h6>
+              <span>Web Designer</span>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-person"></i>
+                <span>My Profile</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                <i class="bi bi-gear"></i>
+                <span>Account Settings</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Need Help?</span>
+              </a>
+            </li>
+            <li>
+              <hr class="dropdown-divider">
+            </li>
+
+            <li>
+              <a class="dropdown-item d-flex align-items-center" href="#">
+                <i class="bi bi-box-arrow-right"></i>
+                <span>Sign Out</span>
+              </a>
+            </li>
+
+          </ul><!-- End Profile Dropdown Items -->
+        </li><!-- End Profile Nav -->
+
+      </ul>
+    </nav><!-- End Icons Navigation -->
+
+  </header><!-- End Header -->
+
+  <!-- ======= Sidebar ======= -->
+  <aside id="sidebar" class="sidebar">
+
+    <ul class="sidebar-nav" id="sidebar-nav">
+
+      <li class="nav-item">
+        <a class="nav-link " href="index.html">
+          <i class="bi bi-grid"></i>
+          <span>Dashboard</span>
+        </a>
+      </li><!-- End Dashboard Nav -->
+      
+
+      <li class="nav-item">
+        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+          <i class="bi bi-menu-button-wide"></i><span>Content Management</span><i class="bi bi-chevron-down ms-auto"></i>
+        </a>
+        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+          <li>
+            <a href="@{/contentlibrary}">
+              <i class="bi bi-circle"></i><span>Contents Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/assetlibrary}">
+              <i class="bi bi-circle"></i><span>Asset Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/playlistlibrary}">
+              <i class="bi bi-circle"></i><span>Playlist Library</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/featuredsections}">
+              <i class="bi bi-circle"></i><span>Featured Sections</span>
+            </a>
+          </li>
+          <li>
+            <a href="@{/contnentsettings}">
+              <i class="bi bi-circle"></i><span>Content Settings</span>
+            </a>
+          </li>
+          
+        </ul>
+      </li><!-- End CMS Nav -->
+
+                 </ul>
+
+  </aside><!-- End Sidebar-->
+
+  <main id="main" class="main">
+
+    <div class="pagetitle">
+      <h1>Content Management</h1>
+      <nav>
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item active">Content Library</li>
+         
+        </ol>
+      </nav>
+    </div>
+
+
+
+    <section class="section dashboard" >
+      <div class="row">
+        
+            
+           
+         <!--  Modal   -->
+   <form  th:action="@{/addcontent1}" th:object="${contentlibrary}"method="POST" >
+<div class="add-contents"    >
+  <div class="left" style="float:left; width:60%; margin-top: 10px; ">
+ 
+    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Type<span style="color:red;">*</span></label>&nbsp;
+    <select name="content_type"  style="height:30px; width: 250px;  ">
+      <option th:value="select">Select a content type</option>
+      <option th:value="video">Video</option>
+      <option th:value="audio">Audio</option>
+    </select><br>
+    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Format<span style="color:red;">*</span></label>&nbsp;
+    <select name="content_format"   style="height:30px; width: 250px;  ">
+      <option th:value="select">Select a content format</option>
+      <option th:value="video">Video</option>
+      <option th:value="audio">Audio</option>
+    </select><br>
+    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Group<span style="color:red;">*</span></label>&nbsp;
+    <select th:name="content_group"  style="height:30px; width: 250px;  ">
+      <option th:value="select">Web series</option>
+      <option th:value="video">Video</option>
+      <option th:value="audio">Audio</option>
+    </select>
+       <br>
+      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
+      <input type="text" id="fname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter a name"   ><br>
+      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
+      <input type="text" id="fname" th:name="permalink" style="height:30px; width: 250px;"placeholder="Permalink" ><br>
+      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
+      <select th:name="categories" id="playlist-type" style="height:30px;width: 250px; ">
+        <option th:each=" categories:${categories}"
+              th:text="${categories.category_name}"
+              th:value="${categories.category_id}" >
+         </option>
+        
+      </select>
+      <br/>
+      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
+      <input type="text" id="fname" th:name="story" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
+      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
+      <input type="text" id="fname" th:name="search_tags" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
+      
+     
+      <!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
+
+      <div class="link1"  style="display: flex;">
+        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaymedia()">Media</div>&nbsp;&nbsp;
+        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaybanner()">Banner</div>&nbsp;&nbsp;
+        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaypeople()">People</div>&nbsp;&nbsp;
+        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displayaddons()">Add Ons</div>&nbsp;&nbsp;
+      </div>
+
+      <!-- Media -->
+    <div class="media" ><!--style="display: none;"-->
+      <div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px;">
+        <div style="float:left; ">
+           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
+           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 70px;width: 130px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
+            <a  style="font-size: 13px;text-align: center;">+ Add file</a></span>
+       </div>  
+       <div style="float:right;">
+           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
+           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 70px;width: 100px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
+            <a  style="font-size: 13px; text-align: center; ">+ Add file</a></span> 
+       </div> 
+      </div>
+         <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : ( mp3, mp4 )</p>
+        
+    </div>
+<!-- Banner -->
+    <div class="banner" style="display: none; height: auto;" > <!-- block-->
+      <div  style=" justify-content:space-around; width: 70%;margin-left:  100px;">
+        <div style="float:left; width: 80%;">
+           <p style="font-size: 12px; white-space: nowrap;margin-top:1%;margin-bottom: 2px;">Website</p>  
+           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
+            <a >+ Add file</a></span>
+       </div>  
+      </div>
+      <p style="width: auto; font-size: 12px;  width: 70%;  text-align:center; margin-right: 0;">Resolution : 1600X560 px</p>
+      <p style="width: auto; font-size: 12px;  width: 70%;   margin-left: 95px;">Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+        
+    </div>
+    <!-- People -->
+    <div class="people" style="display: none;"><!-- flex-->
+        <select name="playlist-type" id="playlist-type">
+        <option value="select">Select Person Type</option>
+        <option value="newtype">New Type</option>
+        <option value="actor">Actor</option>
+        </select>
+        <input type="text" placeholder="Enter Person Name" name="addperson" >           
+      <button type="submit" >+ Add</button>
+    </div>
+
+    <!-- Add Ons-->
+    <div class="addons" style="display: none;"><!-- block-->
+      <p>Add Supportive Video/Audio/PDF File to this content</p>
+      <button onclick="addons1()" style="background: none;border: none;"><i class="bi bi-plus-circle-fill"></i>&nbsp; Add new file</button>
+    </div>
+    <div class ="addons-1" style="display: none;">
+      <h6>Label Name</h6>
+      <p>Media Type</p>
+      <select name="playlist-type" id="playlist-type">
+        <option value="video">Video</option>
+        <option value="audio">Audio</option>
+        <option value="pdf">PDF</option>
+        </select>
+        <input type="text" placeholder="Enter label Name" name="addperson" >           
+      <span id="addons-1-upload" onclick="document.getElementById('id01').style.display='block'">Upload</span>
+      <button type="submit" id="addons-1-cancel">Cancel</button>
+
+      
+
+    </div>
+   
+
+    </div>            
+
+
+
+
+
+  <div class="right" style="float: right;width: 40%;">
+<h2 style="font-size:20px;">Tumbnail</h2>
+
+  <div class="link">
+      <a href="#" style="color: rgba(134, 5, 255, 0.895);">web</a>
+      </div>
+ 
+    
+   <br>
+    <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;">Resolution : 288X424 px</p>   
+    <div class="w3-container">
+      <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 35px ;height: 100px;width: 180px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;">
+        <a >+ Add file</a></span>
+    <p style="font-size: 12px;white-space: nowrap;margin-top:4%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+
+    <!--  pop up-->
+
+    <div id="id01" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                <fieldset style="border:dashed;border-color:#18A0FB;height:90%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="fileselect" style="margin-left:25%;margin-top:10%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                   <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="margin-left:30%;margin-top:10px;"/>
+                <div id="submitbutton">
+                  <button type="submit" style="margin-left:80%;margin-top :10%;background-color: #18A0FB;border: none;border-radius:3px;color: azure;">Upload Files</button>
+                </div>
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Upload given mediatype file</div>
+                
+              </div>
+                
+        </div>
+      </div>
+
+    </div><!-- end pop up-->
+
+  </div>
+  </div>
+  
+</div>
+
+
+<!-- cancel and save buttons-->
+<div class="cancel-save-btn" >
+  <button type="submit" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);">Cancel</button>&nbsp;&nbsp;&nbsp;
+  <button type="submit" value="contentsave">Save</button>
+
+</div>
+</form>
+
+
+
+
+<!-- End General Form Elements -->
+<!-- modal end-->
+        <!-- Left side columns -->
+        <div class="col-lg-8">
+          <div class="row">
+        </div>
+        </div>
+      </div>
+  
+    </section>
+
+   
+           
+
+  </main><!-- End #main -->
+
+
+
+
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer" class="footer">
+    <div class="copyright">
+      &copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+    
+      Designed by <a href="">Devil</a>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      
+  <!-- Vendor JS Files -->
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
+
+  <!-- Template Main JS File -->
+  <script th:src="@{/assets/js/main.js}"></script>
+
+</body>
+
+</html>

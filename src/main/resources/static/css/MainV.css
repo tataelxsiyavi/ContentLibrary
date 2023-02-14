@@ -1,0 +1,107 @@
+@keyframes rotate180 {
+    from {
+       /* transform-origin: left bottom; */
+       transform: rotate(0);
+       /* opacity: 0; */
+    }
+    to {
+       /* transform-origin: left bottom; */
+       transform: rotate(180deg);
+       /* animation-play-state: paused; */
+       /* opacity: 1; */
+    }
+ } 
+ 
+ 
+ @keyframes rotate0 {
+    from {
+       /* transform-origin: left bottom; */
+       transform: rotate(-180deg);
+       /* opacity: 0; */
+    }
+    to {
+       /* transform-origin: left bottom; */
+       transform: rotate(0);
+       /* opacity: 1; */
+    }
+ } 
+ 
+ 
+ .animate180 {
+     animation: rotate180 .5s;
+    }
+ 
+    .animate0 {
+     animation: rotate0 .5s;
+    }
+ 
+ 
+    .inside-content{
+ width:850px;
+ height:700px;
+ background-color: #e6edfa;
+ border-radius: 15px;
+ margin: 30px 40px 50px 40px;
+ /* margin: auto; */
+    }
+    .inside-content-header{
+     padding: 15px;
+     color:  #2c384e;
+     display: flex;
+     flex-direction: row;
+    }
+    .inside-search-content{
+        margin-left: 180px;
+        margin-top: 8px;
+    }
+    .inside-search-content button {
+        height: 30px;
+        /* padding: 6px 10px; */
+        background: #ddd;
+        font-size: 17px;
+        border: none;
+        cursor: pointer;
+      }
+      .inside-search-content button:hover {
+        background: #ccc;
+      }
+      .inside-button-content{
+        margin-top: 4px;
+        margin-left: 25px;
+       
+      }
+      .inside-button-content button{
+        border: none;
+        height: 40px;
+        padding-left: 2px;
+        border-radius: 5px;
+        color: aliceblue;
+       
+        background-color:  #18A0FB;
+
+      }
+      .inside-button-content button p{
+        font-size: 13px;
+        padding-top: 8px;
+        
+      }
+      .table-div{
+        margin-top: 10px;
+      }
+      .thead-class{
+        border-top: 1px solid black;
+        border-bottom:1px solid black;
+      }
+      .bi-film{
+        margin-top: 20px;
+      }
+      .link{
+        margin-top: 20px;
+        padding-bottom: 10px;
+       border-bottom: 1px solid rgb(128, 123, 123); 
+      }
+
+
+      .thumbnail-banner-h2:hover {
+        color: #3b73e5;
+      }
