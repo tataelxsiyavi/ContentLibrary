@@ -16,6 +16,8 @@
   <!-- Google Fonts -->
   <link href="https://fonts.gstatic.com" rel="preconnect">
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+  <!-- check box-->
+  
 
   <!-- Vendor CSS Files -->
   <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -30,8 +32,114 @@
   <link th:href="@{/assets/css/style.css}" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/maincss.css}">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
 
-<script th:src="@{/js/script.js}"></script>   
+
+</style>
+<script th:src="@{/js/script.js}"></script>
+<script>
+function addons1(){
+    document.querySelector('.addons').style.display="none";
+    document.querySelector('.addons-1').style.display="block";
+
+}
+
+function loadFile1(event) {
+	var thumbnail_image = document.getElementById('thumbnail_output');
+	thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+	
+	
+};
+
+function loadFileMedia(event) {
+	var type=document.querySelector('#contenttype').value;
+	if(type=='audio'){
+		var audiomedia_audio = document.getElementById('audio_output');
+		audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+	}
+	else{
+		 var media_video = document.getElementById('media_output');
+		 media_video.src = URL.createObjectURL(event.target.files[0]);
+	}
+ 
+
+
+};
+
+function loadFileAudio(event) {
+  
+};
+function loadFilePreview(event) {
+  var preview_image = document.getElementById('preview_output');
+preview_image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+function loadFileBanner(event) {
+  var banner_image = document.getElementById('banner_output');
+	banner_image.src = URL.createObjectURL(event.target.files[0])
+};
+
+  
+var expanded = false;
+
+function showCheckboxes() {
+ var checkboxes = document.querySelector('.checkboxes');
+ if (!expanded) {
+   checkboxes.style.display = "block";
+   expanded = true;
+ } else {
+   checkboxes.style.display = "none";
+   expanded = false;
+ }
+}  
+
+
+
+   </script>
+<style>
+.multiselect {
+  width: 200px;
+}
+
+.selectBox {
+  position: relative;
+}
+
+.selectBox select {
+  width: 100%;
+  font-weight: bold;
+}
+
+.overSelect {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+}
+
+.checkboxes {
+  display: none;
+  border: 1px #dadada solid;
+  margin-left: 30px;
+  width: 200px;
+  
+}
+
+.checkboxes label {
+  display: block;
+}
+
+.checkboxes label:hover {
+  background-color: #1e90ff;
+}
+.checkboxes input{
+  padding: 15px;
+  margin: 10px;
+}
+
+
+</style>
 </head>
 
 <body>
@@ -164,27 +272,27 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="@{/contentlibrary}">
+            <a th:href="@{/contentlibrary}">
               <i class="bi bi-circle"></i><span>Contents Library</span>
             </a>
           </li>
           <li>
-            <a href="@{/assetlibrary}">
+            <a th:href="@{/assetlibrary}">
               <i class="bi bi-circle"></i><span>Asset Library</span>
             </a>
           </li>
           <li>
-            <a href="@{/playlistlibrary}">
+            <a th:href="@{/playlistlibrary}">
               <i class="bi bi-circle"></i><span>Playlist Library</span>
             </a>
           </li>
           <li>
-            <a href="@{/featuredsections}">
+            <a th:href="@{/featuredsections}">
               <i class="bi bi-circle"></i><span>Featured Sections</span>
             </a>
           </li>
           <li>
-            <a href="@{/contnentsettings}">
+            <a th:href="@{/contnentsettings}">
               <i class="bi bi-circle"></i><span>Content Settings</span>
             </a>
           </li>
@@ -217,35 +325,35 @@
             
            
          <!--  Modal   -->
-   <form  th:action="@{/addcontent1}" th:object="${contentlibrary}"method="POST" >
+    <form  th:action="@{/addcontent1}" th:object="${contentlibrary}" method="POST" enctype="multipart/form-data">
 <div class="add-contents"    >
   <div class="left" style="float:left; width:60%; margin-top: 10px; ">
  
-    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Type<span style="color:red;">*</span></label>&nbsp;
-    <select name="content_type"  style="height:30px; width: 250px;  ">
-      <option th:value="select">Select a content type</option>
+    <label for="contenttype" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Type<span style="color:red;">*</span></label>&nbsp;
+    <select th:name="content_type" id="contenttype" onchange="previewnone()" style="height:30px; width: 250px;  "> <!---->
+      <option value="select">Select a content type</option>
       <option th:value="video">Video</option>
       <option th:value="audio">Audio</option>
     </select><br>
-    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Format<span style="color:red;">*</span></label>&nbsp;
-    <select name="content_format"   style="height:30px; width: 250px;  ">
-      <option th:value="select">Select a content format</option>
+    <label for="contentformat" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Format<span style="color:red;">*</span></label>&nbsp;
+    <select th:name="content_format" id="contentformat"  style="height:30px; width: 250px;  ">
+      <option value="select">Select a content format</option>
       <option th:value="video">Video</option>
       <option th:value="audio">Audio</option>
     </select><br>
-    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Group<span style="color:red;">*</span></label>&nbsp;
-    <select th:name="content_group"  style="height:30px; width: 250px;  ">
-      <option th:value="select">Web series</option>
+    <label for="contentgroup" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Group<span style="color:red;">*</span></label>&nbsp;
+    <select th:name="content_group"  id="contentgroup" style="height:30px; width: 250px;  ">
+      <option th:value="web_series">Web series</option>
       <option th:value="video">Video</option>
       <option th:value="audio">Audio</option>
     </select>
        <br>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
-      <input type="text" id="fname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter a name"   ><br>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
-      <input type="text" id="fname" th:name="permalink" style="height:30px; width: 250px;"placeholder="Permalink" ><br>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
-      <select th:name="categories" id="playlist-type" style="height:30px;width: 250px; ">
+      <label for="contentname" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
+      <input type="text" id="contentname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter a name"   ><br>
+      <label for="perma_link"style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
+      <input type="text" id="perma_link" th:name="permalink" style="height:30px; width: 250px;"placeholder="Permalink" ><br>
+      <label for="category_type" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
+      <select th:name="category_id" id="category_type" style="height:30px;width: 250px; ">
         <option th:each=" categories:${categories}"
               th:text="${categories.category_name}"
               th:value="${categories.category_id}" >
@@ -253,10 +361,10 @@
         
       </select>
       <br/>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
-      <input type="text" id="fname" th:name="story" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
-      <input type="text" id="fname" th:name="search_tags" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
+      <label for="content_story" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
+      <input type="text" id="content_story" th:name="story" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
+      <label for="searchtags" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
+      <input type="text" id="searchtags" th:name="search_tags" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
       
      
       <!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
@@ -267,22 +375,48 @@
         <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaypeople()">People</div>&nbsp;&nbsp;
         <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displayaddons()">Add Ons</div>&nbsp;&nbsp;
       </div>
+<!-- Audio -->
+<div class="audiomedia" style="display: none;">
+<div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px; ">
+   <div style="float:left; ">
+          <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
+          <div onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 300px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
+           <a   style="font-size: 13px;text-align: center;">+ Add file</a>
+           <audio id="audio_output" controls autoplay   style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
+           
+          </div>
+          
+      </div>
+ </div>
+ <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : Audio files</p>
+</div>
 
       <!-- Media -->
-    <div class="media" ><!--style="display: none;"-->
-      <div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px;">
+    <div class="media"  ><!--style="display: none;"-->
+      
+      <div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px; ">
+       
+       
         <div style="float:left; ">
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
-           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 70px;width: 130px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
-            <a  style="font-size: 13px;text-align: center;">+ Add file</a></span>
+           <span onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 200px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
+            <a  style="font-size: 13px;text-align: center;">+ Add file</a>
+            <!--  -->
+            <video id="media_output" controls autoplay width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
+            
+            </span>
+            
        </div>  
-       <div style="float:right;">
+       
+       <div  id="preview-part" style="float:right;">
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
-           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 70px;width: 100px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
-            <a  style="font-size: 13px; text-align: center; ">+ Add file</a></span> 
+           <span onclick="document.getElementById('preview').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 90px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px;position: relative;">
+            <a  style="font-size: 13px; text-align: center; ">+ Add file</a>
+            <img id="preview_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            </span> 
        </div> 
       </div>
-         <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : ( mp3, mp4 )</p>
+         <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : Video files</p>
         
     </div>
 <!-- Banner -->
@@ -290,8 +424,11 @@
       <div  style=" justify-content:space-around; width: 70%;margin-left:  100px;">
         <div style="float:left; width: 80%;">
            <p style="font-size: 12px; white-space: nowrap;margin-top:1%;margin-bottom: 2px;">Website</p>  
-           <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
-            <a >+ Add file</a></span>
+           <span onclick="document.getElementById('banner').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
+            <a >+ Add file</a>
+            <img id="banner_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            
+            </span>
        </div>  
       </div>
       <p style="width: auto; font-size: 12px;  width: 70%;  text-align:center; margin-right: 0;">Resolution : 1600X560 px</p>
@@ -300,31 +437,59 @@
     </div>
     <!-- People -->
     <div class="people" style="display: none;"><!-- flex-->
-        <select name="playlist-type" id="playlist-type">
+        <select th:name="person_type" id="persontupe">
         <option value="select">Select Person Type</option>
-        <option value="newtype">New Type</option>
-        <option value="actor">Actor</option>
-        </select>
-        <input type="text" placeholder="Enter Person Name" name="addperson" >           
-      <button type="submit" >+ Add</button>
-    </div>
+        <option th:value="director">Director</option>
+        <option th:value="actor">Actor</option>
+         <option th:value="music_director">Music Director</option>
+        </select>&nbsp; &nbsp;
+       
+         <input type="checkbox" style="width:20px;"  th:name="peoples"
+         th:each="list: ${peoplelist}"
+          th:value="${list.people_id}"
+         th:text="${list.people_name}"
+         /> 
+        
+         
+         <!--  <div class="multiselect">
+          <div class="selectBox" onclick="showCheckboxes()">
+            <select >
+              <option>Select an option</option>
+            </select>
+            <div class="overSelect"></div>
+          </div>
+          <div class="checkboxes" th:name="peoples">
+            <label th:each="list: ${peoplelist}">
+              <input type="checkbox"  
+              th:value="${list.people_id}"
+              th:text="${list.people_name}"
+              /></label>
+            
+          </div> 
+        </div>-->
+          </div>
+   
+   
+                   
+      <!-- <span id="addons-1-upload" style="padding:5px;margin:10px;margin-top:18px;" > &nbsp;+ Add</span>--> 
+    
 
     <!-- Add Ons-->
     <div class="addons" style="display: none;"><!-- block-->
       <p>Add Supportive Video/Audio/PDF File to this content</p>
-      <button onclick="addons1()" style="background: none;border: none;"><i class="bi bi-plus-circle-fill"></i>&nbsp; Add new file</button>
+      <label onclick="addons1()" style="background: none;border: none;" ><i class="bi bi-plus-circle-fill"> </i>&nbsp;Add new file</label>
     </div>
     <div class ="addons-1" style="display: none;">
       <h6>Label Name</h6>
       <p>Media Type</p>
-      <select name="playlist-type" id="playlist-type">
-        <option value="video">Video</option>
-        <option value="audio">Audio</option>
-        <option value="pdf">PDF</option>
+      <select th:name="additional_asset_type" id="additional-type">
+        <option th:value="video">Video</option>
+        <option th:value="audio">Audio</option>
+        <option th:value="pdf">PDF</option>
         </select>
-        <input type="text" placeholder="Enter label Name" name="addperson" >           
-      <span id="addons-1-upload" onclick="document.getElementById('id01').style.display='block'">Upload</span>
-      <button type="submit" id="addons-1-cancel">Cancel</button>
+                  
+      <span id="addons-1-upload" onclick="document.getElementById('additional').style.display='block'">Upload</span>
+      <span  id="addons-1-cancel">Cancel</span>
 
       
 
@@ -338,7 +503,7 @@
 
 
   <div class="right" style="float: right;width: 40%;">
-<h2 style="font-size:20px;">Tumbnail</h2>
+<h2 style="font-size:20px;">Thumbnail</h2>
 
   <div class="link">
       <a href="#" style="color: rgba(134, 5, 255, 0.895);">web</a>
@@ -348,19 +513,21 @@
    <br>
     <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;">Resolution : 288X424 px</p>   
     <div class="w3-container">
-      <span onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="padding: 35px ;height: 100px;width: 180px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;">
-        <a >+ Add file</a></span>
-    <p style="font-size: 12px;white-space: nowrap;margin-top:4%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+      <span onclick="document.getElementById('thumbnail').style.display='block'" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
+        <a style="font-size: 13px; text-align: center;">+ Add file</a>
+        <img id="thumbnail_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        </span>
+    <p style="font-size: 12px;white-space: nowrap;margin-top:8%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
 
-    <!--  pop up-->
+    
 
-    <div id="id01" class="w3-modal" >
+    <div id="media" class="w3-modal" >
 
       <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
         <div class="w3-container">
 
-          <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+          <span onclick="document.getElementById('media').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
           <div class="row">
@@ -375,24 +542,170 @@
                 </nav>
               </div>
              
-                <fieldset style="border:dashed;border-color:#18A0FB;height:90%;width:96%;border-radius: 5px;margin:10px;">
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
-                  <label for="fileselect" style="margin-left:25%;margin-top:10%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                   <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="margin-left:30%;margin-top:10px;"/>
-                <div id="submitbutton">
-                  <button type="submit" style="margin-left:80%;margin-top :10%;background-color: #18A0FB;border: none;border-radius:3px;color: azure;">Upload Files</button>
-                </div>
+                  <label for="media_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="video/*,audio/*"  th:name="media_assets" id="media_fileselect"
+														onchange="loadFileMedia(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;"> 
                 </div>
                 </fieldset>
-                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Upload given mediatype file</div>
+                <div id="mediavideo" style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
+                <div id="mediaaudio" style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp3, wav, aac, aiff, m4a, m4b, m4p, dvf, raw, wma, webm, flac, ogg, mpeg )</div>
+              </div>
+                
+        </div>
+      </div>
+
+    </div><!-- end pop up    media -->
+    <div id="preview" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('preview').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="preview_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="video/*" th:name="preview_assets" id="preview_fileselect"
+														onchange="loadFilePreview(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div    style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
                 
               </div>
                 
         </div>
       </div>
 
-    </div><!-- end pop up-->
+    </div><!-- end pop up  preview-->
+    <div id="banner" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="banner_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                   <input type="file" accept="image/*" th:name="banner_assets" id="banner_fileselect"
+														onchange="loadFileBanner(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, jpeg, png, gif, svg, jfif )</div>
+                
+              </div>
+                
+        </div>
+      </div>
+
+    </div><!-- end pop up  banner -->
+    <div id="additional" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('additional').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="additional_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file"  th:name="additional_assets" id="additional_fileselect"
+														onchange="loadFile(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Upload given media type file</div>
+                
+              </div>
+                
+        </div>
+      </div>
+
+    </div><!-- end pop up additional-->
+    <div id="thumbnail" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="image/*" th:name="thumbnail_assets" id="thumbnail_fileselect"
+														onchange="loadFile1(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif)</div>
+                
+              </div>
+                
+        </div>
+      </div>
+
+    </div><!-- end pop up thumbnail-->
 
   </div>
   </div>
@@ -402,7 +715,7 @@
 
 <!-- cancel and save buttons-->
 <div class="cancel-save-btn" >
-  <button type="submit" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);">Cancel</button>&nbsp;&nbsp;&nbsp;
+  <!-- <button type="submit" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);">Cancel</button>&nbsp;&nbsp;&nbsp; -->
   <button type="submit" value="contentsave">Save</button>
 
 </div>

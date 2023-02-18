@@ -39,6 +39,7 @@ public class ContentLibrary {
 	private String story;
 	private String search_tags;
 	private String person_type;
+	
 	@ManyToMany(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="content")
 	private List<PeopleLibrary> people_library;
@@ -47,8 +48,9 @@ public class ContentLibrary {
 	@JoinColumn(name="media_asset")
 	private AssetLibrary media_assets;
 	@OneToOne(cascade = {CascadeType.ALL})
-	@JoinColumn(name="preview_asset")
+	@JoinColumn(name="preview_asset",nullable=true)
 	private AssetLibrary preview_assets;
+	private String additional_asset_type;
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn(name="additional_asset")
 	private AssetLibrary additional_assets;

@@ -41,7 +41,7 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="/index" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FEE Admin</span>
       </a>
@@ -165,198 +165,34 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="Contentlibrary.html">
+            <a th:href="@{/contentlibrary}">
               <i class="bi bi-circle"></i><span>Contents Library</span>
             </a>
           </li>
           <li>
-            <a href="Assetlibrary.html">
+            <a th:href="@{/assetlibrary}">
               <i class="bi bi-circle"></i><span>Asset Library</span>
             </a>
           </li>
           <li>
-            <a href="Playlistlibrary.html">
+            <a th:href="@{/playlistlibrary}">
               <i class="bi bi-circle"></i><span>Playlist Library</span>
             </a>
           </li>
           <li>
-            <a href="Featuredsections.html">
+            <a th:href="@{/featuredsections}">
               <i class="bi bi-circle"></i><span>Featured Sections</span>
             </a>
           </li>
           <li>
-            <a href="Contnentsettings.html">
+            <a th:href="@{/contnentsettings}">
               <i class="bi bi-circle"></i><span>Content Settings</span>
             </a>
           </li>
           
         </ul>
       </li><!-- End CMS Nav -->
-
-      <!--  <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-window-plus"></i><span>Website</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Template.html">
-              <i class="bi bi-circle"></i><span>Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Domainname.html">
-              <i class="bi bi-circle"></i><span>Domain Name</span>
-            </a>
-          </li>
-          
         </ul>
-      </li><!-- End Website Nav -->
-
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-app"></i><span>App</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Tryyourapp.html">
-              <i class="bi bi-circle"></i><span>Try Your App</span>
-            </a>
-          </li>
-          <li>
-            <a href="Apptemplate.html">
-              <i class="bi bi-circle"></i><span>App Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Mobileapps.html">
-              <i class="bi bi-circle"></i><span>Mobile Apps</span>
-            </a>
-          </li>
-          <li>
-            <a href="Tvapps.html">
-              <i class="bi bi-circle"></i><span>TV Apps</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End App Nav -->
-
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Monetization</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Pricing.html">
-              <i class="bi bi-circle"></i><span>Pricing</span>
-            </a>
-          </li>
-          <li>
-            <a href="Paymentgateways.html">
-              <i class="bi bi-circle"></i><span>Payment Gateway</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>Settings</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Monetization Nav -->
-
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-play-circle"></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="playersettings.html">
-              <i class="bi bi-circle"></i><span>Player Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="Encodingprofile.html">
-              <i class="bi bi-circle"></i><span>Encoding Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="Advertisements.html">
-              <i class="bi bi-circle"></i><span>Advertisement</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Player Nav -->
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction1()">
-          <i class="bi bi-play-circle"></i><span>Marketing</span><i class="bi bi-chevron-down ms-auto" id="marketing-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="marketing-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="marketing-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Notificationcenter.html">
-              <i class="bi bi-circle"></i><span>Notification Center</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End Marketing Nav -->
-      <!--<li class="nav-item">
-        <a class="nav-link collapsed" href="#" onclick="userAction()">
-          <i class="bi bi-play-circle"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto" id="user-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="user-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul class="nav-content collapse " data-bs-parent="#sidebar-nav" id="user-management-link" style="display: none;">
-          <li>
-            <a href="Registration&login.html">
-              <i class="bi bi-circle"></i><span>Registration & Login</span>
-            </a>
-          </li>
-          <li>
-            <a href="Userdetails.html">
-              <i class="bi bi-circle"></i><span>User details</span>
-            </a>
-          </li>
-        
-        </ul>
-      </li><!-- End user management Nav -->
-    <!--  <li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction2()">
-          <i class="bi bi-play-circle"></i><span>Analytics</span><i class="bi bi-chevron-down ms-auto" id="analytics-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="analytics-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="analytics-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Insights.html">
-              <i class="bi bi-circle"></i><span>Insights</span>
-            </a>
-          </li>
-          <li>
-            <a href="Contentupload.html">
-              <i class="bi bi-circle"></i><span>Content Upload</span>
-            </a>
-          </li>
-            </ul>
-      </li><!-- End Analytics Nav -->
-
-     
-
-    <!--  <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-     <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="Help.html">
-          <i class="bi bi-question-circle"></i>
-          <span>Help</span>
-        </a>
-      </li><!-- End Help Page Nav -->
-
-     <!-- <li class="nav-item">
-        <a class="nav-link collapsed" href="Contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-                 </ul>
 
   </aside><!-- End Sidebar-->
 
@@ -366,7 +202,7 @@
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
           <li class="breadcrumb-item active">People Library</li>
          
         </ol>
@@ -377,11 +213,10 @@
       <div class="row">
         <div class="inside-content">
             <div class="link">
-                <a href="Contentlibrary.html" style=" color: rgb(99, 95, 95);">Content library</a>
-                <a href="peoplelibrary.html" style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">People library</a>
-                <a href="managecategory.html" style="margin-left: 20px; color: rgb(99, 95, 95);">Manage category</a>
-                <a href="bulkupload.html" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
-                
+                <a th:href="@{/contentlibrary}" style="color: rgb(99, 95, 95);">Content library</a>
+                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">People library</a>
+                <a th:href="@{/category}" style="margin-left: 20px; color: rgb(99, 95, 95);">Manage category</a>
+                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
             </div>
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active">People Library</h2>
@@ -392,103 +227,40 @@
                     </form>
                 </div>
                 <div class="inside-button-content">
-                    <button type="submit" style="font-size: 15px;" onclick="displayaddpeople()"><i class="bi bi-plus" style="margin:2px"></i> Add People</button>
+                    <a th:href="@{/addpeople}"style="font-size: 13px; margin-top:30px " ><i class="bi bi-plus" style="margin:2px" > Add people</i></a>
                 </div>
             </div>
+           
             <div class="table-div">
-            <table>
-                <div class ="thead-class" style="display: flex; height: 35px;">
+            <table style="width:95%;">
+                <tr class ="thead-class" style="width:100%; display: flex; height: 35px;">
                     
-                        <p style="width: 35%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Person Name</p>
-                        <p style="width: 55%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Bio</p>
-                        <p style="width:20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">&nbsp;&nbsp;</p>
+                        <td style="width: 30%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Person Name</td>
+                        <td style="width: 50%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Bio</td>
+                        <td style="width: 20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">&nbsp;&nbsp;</td>
                        
                         
-                </div>
-                <tbody>
-                    <tr height="40">
-                        <th width="260" style="display: flex; flex-direction:row;"><img src="./assets/img/ava-men.jfif" width="60" height="60" fill="currentColor" class="bi bi-film" viewBox="0 0 16 16">
+                </tr>
+                
+                <tr  style="display: flex;  height: 70px; margin-top:10px;" th:each="people: ${peoplelist}"><!-- -->
+                    
+                        <td  th:each="profile:  ${people.people_asset}"style=" display: flex; flex-direction:row;"  >
+                        <img th:src="@{${profile.asset_filepath}}" width="60px" height="60px" fill="currentColor"> 
+                        </td>
+                          <!--th:text="${peoplelist.people_asset_asset_id}"  -->
                           
-                          
-                          <div style="display: flex; flex-direction: column;">
-                            <p  style="margin-left: 10px; margin-top: 33px; margin-bottom: 5px;">Andrew</p>
-                          </div>
-                          
+                         
+                        <td  th:text="${people.people_name}" style="margin-left: 10px; margin-top: 20px; margin-right: 100px; margin-bottom: 5px; width:60px ; " ></td><!-- Andrew  -->
                         
-                        </th>
-                        <th width="420"  style="margin-right: 110px; font-size: 12px; font-weight: 400;" > Lorem ipsum, dolor sit amet consectetur adipisicing elit. Recusandae, officiis.</th>
-                        <th width="70" style="margin-right: 120px;"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;<i class="bi bi-trash"></i></th>
+                        <td   th:text="${people.bio}" style="width:50%; font-size: 12px; font-weight: 400; padding: 10px; " > </td><!-- -->
+                        <td  style="width:20%; padding: 10px;"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;<a th:href="@{'/peoplelibrary/'+${people.people_id}}"><i class="bi bi-trash"></i></a></td><!--  -->
                        
-                    </tr>
-                </tbody>
+                </tr>
+                
+                
             </table>
             </div>
-            <!--Add people button-->
-            <div class="add-people" style="display: none;">
-              <h5 style="margin-left: 20px;font-weight: 600;" >Add Person</h5>
-                 
-              <div>
-                <label style="margin-left: 20px; margin-right: 50px;font-size: 14px;">Profile Picture</label>&nbsp;
-                <button type="submit" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="height: 70px;width: 130px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;">
-                <a href="#" style="font-size: 13px;">+ Add file</a></button>
-              </div>
-              <p style="margin-left: 175px; font-weight: 400;font-size: 12px;">Resolution:252x300px</p>
-              <div>
-                <label style="margin-top:2%;width: 139px; margin-left: 3%;font-weight: 500;">Name<span style="color:red;">*</span></label>&nbsp;
-                <input type="text" id="fname" name="fname" style="height:30px; width: 250px;"placeholder="Enter person name">
-
-              </div>
-              <div>
-              <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Bio<span style="color:red;">*</span></label>&nbsp;
-              <input type="text" id="fname" name="fname" style="height:80px; width: 250px;margin-top:2%;margin-bottom: 3%;"placeholder="Type here">
-              </div>
-              <!-- cancel and save buttons-->
-<div class="cancel-save-btn-addpeople" style="display: none; ">
-  <button type="submit" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);">Cancel</button>&nbsp;&nbsp;&nbsp;
-  <button type="submit">Save</button>
-
-</div>
-
-              <!--popup-->
-              <div id="id01" class="w3-modal" >
-
-                <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-          
-                  <div class="w3-container">
-          
-                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-          
-                    <h4>Upload</h4>
-                    <div class="row">
-                      <div>
-                        <nav>
-                            <ol class="breadcrumb">
-          
-                              <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-          
-                              <li class="breadcrumb-item">Choose From Library</li>
-                            </ol>
-                          </nav>
-                        </div>
-                        <form id="upload" action="" method="POST" enctype="multipart/form-data" >
-                          <fieldset style="border:dashed;border-color:#18A0FB;height:60%;width:100%;border-radius: 5px;margin-top:5%;">
-                          <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                          <div>
-                            <label for="fileselect" style="margin-left:25%;margin-top:10%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                             <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="margin-left:30%;margin-top:10px;"/>
-                          <div id="submitbutton">
-                            <button type="submit" style="margin-left:80%;margin-top :10%;background-color: #18A0FB;border: none;border-radius:3px;color: azure;">Upload Files</button>
-                          </div>
-                          </div>
-                          </fieldset>
-                          <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif )</div>
-                        </div>
-                          </form>
-                  </div>
-                </div>
-          
-              </div><!-- end pop up-->
-            </div>
+    
 
 
         </div>

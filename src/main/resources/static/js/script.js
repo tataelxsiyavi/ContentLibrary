@@ -86,18 +86,29 @@ document.querySelector(".add-people").style.display= "block";
 document.querySelector(".cancel-save-btn-addpeople").style.display= "flex";
 
 }**/
-function displaymanagecategory(){
-    
-}
 
 
 function displaymedia(){
-    document.querySelector(".media").style.display = "block";
+  var type=document.querySelector('#contenttype').value;
+	if(type=='audio'){
+		 document.querySelector('.media').style.display="none";
+     document.querySelector('.audiomedia').style.display="block";
+     document.querySelector('#mediavideo').style.display="none";
+     document.querySelector('#mediaaudio').style.display="block";
+     
+	}
+	else {
+		document.querySelector('.media').style.display="block";
+    document.querySelector('.audiomedia').style.display="none";
+     document.querySelector('#mediaaudio').style.display="none";
+      document.querySelector('#mediavideo').style.display="block";
+	}
+    // document.querySelector(".media").style.display = "block";
     document.querySelector(".banner").style.display = "none";
     document.querySelector(".people").style.display = "none";
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
-
+    // document.querySelector('.audiomedia').style.display="none";
 }
 function displaybanner(){
     document.querySelector(".banner").style.display = "block";
@@ -105,7 +116,7 @@ function displaybanner(){
     document.querySelector(".people").style.display = "none";
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
-
+    document.querySelector('.audiomedia').style.display="none";
 }
 function displaypeople(){
     document.querySelector(".people").style.display = "flex";
@@ -113,7 +124,7 @@ function displaypeople(){
     document.querySelector(".banner").style.display = "none";
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
-
+    document.querySelector('.audiomedia').style.display="none";
 }
 function displayaddons(){
     document.querySelector(".addons").style.display = "block";
@@ -121,7 +132,7 @@ function displayaddons(){
     document.querySelector(".people").style.display = "none";
     document.querySelector(".media").style.display = "none";
     document.querySelector('.addons-1').style.display="none";
-
+    document.querySelector('.audiomedia').style.display="none";
 
 }
 
@@ -129,6 +140,22 @@ function addons1(){
     document.querySelector('.addons').style.display="none";
     document.querySelector('.addons-1').style.display="block";
 
+}
+function previewnone(){
+	var type=document.querySelector('#contenttype').value;
+	if(type=='audio'){
+		 document.querySelector('.media').style.display="none";
+     document.querySelector('.audiomedia').style.display="block";
+     document.querySelector('#mediavideo').style.display="none";
+     document.querySelector('#mediaaudio').style.display="block";
+     
+	}
+	else {
+		document.querySelector('.media').style.display="block";
+    document.querySelector('.audiomedia').style.display="none";
+     document.querySelector('#mediaaudio').style.display="none";
+      document.querySelector('#mediavideo').style.display="block";
+	}
 }
 
 

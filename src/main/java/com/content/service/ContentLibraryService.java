@@ -25,14 +25,12 @@ import com.content.exception.MyFileNotFoundException;
 import com.content.model.ContentLibrary;
 import com.content.util.AppConstants;
 
-
-
 @Service
 public class ContentLibraryService {
 
 	@Autowired
 	ContentLibraryRepo contentrepo;
-	
+
 	private final Path fileStorageLocation;
 
 	@Autowired
@@ -45,61 +43,57 @@ public class ContentLibraryService {
 			throw new FileStorageException(AppConstants.FILE_STORAGE_EXCEPTION_PATH_NOT_FOUND, ex);
 		}
 	}
-	
-	public List<ContentLibrary> getAllContents(){
+
+	public List<ContentLibrary> getAllContents() {
 		return contentrepo.findAll();
 	}
-	
+
 	public ContentLibrary createContent(ContentLibrary contentlib) throws Exception {
 		Optional<ContentLibrary> st = contentrepo.findById(contentlib.getContent_id());
-		
-		try{
+
+		try {
 			if (st.isPresent()) {
 				System.out.println("Content_Id is already present ");
 			}
-		}
-		catch(Exception ex) {
+		} catch (Exception ex) {
 			System.out.println(ex);
 		}
-        
-        
+
 		return contentrepo.save(contentlib);
 	}
-	
-	
+
 	public ContentLibrary updateContent(ContentLibrary contentlib) throws Exception {
-      ContentLibrary content = contentrepo.findById(contentlib.getContent_id())
-    		  .orElseThrow(() ->  new Exception("content id is not present"));
-      content.setContent_name(contentlib.getContent_name());
-      content.setPermalink(contentlib.getPermalink());
-      content.setPerson_type(contentlib.getPerson_type());
-      content.setSearch_tags(contentlib.getSearch_tags());
-      content.setStory(contentlib.getStory());
-      content.setAdditional_assets(contentlib.getAdditional_assets());
-      content.setBanner_assets(contentlib.getBanner_assets());
-      content.setMedia_assets(contentlib.getMedia_assets());
-      content.setPreview_assets(contentlib.getPreview_assets());
-      content.setThumbnail_assets(contentlib.getThumbnail_assets());
-      content.setCategories(contentlib.getCategories());
-      content.setPeople_library(contentlib.getPeople_library());
+		ContentLibrary content = contentrepo.findById(contentlib.getContent_id())
+				.orElseThrow(() -> new Exception("content id is not present"));
+		content.setContent_name(contentlib.getContent_name());
+		content.setPermalink(contentlib.getPermalink());
+		content.setPerson_type(contentlib.getPerson_type());
+		content.setSearch_tags(contentlib.getSearch_tags());
+		content.setStory(contentlib.getStory());
+		content.setAdditional_assets(contentlib.getAdditional_assets());
+		content.setBanner_assets(contentlib.getBanner_assets());
+		content.setMedia_assets(contentlib.getMedia_assets());
+		content.setPreview_assets(contentlib.getPreview_assets());
+		content.setThumbnail_assets(contentlib.getThumbnail_assets());
+		content.setCategories(contentlib.getCategories());
+		content.setPeople_library(contentlib.getPeople_library());
 
 		return contentrepo.save(content);
-		
+
 	}
-	
+
 	public void deleteContentById(long id) {
 		contentrepo.deleteById(id);
 	}
-	
-	
-	
-	
-	//primary file
+
+	// primary file
 	public String storePrimaryFile(MultipartFile primarymedia) throws IOException {
-		if (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-				|| primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-			throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
-		File f = new File( primarymedia.getOriginalFilename());
+		// if
+		// (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+		// ||
+		// primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		File f = new File(primarymedia.getOriginalFilename());
 		f.createNewFile();
 		FileOutputStream fout = new FileOutputStream(f);
 		fout.write(primarymedia.getBytes());
@@ -124,11 +118,12 @@ public class ContentLibraryService {
 		}
 
 	}
-	//Preview 
+
+	// Preview
 	public String storePreviewFile(MultipartFile preview) throws IOException {
-		if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
-			throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
-		File f1 = new File( preview.getOriginalFilename());
+		// if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
+		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		File f1 = new File(preview.getOriginalFilename());
 		f1.createNewFile();
 		FileOutputStream fout1 = new FileOutputStream(f1);
 		fout1.write(preview.getBytes());
@@ -152,115 +147,117 @@ public class ContentLibraryService {
 	}
 
 	// banner
-		public String storeBannerFile(MultipartFile banner) throws IOException {
-			if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-					|| banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-					|| banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-				throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
-			File f2 = new File( banner.getOriginalFilename());
-			f2.createNewFile();
+	public String storeBannerFile(MultipartFile banner) throws IOException {
+		// if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+		// || banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+		// || banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		File f2 = new File(banner.getOriginalFilename());
+		f2.createNewFile();
 
-			FileOutputStream fout2 = new FileOutputStream(f2);
-			fout2.write(banner.getBytes());
-			fout2.close();
-//			BufferedImage image = ImageIO.read(f2);
-//			int height = image.getHeight();
-//			int width = image.getWidth();
-//			if (width > 1600 || height > 560) {// 1600X560
-//				if (f2.exists())
-//					f2.delete();
-//				throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSIONS);
-//			}
-			if (f2.exists())
-				f2.delete();
-			String banner_fileName = StringUtils.cleanPath(banner.getOriginalFilename());
-			try {
-				if (banner_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
-					throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
-				}
-				String bannerFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + banner_fileName;
-				Path targetLocation1 = this.fileStorageLocation.resolve(bannerFileName);
-				Files.copy(banner.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
-				return bannerFileName;
+		FileOutputStream fout2 = new FileOutputStream(f2);
+		fout2.write(banner.getBytes());
+		fout2.close();
+		// BufferedImage image = ImageIO.read(f2);
+		// int height = image.getHeight();
+		// int width = image.getWidth();
+		// if (width > 1600 || height > 560) {// 1600X560
+		// if (f2.exists())
+		// f2.delete();
+		// throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSIONS);
+		// }
+		if (f2.exists())
+			f2.delete();
+		String banner_fileName = StringUtils.cleanPath(banner.getOriginalFilename());
+		try {
+			if (banner_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
+				throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
 			}
-
-			catch (IOException ex) {
-				throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, banner_fileName), ex);
-			}
+			String bannerFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + banner_fileName;
+			Path targetLocation1 = this.fileStorageLocation.resolve(bannerFileName);
+			Files.copy(banner.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
+			return bannerFileName;
 		}
 
-		// additional file
-		public String storeAdditionalFile(MultipartFile additionalfile) throws IOException {
-			if (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
-					||additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-					|| additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-				throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
-			File f3 = new File(additionalfile.getOriginalFilename());
-			f3.createNewFile();
+		catch (IOException ex) {
+			throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, banner_fileName), ex);
+		}
+	}
 
-			FileOutputStream fout3 = new FileOutputStream(f3);
-			fout3.write(additionalfile.getBytes());
-			fout3.close();
+	// additional file
+	public String storeAdditionalFile(MultipartFile additionalfile) throws IOException {
+		// if
+		// (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
+		// ||
+		// additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+		// ||
+		// additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		File f3 = new File(additionalfile.getOriginalFilename());
+		f3.createNewFile();
 
-			if (f3.exists())
-				f3.delete();
-			String additional_fileName = StringUtils.cleanPath(additionalfile.getOriginalFilename());
-			try {
-				if (additional_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
-					throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
-				}
-				String additionalFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + additional_fileName;
-				Path targetLocation1 = this.fileStorageLocation.resolve(additionalFileName);
-				Files.copy(additionalfile.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
-				return additionalFileName;
+		FileOutputStream fout3 = new FileOutputStream(f3);
+		fout3.write(additionalfile.getBytes());
+		fout3.close();
+
+		if (f3.exists())
+			f3.delete();
+		String additional_fileName = StringUtils.cleanPath(additionalfile.getOriginalFilename());
+		try {
+			if (additional_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
+				throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
 			}
-
-			catch (IOException ex) {
-				throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, additional_fileName), ex);
-			}
+			String additionalFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + additional_fileName;
+			Path targetLocation1 = this.fileStorageLocation.resolve(additionalFileName);
+			Files.copy(additionalfile.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
+			return additionalFileName;
 		}
 
-		// Thumb nail file
-		public String storeTumbnailFile(MultipartFile tumbnail) throws IOException {
-			if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-					|| tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-					|| tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-				throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
-			File f4 = new File( tumbnail.getOriginalFilename());
-			f4.createNewFile();
+		catch (IOException ex) {
+			throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, additional_fileName), ex);
+		}
+	}
 
-			FileOutputStream fout4 = new FileOutputStream(f4);
-			fout4.write(tumbnail.getBytes());
-			fout4.close();
+	// Thumb nail file
+	public String storeTumbnailFile(MultipartFile tumbnail) throws IOException {
+		// if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+		// || tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+		// || tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		File f4 = new File(tumbnail.getOriginalFilename());
+		f4.createNewFile();
 
-//			BufferedImage image = ImageIO.read(f4);
-//			int height = image.getHeight();
-//			int width = image.getWidth();
-//			if (width > 288 || height > 424) { // 288X424
-//				if (f4.exists())
-//					f4.delete();
-//				throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSIONS);
-//			}
+		FileOutputStream fout4 = new FileOutputStream(f4);
+		fout4.write(tumbnail.getBytes());
+		fout4.close();
 
-			if (f4.exists())
-				f4.delete();
-			String tumbnail_fileName = StringUtils.cleanPath(tumbnail.getOriginalFilename());
-			try {
-				if (tumbnail_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
-					throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
-				}
-				String tumbnailFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + tumbnail_fileName;
-				Path targetLocation1 = this.fileStorageLocation.resolve(tumbnailFileName);
-				Files.copy(tumbnail.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
-				return tumbnailFileName;
+		// BufferedImage image = ImageIO.read(f4);
+		// int height = image.getHeight();
+		// int width = image.getWidth();
+		// if (width > 288 || height > 424) { // 288X424
+		// if (f4.exists())
+		// f4.delete();
+		// throw new FileStorageException(AppConstants.INVALID_FILE_DIMENSIONS);
+		// }
+
+		if (f4.exists())
+			f4.delete();
+		String tumbnail_fileName = StringUtils.cleanPath(tumbnail.getOriginalFilename());
+		try {
+			if (tumbnail_fileName.contains(AppConstants.INVALID_FILE_DELIMITER)) {
+				throw new FileStorageException(AppConstants.INVALID_FILE_PATH_NAME);
 			}
+			String tumbnailFileName = System.currentTimeMillis() + AppConstants.FILE_SEPERATOR + tumbnail_fileName;
+			Path targetLocation1 = this.fileStorageLocation.resolve(tumbnailFileName);
+			Files.copy(tumbnail.getInputStream(), targetLocation1, StandardCopyOption.REPLACE_EXISTING);
+			return tumbnailFileName;
+		}
 
-			catch (IOException ex) {
-				throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, tumbnail_fileName), ex);
-			}
-		}	
-	
-	
+		catch (IOException ex) {
+			throw new FileStorageException(String.format(AppConstants.FILE_STORAGE_EXCEPTION, tumbnail_fileName), ex);
+		}
+	}
+
 	// file download
 	public Resource loadFileAsResource(String fileName) {
 		try {
@@ -275,6 +272,5 @@ public class ContentLibraryService {
 			throw new MyFileNotFoundException(AppConstants.FILE_NOT_FOUND + fileName, ex);
 		}
 	}
-	
-	
+
 }

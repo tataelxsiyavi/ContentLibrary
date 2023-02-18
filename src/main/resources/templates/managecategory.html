@@ -157,7 +157,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " href="/index">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -170,27 +170,27 @@
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="/contentlibrary1">
+            <a href="/contentlibrary">
               <i class="bi bi-circle"></i><span>Contents Library</span>
             </a>
           </li>
           <li>
-            <a href="Assetlibrary.html">
+            <a href="/assetlibrary">
               <i class="bi bi-circle"></i><span>Asset Library</span>
             </a>
           </li>
           <li>
-            <a href="Playlistlibrary.html">
+            <a href="/playlistlibrary">
               <i class="bi bi-circle"></i><span>Playlist Library</span>
             </a>
           </li>
           <li>
-            <a href="Featuredsections.html">
+            <a href="/featuredsection">
               <i class="bi bi-circle"></i><span>Featured Sections</span>
             </a>
           </li>
           <li>
-            <a href="Contnentsettings.html">
+            <a href="/contnentsettings">
               <i class="bi bi-circle"></i><span>Content Settings</span>
             </a>
           </li>
@@ -209,7 +209,7 @@
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a href="/index">Home</a></li>
           <li class="breadcrumb-item active" >Manage Category</li>
          
         </ol>
@@ -220,42 +220,52 @@
       <div class="row">
         <div class="inside-content">
             <div class="link">
-                <a href="/contentlibrary1" style="color: rgb(99, 95, 95);">Content library</a>
-                <a href="/peoplelibrary" style="margin-left: 20px; color: rgb(99, 95, 95);">People library</a>
-                <a href="/managecategory"  style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">Manage category</a>
-                <a href="/bulkupload" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
+                <a th:href="@{/contentlibrary}" style="color: rgb(99, 95, 95);">Content library</a>
+                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgb(99, 95, 95);">People library</ath>
+                <a th:href="@{/managecategory}"  style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">Manage category</a>
+                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
                 
             </div>
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active" style="font-size: 27px;">Manage Category</h2>
                 
                 <div class="inside-button-content">
-                    <button type="submit" id="btAdd"  class="bt" style="font-size: 15px; margin-left: 370px;" onclick="addCategory() "><i class="bi bi-plus" style="margin:2px"></i> Add Category</button>
+                    <span id="btAdd"  class="bt" style="font-size: 15px; margin-left: 370px;" onclick="addCategory() "><i class="bi bi-plus" ></i> Add Category</span>
                 </div>
             </div>
             <div class="table-div">
-            <table>
-                <div class ="thead-class" style="display: flex; height: 35px;">
+            <table style="width:95%">
+                <tr class ="thead-class" style=" display: flex; height: 35px;">
                     
-                        <p style="width: 55%; margin-bottom: 5px; margin-top: 5px; margin-left: 10px; font-weight: 150;"> Category Listing</p>
-                       
+                        <th style="width: 90%; margin-bottom: 5px; margin-top: 5px; margin-left: 10px; font-weight: 150;"> Category Listing</th>
+                        <th  style="width: 30%; margin-bottom: 5px; margin-top: 5px; margin-left: 10px; font-weight: 150;">&nbsp;&nbsp;</th>
+                </tr>
+               
+                    <tr  style="display: flex; height:40px;">
+                        <td  style="display: flex;flex-direction: column;width: 90%; ">
                         
-                </div>
-                <tbody>
-                    <tr height="40">
-                        <th width="680" style="display: flex;flex-direction: column; ">
-                          <div id="inside-table" >
+                         <form th:action="@{/categoryRest}" th:object="${category}" method="POST">
+                          <div id="inside-table" style="display:none;" >
+                           <input type="text"  id="manage-category-input" th:name="category_name"  placeholder="category name" style="margin-top:10px ;margin-left:15px ; margin-bottom:15px;">
+      <!-- <button  type="submit" id="categorybtn" value="savecategory">Save</button> -->
+                           
 
                           </div>
-                          
-                           
-                          </div>
-                          
+                          </form>                   
+                        </td>
+                       
+                       
                         
-                        </th>
                         
                     </tr>
-                </tbody>
+                    
+                    <tr style="display: flex;  height:30px; margin-top:10px; margin-left:50px; width:500px" th:each="cat:${categorylist}" >
+                       <td th:text="${cat.category_name}" style=" background-color: aliceblue; padding:5px; width: 90%;">                    
+                      </td>
+                      <td style="width: 30%;"><span   style=" border:none; float:right;  margin: 2px;"><a th:href="@{'/deletecategory/'+${cat.category_id}}" style="text-decoration:none;  color: black; "><i class="bi bi-trash" style="padding-top:10px;" ></i></a></span> </td>
+                      <!-- <td style="padding: 10px;"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;<a th:href="@{'/deletecategory/'+${cat.category_id}"><i class="bi bi-trash"></i></a></td>   -->
+                    </tr>
+               
             </table>
             </div>
         </div>
@@ -301,23 +311,33 @@
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
   <script>
+ 
+  
+  
+  
+  
 var count = 0;
 function addCategory() {
-
- var content = document.querySelector("#inside-table").innerHTML;
-   content =content +
-   `<div id="div-element${count}">
-     <input type="text"  value="Media Type" style="margin-top:10px ;margin-left:15px ; margin-bottom:15px;">
-      <button type="button" id="element${count}" onclick="deleteClick('element${count}')" style="background: transperant; border:none; background-color: #e9ecef; float:right; margin-top:10px ;margin-left:15px ; margin-bottom:15px;"><i class="bi bi-trash"></i></button>  
-       </div> `;
-   document.querySelector("#inside-table").innerHTML = content;
-   count ++;
-  
+	document.querySelector("#inside-table").style.display="block";
+ //var content = document.querySelector("#inside-table").innerHTML;
+  // content =content +
+  // `   
+   //<div id="div-element${count}">
+      //<span id="element${count}" onclick="deleteClick('element${count}')" style="background: transperant; border:none; background-color: #e9ecef; float:right; margin-top:10px ;margin-left:15px ; margin-bottom:15px;"><i class="bi bi-trash"></i></span>  
+      // </div> 
+   
+    //  `;
+   //document.querySelector("#inside-table").innerHTML = content;
+   //count ++;
     }
-    function deleteClick(btnId) {
-console.log(btnId);
- document.getElementById("div-" + btnId).remove();
-}
+    
+    
+    
+    
+  
+    
+    
+    
      </script>
 
 </body>
