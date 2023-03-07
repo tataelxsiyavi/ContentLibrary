@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en"  xmlns:th="http://www.thymeleaf.org">
 
 <head>
   <meta charset="utf-8">
@@ -18,93 +18,20 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
 
   <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
   <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="MainV.css">
+  <link th:href="@{assets/css/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{\css\maincss.css}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-   <script type="text/javascript">
-
-
-  function userAction() {
-    var dStyle = document.getElementById("user-management-link").style.display;
-
-if(dStyle === "none"){
-  document.getElementById("user-arrow-down").style.display = "none";
-    document.getElementById("user-arrow-up").style.display = "block";
-    var elem = document.getElementById("user-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto ";
-
-
-document.getElementById("user-management-link").style.display = `block`;}
-else{
-  document.getElementById("user-arrow-up").style.display = "none";
-    document.getElementById("user-arrow-down").style.display = "block";
-    var elem = document.getElementById("user-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
-
-
-document.getElementById("user-management-link").style.display = `none`;
-  }
-}
-  function userAction1() {
-    var dStyle = document.getElementById("marketing-link").style.display;
-
-if(dStyle === "none"){
-document.getElementById("marketing-arrow-down").style.display = "none";
-    document.getElementById("marketing-arrow-up").style.display = "block";
-    var elem = document.getElementById("marketing-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto animate";
-
-document.getElementById("marketing-link").style.display = `block`;}
-else{
-  document.getElementById("marketing-arrow-up").style.display = "none";
-    document.getElementById("marketing-arrow-down").style.display = "block";
-    var elem = document.getElementById("marketing-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
-
-
-document.getElementById("marketing-link").style.display = `none`;
-  }
-}
-
-
-  function userAction2() {
-    var dStyle = document.getElementById("analytics-link").style.display;
-
-if(dStyle === "none") {
-
-    document.getElementById("analytics-arrow-down").style.display = "none";
-    document.getElementById("analytics-arrow-up").style.display = "block";
-    var elem = document.getElementById("analytics-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto animate";
-
-
-   
-    document.getElementById("analytics-link").style.display = `block`;
-}
-
-else {
-    
-    document.getElementById("analytics-arrow-up").style.display = "none";
-    document.getElementById("analytics-arrow-down").style.display = "block";
-    var elem = document.getElementById("analytics-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
-
-    document.getElementById("analytics-link").style.display = `none`;
-}
-
-  }
-    
-  </script>
-
+  <script th:src="@{/js/script.js}"></script>
  
 </head>
 
@@ -114,9 +41,9 @@ else {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a th:href="@{/index}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">Muvi One</span>
+        <span class="d-none d-lg-block">FEE Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
@@ -238,198 +165,34 @@ else {
         </a>
         <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
           <li>
-            <a href="Contentlibrary.html">
+            <a th:href="@{/contentlibrary}">
               <i class="bi bi-circle"></i><span>Contents Library</span>
             </a>
           </li>
-          <li>
-            <a href="Assetlibrary.html">
+         <li>
+            <a th:href="@{/assetlibrary}">
               <i class="bi bi-circle"></i><span>Asset Library</span>
             </a>
           </li>
           <li>
-            <a href="Playlistlibrary.html">
+            <a th:href="@{/playlistlibrary}">
               <i class="bi bi-circle"></i><span>Playlist Library</span>
             </a>
           </li>
           <li>
-            <a href="Featuredsections.html">
+            <a th:href="@{/featuredsections}">
               <i class="bi bi-circle"></i><span>Featured Sections</span>
             </a>
           </li>
           <li>
-            <a href="Contnentsettings.html">
-              <i class="bi bi-circle"></i><span>Contnet Settings</span>
+            <a th:href="@{/contnentsettings}">
+              <i class="bi bi-circle"></i><span>Content Settings</span>
             </a>
           </li>
           
         </ul>
       </li><!-- End CMS Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-window-plus"></i><span>Website</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Template.html">
-              <i class="bi bi-circle"></i><span>Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Domainname.html">
-              <i class="bi bi-circle"></i><span>Domain Name</span>
-            </a>
-          </li>
-          
         </ul>
-      </li><!-- End Website Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-app"></i><span>App</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Tryyourapp.html">
-              <i class="bi bi-circle"></i><span>Try Your App</span>
-            </a>
-          </li>
-          <li>
-            <a href="Apptemplate.html">
-              <i class="bi bi-circle"></i><span>App Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Mobileapps.html">
-              <i class="bi bi-circle"></i><span>Mobile Apps</span>
-            </a>
-          </li>
-          <li>
-            <a href="Tvapps.html">
-              <i class="bi bi-circle"></i><span>TV Apps</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End App Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Monetization</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Pricing.html">
-              <i class="bi bi-circle"></i><span>Pricing</span>
-            </a>
-          </li>
-          <li>
-            <a href="Paymentgateways.html">
-              <i class="bi bi-circle"></i><span>Payment Gateway</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>Settings</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Monetization Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-play-circle"></i></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="playersettings.html">
-              <i class="bi bi-circle"></i><span>Player Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="Encodingprofile.html">
-              <i class="bi bi-circle"></i><span>Encoding Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="Advertisements.html">
-              <i class="bi bi-circle"></i><span>Advertisement</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Player Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction1()">
-          <i class="bi bi-play-circle"></i><span>Marketing</span><i class="bi bi-chevron-down ms-auto" id="marketing-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="marketing-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="marketing-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Notificationcenter.html">
-              <i class="bi bi-circle"></i><span>Notification Center</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End Marketing Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" onclick="userAction()">
-          <i class="bi bi-play-circle"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto" id="user-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="user-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul class="nav-content collapse " data-bs-parent="#sidebar-nav" id="user-management-link" style="display: none;">
-          <li>
-            <a href="Registration&login.html">
-              <i class="bi bi-circle"></i><span>Registration & Login</span>
-            </a>
-          </li>
-          <li>
-            <a href="Userdetails.html">
-              <i class="bi bi-circle"></i><span>User details</span>
-            </a>
-          </li>
-        
-        </ul>
-      </li><!-- End user management Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction2()">
-          <i class="bi bi-play-circle"></i><span>Analytics</span><i class="bi bi-chevron-down ms-auto" id="analytics-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="analytics-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="analytics-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Insights.html">
-              <i class="bi bi-circle"></i><span>Insights</span>
-            </a>
-          </li>
-          <li>
-            <a href="Contentupload.html">
-              <i class="bi bi-circle"></i><span>Content Upload</span>
-            </a>
-          </li>
-            </ul>
-      </li><!-- End Analytics Nav -->
-
-     
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="Help.html">
-          <i class="bi bi-question-circle"></i>
-          <span>Help</span>
-        </a>
-      </li><!-- End Help Page Nav -->
-
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="Contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-                 </ul>
 
   </aside><!-- End Sidebar-->
 
@@ -439,7 +202,7 @@ else {
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
           <li class="breadcrumb-item active">Playlist Library</li>
          
         </ol>
@@ -448,9 +211,15 @@ else {
 
     <section class="section dashboard">
       <div class="row">
-        <div class="inside-content">
+         <div class="inside-content">
+            <!-- <div class="link">
+                <a th:href="@{/contentlibrary}" style="color: rgb(99, 95, 95);">Content library</a>
+                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">People library</a>
+                <a th:href="@{/category}" style="margin-left: 20px; color: rgb(99, 95, 95);">Manage category</a>
+                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
+            </div>  -->
             <div class="inside-content-header">
-                <h2 class="breadcrumb-item active">Playlist library</h2>
+                <h2 class="breadcrumb-item active">Playlist Library</h2>
                 <div class="inside-search-content">
                     <form action="/action_page.php">
                       <input type="text" placeholder="Search.." name="search">
@@ -458,28 +227,68 @@ else {
                     </form>
                 </div>
                 <div class="inside-button-content">
-                    <button type="submit"><p><a href="Addplaylist.html" style="color:white;">+ Add Playlist</a></p></button>
+                    <a th:href="@{/Addplaylist}"style="font-size: 13px; margin-top:30px " ><i class="bi bi-plus" style="margin:2px" > Add playlist</i></a>
                 </div>
             </div>
-            <div class="inside-img-content">
-           <img src="https://cdn2.iconfinder.com/data/icons/documents-and-files-v-2/100/doc-03-512.png" style="height: 100px;Width: 100px; margin-top:200px; margin-left:370px;"></img>
-           <div style="margin-left: 350px; white-space: nowrap; font-weight: bold">No playlist found</div>
-           <h6 style="margin-top:10px;margin-left:300px; white-space: nowrap; ">Start adding playlist to your store.</h6>
+           
+            <div class="table-div">
+            <table style="width:95%;">
+                <tr class ="thead-class" style="width:100%; display: flex; height: 35px;">
+                    
+                        <td style="width: 50%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Playlist Name</td>
+                        <td style="width: 30%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Category</td>
+                        <td style="width: 20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">&nbsp;&nbsp;</td>
+                       
+                        
+                </tr>
+                
+                <tr  style="display: flex;  height: 90px; margin-top:10px;width:100%;" th:each="plist: ${playlist}" >
+                        <td th:each="asset: ${plist.thumbnail_assets}" style=" display: flex; flex-direction:row; width: 50%; ">
+                        <img th:src="@{${asset.asset_filepath}} " width="60" height="60" fill="currentColor"  >
+                           <span th:text="${plist.title}" style="margin-left:12px; margin-top: 20px;"></span> </i>
+                         </td>
+                          <td   style=" width: 30% ; margin-top: 20px;" >
+                          <span th:text="${plist.categories.category_name}" style="margin-left:5px; "></span> </i>
+                          </td>
+                         
+                        
+                          
+                          <td  style="width:20%; margin-top: 20px;"  >
+                          <a th:href="@{'/updateplaylist/'+${plist.playlist_id}}" >
+                          <i class="bi bi-pencil-square"></i></a>&nbsp;
+                         
+                          <a th:href="@{'/deleteplist/'+${plist.playlist_id}}" >
+                          <i class="bi bi-trash"></i></a>&nbsp;</td>
+                    
+                    </tr>
+                
+                
+            </table>
             </div>
+    
+
+
         </div>
 
         <!-- Left side columns -->
         <div class="col-lg-8">
           <div class="row">
-
+        </div>
+        </div>
+      </div>
+    </section>
            
 
   </main><!-- End #main -->
 
+
+<!--Add content-->
+
+
   <!-- ======= Footer ======= -->
   <footer id="footer" class="footer">
     <div class="copyright">
-      &copy; Copyright <strong><span>muvi one</span></strong>. All Rights Reserved
+      &copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights Reserved
     </div>
     <div class="credits">
     

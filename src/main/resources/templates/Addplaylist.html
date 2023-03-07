@@ -1,586 +1,579 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<meta charset="utf-8">
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard </title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+	<title>Dashboard </title>
+	<meta content="" name="description">
+	<meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link href="assets/img/favicon.png" rel="icon">
-  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<!-- Favicons -->
+	<link href="assets/img/favicon.png" rel="icon">
+	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+	<!-- Google Fonts -->
+	<link href="https://fonts.gstatic.com" rel="preconnect">
+	<link
+		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+		rel="stylesheet">
 
-  <!-- Vendor CSS Files -->
-  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-  <link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-  <link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-  <link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+	<!-- Vendor CSS Files -->
+	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+	<link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
-  <!-- Template Main CSS File -->
-  <link href="assets/css/style.css" rel="stylesheet">
-  <link rel="stylesheet" href="MainV.css">
-
-
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-   <script type="text/javascript">
+	<!-- Template Main CSS File -->
+	<link th:href="@{/assets/css/style.css}" rel="stylesheet">
+	<link rel="stylesheet" th:href="@{/css/MainV.css}">
 
 
-  function userAction() {
-    var dStyle = document.getElementById("user-management-link").style.display;
+	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-if(dStyle === "none"){
-  document.getElementById("user-arrow-down").style.display = "none";
-    document.getElementById("user-arrow-up").style.display = "block";
-    var elem = document.getElementById("user-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto ";
+    <script>$('select').selectpicker();</script>
 
+	<script type="text/javascript">
+	
 
-document.getElementById("user-management-link").style.display = `block`;}
-else{
-  document.getElementById("user-arrow-up").style.display = "none";
-    document.getElementById("user-arrow-down").style.display = "block";
-    var elem = document.getElementById("user-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
+		function userAction() {
+			var dStyle = document.getElementById("user-management-link").style.display;
 
-
-document.getElementById("user-management-link").style.display = `none`;
-  }
-}
-  function userAction1() {
-    var dStyle = document.getElementById("marketing-link").style.display;
-
-if(dStyle === "none"){
-document.getElementById("marketing-arrow-down").style.display = "none";
-    document.getElementById("marketing-arrow-up").style.display = "block";
-    var elem = document.getElementById("marketing-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto animate";
-
-document.getElementById("marketing-link").style.display = `block`;}
-else{
-  document.getElementById("marketing-arrow-up").style.display = "none";
-    document.getElementById("marketing-arrow-down").style.display = "block";
-    var elem = document.getElementById("marketing-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
+			if (dStyle === "none") {
+				document.getElementById("user-arrow-down").style.display = "none";
+				document.getElementById("user-arrow-up").style.display = "block";
+				var elem = document.getElementById("user-arrow-up");
+				elem.className = "bi bi-chevron-up ms-auto ";
 
 
-document.getElementById("marketing-link").style.display = `none`;
-  }
-}
+				document.getElementById("user-management-link").style.display = `block`;
+			}
+			else {
+				document.getElementById("user-arrow-up").style.display = "none";
+				document.getElementById("user-arrow-down").style.display = "block";
+				var elem = document.getElementById("user-arrow-down");
+				elem.className = "bi bi-chevron-down ms-auto ";
 
 
-  function userAction2() {
-    var dStyle = document.getElementById("analytics-link").style.display;
+				document.getElementById("user-management-link").style.display = `none`;
+			}
+		}
+		function userAction1() {
+			var dStyle = document.getElementById("marketing-link").style.display;
 
-if(dStyle === "none") {
+			if (dStyle === "none") {
+				document.getElementById("marketing-arrow-down").style.display = "none";
+				document.getElementById("marketing-arrow-up").style.display = "block";
+				var elem = document.getElementById("marketing-arrow-up");
+				elem.className = "bi bi-chevron-up ms-auto animate";
 
-    document.getElementById("analytics-arrow-down").style.display = "none";
-    document.getElementById("analytics-arrow-up").style.display = "block";
-    var elem = document.getElementById("analytics-arrow-up");
-    elem.className = "bi bi-chevron-up ms-auto animate";
+				document.getElementById("marketing-link").style.display = `block`;
+			}
+			else {
+				document.getElementById("marketing-arrow-up").style.display = "none";
+				document.getElementById("marketing-arrow-down").style.display = "block";
+				var elem = document.getElementById("marketing-arrow-down");
+				elem.className = "bi bi-chevron-down ms-auto ";
 
 
-   
-    document.getElementById("analytics-link").style.display = `block`;
-}
+				document.getElementById("marketing-link").style.display = `none`;
+			}
+		}
 
-else {
-    
-    document.getElementById("analytics-arrow-up").style.display = "none";
-    document.getElementById("analytics-arrow-down").style.display = "block";
-    var elem = document.getElementById("analytics-arrow-down");
-    elem.className = "bi bi-chevron-down ms-auto ";
 
-    document.getElementById("analytics-link").style.display = `none`;
-}
+		function userAction2() {
+			var dStyle = document.getElementById("analytics-link").style.display;
 
-  }
+			if (dStyle === "none") {
+
+				document.getElementById("analytics-arrow-down").style.display = "none";
+				document.getElementById("analytics-arrow-up").style.display = "block";
+				var elem = document.getElementById("analytics-arrow-up");
+				elem.className = "bi bi-chevron-up ms-auto animate";
 
 
 
-  function bannerOpen() {
+				document.getElementById("analytics-link").style.display = `block`;
+			}
+
+			else {
+
+				document.getElementById("analytics-arrow-up").style.display = "none";
+				document.getElementById("analytics-arrow-down").style.display = "block";
+				var elem = document.getElementById("analytics-arrow-down");
+				elem.className = "bi bi-chevron-down ms-auto ";
+
+				document.getElementById("analytics-link").style.display = `none`;
+			}
+
+		}
+
+		function loadFileThumbnail(event) {
+			var thumbnail_image = document.getElementById('thumbnail_output');
+			thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+		};
+
+		function loadFileBanner(event) {
+			var banner_image = document.getElementById('banner_output');
+			banner_image.src = URL.createObjectURL(event.target.files[0])
+		};
+		
+		 function bannerOpen() {
     document.querySelector("#res-text").innerHTML = 'Resolution : 1600x480 px';
-    document.querySelector("#thumbnail-upload").style.display = "none";
-    document.querySelector("#banner-upload").style.display = "block";
+    document.querySelector("#bannerfield").style.display = "block";
+    document.querySelector("#thumbnailfield").style.display = "none";
+    
 
   }
 
 
   function thumbnailOpen() {
     document.querySelector("#res-text").innerHTML = 'Resolution : 288X424 px';
-    document.querySelector("#thumbnail-upload").style.display = "block";
-    document.querySelector("#banner-upload").style.display = "none";
+    document.querySelector("#thumbnailfield").style.display = "block";
+    document.querySelector("#bannerfield").style.display = "none";
   }
-    
-  </script>
+  
+  
+  
 
- 
+	</script>
+	
+	<script th:inline="javascript">
+	function PlaylistType(){
+	  var playlist_Type = document.querySelector('#playlist_type').value;
+	  
+	  
+	  if(playlist_Type === "" || playlist_Type === null){
+		  document.querySelector("#playlistType_Error").innerHTML="Playlist Type cannot be empty";
+		  return false;
+	  }
+	  else if(playlist_Type !== "" && playlist_Type !== null){
+		  document.querySelector("#playlistType_Error").innerHTML="";
+		  return false;
+	  }
+	  
+	  else{
+	     return true;
+	  }
+  }
+	 
+	 function Title(){
+		 var title = document.querySelector('#title1').value;
+		 
+	  if(title === null || title ===""){
+		  document.querySelector('#title_Error').innerHTML="Title cannot be empty";
+		  return false;
+	  }
+	  else if(title !== null && title!==""){
+		  document.querySelector('#title_Error').innerHTML="";
+		  return false;
+	  }
+	  else{
+		  return true;
+	  }
+	 }
+	 
+	function Permalink(){
+		var permalink = document.querySelector('#permalink').value;
+		 
+	  if(permalink === null || permalink ===""){
+		  document.querySelector('#permalink_Error').innerHTML="Permalink cannot be empty";
+		  return false;
+	  }
+	  else if(permalink !== null && permalink!==""){
+		  document.querySelector('#permalink_Error').innerHTML="";
+		  return false;
+	  }
+	  else{
+		  return true;
+	  }
+	}
+	function Category(){
+		var CategoryId = document.querySelector('#category_id1').value;
+		 
+	  if(CategoryId === null || CategoryId ===""){
+		  document.querySelector('#category_Error').innerHTML="Category cannot be empty";
+		  return false;
+	  }
+	  else if(CategoryId !== null && CategoryId!==""){
+		  document.querySelector('#category_Error').innerHTML="";
+		  return false;
+	  }
+	  else{
+		  return true;
+	  }
+	}
+	</script>
+	
+
+
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+	<!-- ======= Header ======= -->
+	<header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">FEE Admin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+		<div class="d-flex align-items-center justify-content-between">
+			<a th:href="@{/}" class="logo d-flex align-items-center">
+				<img src="assets/img/logo.png" alt="">
+				<span class="d-none d-lg-block">FEE Admin</span>
+			</a>
+			<i class="bi bi-list toggle-sidebar-btn"></i>
+		</div><!-- End Logo -->
 
-    <div class="search-bar" >
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
+		<div class="search-bar">
+			<form class="search-form d-flex align-items-center" method="POST" action="#">
+				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
+				<button type="submit" title="Search"><i class="bi bi-search"></i></button>
+			</form>
+		</div><!-- End Search Bar -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+		<nav class="header-nav ms-auto">
+			<ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+				<li class="nav-item d-block d-lg-none">
+					<a class="nav-link nav-icon search-bar-toggle " href="#">
+						<i class="bi bi-search"></i>
+					</a>
+				</li><!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+				<li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+					<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
+						<i class="bi bi-bell"></i>
+						<span class="badge bg-primary badge-number">4</span>
+					</a><!-- End Notification Icon -->
 
-         
-       
 
-        <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
-            <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
 
-          
+				<li class="nav-item dropdown">
 
-        </li><!-- End Messages Nav -->
+					<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+						<i class="bi bi-box-arrow-up-right"></i>
+						<!-- <span class="badge bg-success badge-number"></span> -->
+					</a><!-- End Messages Icon -->
 
-        <li class="nav-item dropdown pe-3">
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
-            <span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
-          </a><!-- End Profile Iamge Icon -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Vidhya J S</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+				</li><!-- End Messages Nav -->
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+				<li class="nav-item dropdown pe-3">
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+					<a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
+						<!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+						<span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
+					</a><!-- End Profile Iamge Icon -->
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+					<ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+						<li class="dropdown-header">
+							<h6>Vidhya J S</h6>
+							<span>Web Designer</span>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
+						<li>
+							<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+								<i class="bi bi-person"></i>
+								<span>My Profile</span>
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+						<li>
+							<a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+								<i class="bi bi-gear"></i>
+								<span>Account Settings</span>
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
+						<li>
+							<a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
+								<i class="bi bi-question-circle"></i>
+								<span>Need Help?</span>
+							</a>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-  </header><!-- End Header -->
+						<li>
+							<a class="dropdown-item d-flex align-items-center" href="#">
+								<i class="bi bi-box-arrow-right"></i>
+								<span>Sign Out</span>
+							</a>
+						</li>
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+					</ul><!-- End Profile Dropdown Items -->
+				</li><!-- End Profile Nav -->
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+			</ul>
+		</nav><!-- End Icons Navigation -->
 
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-      
+	</header><!-- End Header -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Content Management</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Contentlibrary.html">
-              <i class="bi bi-circle"></i><span>Contents Library</span>
-            </a>
-          </li>
-          <li>
-            <a href="Assetlibrary.html">
-              <i class="bi bi-circle"></i><span>Asset Library</span>
-            </a>
-          </li>
-          <li>
-            <a href="Playlistlibrary.html">
-              <i class="bi bi-circle"></i><span>Playlist Library</span>
-            </a>
-          </li>
-          <li>
-            <a href="Featuredsections.html">
-              <i class="bi bi-circle"></i><span>Featured Sections</span>
-            </a>
-          </li>
-          <li>
-            <a href="Contnentsettings.html">
-              <i class="bi bi-circle"></i><span>Contnet Settings</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End CMS Nav -->
+	<!-- ======= Sidebar ======= -->
+	<aside id="sidebar" class="sidebar">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#forms-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-window-plus"></i><span>Website</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="forms-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Template.html">
-              <i class="bi bi-circle"></i><span>Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Domainname.html">
-              <i class="bi bi-circle"></i><span>Domain Name</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End Website Nav -->
+		<ul class="sidebar-nav" id="sidebar-nav">
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#tables-nav" data-bs-toggle="collapse" href="#">
-            <i class="bi bi-app"></i><span>App</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="tables-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Tryyourapp.html">
-              <i class="bi bi-circle"></i><span>Try Your App</span>
-            </a>
-          </li>
-          <li>
-            <a href="Apptemplate.html">
-              <i class="bi bi-circle"></i><span>App Template</span>
-            </a>
-          </li>
-          <li>
-            <a href="Mobileapps.html">
-              <i class="bi bi-circle"></i><span>Mobile Apps</span>
-            </a>
-          </li>
-          <li>
-            <a href="Tvapps.html">
-              <i class="bi bi-circle"></i><span>TV Apps</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End App Nav -->
+			<li class="nav-item">
+				<a class="nav-link " th:href="@{/}">
+					<i class="bi bi-grid"></i>
+					<span>Dashboard</span>
+				</a>
+			</li><!-- End Dashboard Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#charts-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-bar-chart"></i><span>Monetization</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="charts-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="Pricing.html">
-              <i class="bi bi-circle"></i><span>Pricing</span>
-            </a>
-          </li>
-          <li>
-            <a href="Paymentgateways.html">
-              <i class="bi bi-circle"></i><span>Payment Gateway</span>
-            </a>
-          </li>
-          <li>
-            <a href="charts-echarts.html">
-              <i class="bi bi-circle"></i><span>Settings</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Monetization Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#icons-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-play-circle"></i></i><span>Player</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="icons-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a href="playersettings.html">
-              <i class="bi bi-circle"></i><span>Player Settings</span>
-            </a>
-          </li>
-          <li>
-            <a href="Encodingprofile.html">
-              <i class="bi bi-circle"></i><span>Encoding Profile</span>
-            </a>
-          </li>
-          <li>
-            <a href="Advertisements.html">
-              <i class="bi bi-circle"></i><span>Advertisement</span>
-            </a>
-          </li>
-        </ul>
-      </li><!-- End Player Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction1()">
-          <i class="bi bi-play-circle"></i><span>Marketing</span><i class="bi bi-chevron-down ms-auto" id="marketing-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="marketing-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="marketing-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Notificationcenter.html">
-              <i class="bi bi-circle"></i><span>Notification Center</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End Marketing Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="#" onclick="userAction()">
-          <i class="bi bi-play-circle"></i><span>User Management</span><i class="bi bi-chevron-down ms-auto" id="user-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="user-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul class="nav-content collapse " data-bs-parent="#sidebar-nav" id="user-management-link" style="display: none;">
-          <li>
-            <a href="Registration&login.html">
-              <i class="bi bi-circle"></i><span>Registration & Login</span>
-            </a>
-          </li>
-          <li>
-            <a href="Userdetails.html">
-              <i class="bi bi-circle"></i><span>User details</span>
-            </a>
-          </li>
-        
-        </ul>
-      </li><!-- End user management Nav -->
-      <li class="nav-item">
-        <a class="nav-link collapsed"  data-bs-toggle="collapse" href="#" onclick="userAction2()">
-          <i class="bi bi-play-circle"></i><span>Analytics</span><i class="bi bi-chevron-down ms-auto" id="analytics-arrow-down" style="display: block;"></i> <i class="bi bi-chevron-up ms-auto" id="analytics-arrow-up" style="display: none; margin-right: 0;"></i>
-        </a>
-        <ul id="analytics-link" class="nav-content collapse " data-bs-parent="#sidebar-nav"style="display: none;">
-          <li>
-            <a href="Insights.html">
-              <i class="bi bi-circle"></i><span>Insights</span>
-            </a>
-          </li>
-          <li>
-            <a href="Contentupload.html">
-              <i class="bi bi-circle"></i><span>Content Upload</span>
-            </a>
-          </li>
-            </ul>
-      </li><!-- End Analytics Nav -->
+			<li class="nav-item">
+				<a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-menu-button-wide"></i><span>Content Management</span><i
+						class="bi bi-chevron-down ms-auto"></i>
+				</a>
+				<ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+					<li>
+						<a th:href="@{/contentlibrary}">
+							<i class="bi bi-circle"></i><span>Contents Library</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/assetlibrary}">
+							<i class="bi bi-circle"></i><span>Asset Library</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/playlistlibrary}">
+							<i class="bi bi-circle"></i><span>Playlist Library</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/featuredsections}">
+							<i class="bi bi-circle"></i><span>Featured Sections</span>
+						</a>
+					</li>
+					<li>
+						<a th:href="@{/contnentsettings}">
+							<i class="bi bi-circle"></i><span>Contnet Settings</span>
+						</a>
+					</li>
 
-     
+				</ul>
+			</li><!-- End CMS Nav -->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="users-profile.html">
-          <i class="bi bi-person"></i>
-          <span>Profile</span>
-        </a>
-      </li><!-- End Profile Page Nav -->
+		</ul>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="Help.html">
-          <i class="bi bi-question-circle"></i>
-          <span>Help</span>
-        </a>
-      </li><!-- End Help Page Nav -->
+	</aside><!-- End Sidebar-->
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" href="Contact.html">
-          <i class="bi bi-envelope"></i>
-          <span>Contact</span>
-        </a>
-      </li><!-- End Contact Page Nav -->
-                 </ul>
+	<main id="main" class="main">
 
-  </aside><!-- End Sidebar-->
+		<div class="pagetitle">
+			<h1>Content Management</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+					<li class="breadcrumb-item active"><a th:href="@{/playlistlibrary}">Playlist Library</a></li>
+					<li class="breadcrumb-item active">Add Playlist</li>
+				</ol>
+			</nav>
+		</div>
 
-  <main id="main" class="main">
+		<section class="section dashboard">
+			<div class="row">
 
-    <div class="pagetitle">
-      <h1>Content Management</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item active"><a href="playlistlibrary.html">Playlist Library</a></li>
-          <li class="breadcrumb-item active">Add Playlist</li>
-        </ol>
-      </nav>
-    </div>
+				<!--  Modal   -->
+				<div class="inside-content">
+					<div class="inside-content-header">
+						<h4 class="breadcrumb-item active" style="font-weight:bold;margin-top:2%;"> Add New Playlist
+						</h4>
+					</div>
+					<div class="left">
+					<div class="alert alert-danger" role="alert" style="text-align: center;color:black;" th:text="${error}" th:if="${error}"></div>
+						<form th:action="@{/playlistlibrary}"  th:object="${playlist}" method="POST"	enctype="multipart/form-data"  >
+							<div class="add-contents">
+								<div class="left" style="float:left; width:60%; margin-top: 10px; ">
+									<label for="playlist_type"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Type<span style="color:red;">*</span></label>&nbsp;
+									<select th:name="playlist_type" id="playlist_type" style="height:33.5px; width: 220px; margin-left:2px;" onblur="PlaylistType();" >
+										<option value=""  >Select a playlist type</option>
+										<option th:value="video">Video</option>
+										<option th:value="audio">Audio</option>
+									</select><br>
+									<p style="color:red;margin-left: 165px;" id="playlistType_Error"></p>
+									<label for="title"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Title<span
+											style="color:red;">*</span></label>&nbsp;
+									<input type="text" id="title1"  th:name="title" style="height:33.5px; width: 220px;"
+										placeholder="Enter a name" onblur="Title();"  >
+									<br>
+									<p style="color:red;margin-left: 165px;" id="title_Error"></p>									
+									<label for="permalink"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span
+											style="color:red;">*</span></label>&nbsp;
+									<input type="text" id="permalink"  th:name="permalink"
+										style="height:33.5px; width: 220px;" placeholder="Permalink" onblur="Permalink();">
+									<br>
+									<p style="color:red;margin-left: 165px;" id="permalink_Error"></p>
+									<label for="category_id"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Category<span
+											style="color:red;">*</span></label>&nbsp;
+									<select th:name="category_id"  id="category_id1" style="height:33.5px;width: 220px; " onblur="Category();" >
+										<option value="" id="playlist_type">Select a category</option>
+										<option th:each=" categories:${categories}"
+											th:text="${categories.category_name}" th:value="${categories.category_id}" >
+										</option>
+									</select>
+									<br />
+									<p style="color:red; margin-left: 165px;" id="category_Error"></p>
+									<label for="description"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
+									<input type="text" id="description" th:name="description"
+										style="height:80px; width: 220px;margin-top:2%;" placeholder="Type here"><br>
+									<label for="searchtags"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
+									<input type="text" id="searchtags" th:name="search_tags"
+										style="height:33.5px; width: 220px;" placeholder="Add a tag"><br>
+										
+										<label for="content_Id"
+										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Items</label>&nbsp;
+										<select class="selectpicker" th:name="content_Id" th:value="${content_Id}" multiple>
+									<!--select th:name="content_Id" id="content_Id" style="height:30px;width: 250px;"-->
+									<option th:each="con:${con}" th:text="${con.content_nmae}" th:value="${con.content_id}" selected></option>
+										<option th:each=" list:${contentlist}"
+											th:text="${list.content_name}" th:value="${list.content_id}">
+										</option>
+									</select>
+									<br />
 
-    <section class="section dashboard">
-      <div class="row">
-        <div class="inside-content">
-            <div class="inside-content-header">
-                <h4 class="breadcrumb-item active" style="font-weight:bold;margin-top:2%;"> Add New Playlist</h4>
-            </div>
-        <div class="left">
-           
-    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Type<span style="color:red;">*</span></label>&nbsp;
-    <select name="playlist-type" style="height:30px; width: 250px;  ">
-      <option value="select">Select a content type</option>
-      <option value="video">Video</option>
-      <option value="audio">Audio</option>
-    </select><br>
-    <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Title<span style="color:red;">*</span></label>&nbsp;
-    <input type="text" id="fname" name="fname" style="height:30px; width: 250px;"placeholder="Enter a name">
-     <br>
-     <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;">*</span></label>&nbsp;
-      <input type="text" id="fname" name="fname" style="height:30px; width: 250px;"placeholder="Permalink">
-     <br>
-     <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Category<span style="color:red;">*</span></label>&nbsp;
-     <select name="playlist-type" id="playlist-type"style="height:30px;width: 250px; ">
-       <option value="select">Select Category</option>
-       <option value="video">Video</option>
-       <option value="audio">Audio</option>
-       <option value="files">Add a category</option>
-     </select>
-     <br/>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
-      <input type="text" id="fname" name="fname" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here"><br>
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
-      <input type="text" id="fname" name="fname" style="height:30px; width: 250px;"placeholder="Add a tag"><br>
-      
-      <label style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Items</label>&nbsp;
-      <input type="text" style="height:30px; width: 250px;"placeholder="Type Content Name " name="search" >           
-      <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> 
+										</div>
+							</div>
 
-            </div>
-        </div>
-   
-<!-- Left side columns -->
-             
-  <div class="right" style="float: right;width: 40%;margin-top:-70%;margin-left:60%;">
-    <h2 class="thumbnail-banner-h2" style="font-size:20px; cursor: pointer;" onclick="thumbnailOpen()">Tumbnail</h2>
-    <h2 class="thumbnail-banner-h2" style="font-size:20px;margin-left:40%;margin-top:-10%; cursor: pointer;" onclick="bannerOpen()">Banner</h2>
-    
-      <div class="link">
-          <a href="#" style="color: rgba(134, 5, 255, 0.895);">web</a>
-          </div>
+							<!-- Left side columns -->
+
+<div class="right" style="float: right;width: 40%;margin-top:-56%;margin-left:60%;">
+    <h2 class="thumbnail" style="font-size:20px;margin-left:5%; cursor: pointer;" onclick="thumbnailOpen()">Thumbnail</h2>
+    <h2 class="banner" style="font-size:20px;margin-left:45%;margin-top:-10%; cursor: pointer;" onclick="bannerOpen()">Banner</h2>
+      <div><p href="#" style="margin-left:5%;">website</p></div>
        <br>
-        <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;" id="res-text">Resolution : 288X424 px</p>   
+          
         <div class="w3-container">
-          <button type="submit" id="thumbnail-upload" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="height: 100px;width: 180px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;">
-            <a href="#">+ Add file</a></button>
+          <span onclick="document.getElementById('thumbnail').style.display='block'" id="thumbnailfield" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;margin-top:-2%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
+        <a style="font-size: 13px; text-align: center;">+ Add file</a>
+        <img id="thumbnail_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        </span>
 
 
-            <button type="submit" id="banner-upload" onclick="document.getElementById('id01').style.display='block'" class="w3-button w3-white" style="display: none; height: 100px;width: 250px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;">
-              <a href="#">+ Add file</a></button>
+            <span onclick="document.getElementById('banner').style.display='block'" id="bannerfield" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;display:none;">
+            <a >+ Add file</a>
+            <img id="banner_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
             
-            <div class="w3-container">
+            </span>
+            
+            <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;" id="res-text">Resolution : 288X424 px</p> 
+            
+           <div id="banner" class="w3-modal" >
 
-              <div id="id01" class="w3-modal">
-                <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-                  <div class="w3-container">
-                    <span onclick="document.getElementById('id01').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-                    <h4>Upload</h4>
-                    
-                    <div class="row">
-                      <div>
-                      <nav>
-                          <ol class="breadcrumb">
-                            <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-                            <li class="breadcrumb-item">Choose From Library</li> 
-                           
-                          </ol>
-                        </nav>
-                      </div>
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
+        <div class="w3-container">
 
-                      <form id="upload" action="upload.php" method="POST" enctype="multipart/form-data">
+          <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
-                        <fieldset style="border:dashed;border-color:#18A0FB;height:60%;width:100%;border-radius: 5px;margin-top:5%;">
-                        
-                        
-                        <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                        
-                        <div>
-                          <label for="fileselect" style="margin-left:25%;margin-top:10%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                           <input type="file" id="fileselect" name="fileselect[]" multiple="multiple" style="margin-left:30%;margin-top:10px;"/> 
-                        <div id="submitbutton">
-                          <button type="submit" style="margin-left:80%;margin-top :10%;background-color: #18A0FB;border: none;border-radius:3px;color: azure;">Upload Files</button>
-                        </div>
-                        </div>
-                        </fieldset>
-                        <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif )</div>
-                      </div>
-                        </form>
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
 
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
 
-                  </div>
-                </div>
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
               </div>
-            </div>
+             
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="banner_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                   <input type="file" accept="image/*" th:name="banner_assets" id="banner_fileselect"
+														onchange="loadFileBanner(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, jpeg, png, gif, svg, jfif )</div>
+                
+              </div>
+                
+        </div>
+      </div>
 
-        <p style="font-size: 12px;white-space: nowrap;margin-top:4%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+    </div><!-- end pop up  banner -->
     
+    <div id="thumbnail" class="w3-modal" >
+
+      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
+
+        <div class="w3-container">
+
+          <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+
+          <h4>Upload</h4>
+          <div class="row">
+            <div>
+              <nav>
+                  <ol class="breadcrumb">
+
+                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
+
+                    <li class="breadcrumb-item">Choose From Library</li>
+                  </ol>
+                </nav>
+              </div>
+             
+                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
+                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
+                <div>
+                  <label for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="image/*" th:name="thumbnail_assets" id="thumbnail_fileselect"
+														onchange="loadFileThumbnail(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+                </div>
+                </fieldset>
+                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif)</div>
+                
+              </div>
+                
+        </div>
       </div>
-      </div>
-      
-    </div>
-    <div style="margin-top:-20%;margin-left:80%;">
-      <button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a href="Playlistlibrary.html">Cancel</a></button>
-      <button type="Save" value="Save" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;"><a href="Saveplaylist.html">Save</a></button>           
+
+    </div><!-- end pop up thumbnail-->
+
+  </div>
+  </div>
+  
+</div>
+    <div style="margin-top:65%;margin-left:80%;">
+      <!--button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{Saveplaylist}">Cancel</a></button-->
+      <button type="submit"  value="Save" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;">Save</button>           
     </div>
     <!-- cancel and save buttons-->
-  
+  </form>
     </section>
 
   </main><!-- End #main -->

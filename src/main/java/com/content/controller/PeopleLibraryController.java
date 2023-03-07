@@ -1,7 +1,7 @@
 package com.content.controller;
 
 import java.io.IOException;
-
+import java.text.DecimalFormat;
 import java.util.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
@@ -37,11 +37,15 @@ public class PeopleLibraryController {
 	PeopleLibraryService peopleservice;
 	@Autowired
 	PeopleLibraryRepo peoplerepo;
+	DecimalFormat df=new DecimalFormat();
 
 	@GetMapping("/peoplelibrary")
 	public String peopleLibraryPage(Model model) {
 		List<PeopleLibrary> peoplelist = peoplerepo.findAll();
-		model.addAttribute("peoplelist", peoplelist);
+		
+			model.addAttribute("peoplelist", peoplelist);
+		
+		
 		return "peoplelibrary";
 	}
 
@@ -68,10 +72,10 @@ public class PeopleLibraryController {
 		float size_kb = size / 1024;
 		float size_mb = size_kb / 1024;
 
-		if (size_mb > 0) {
-			asset_size = size_mb + " MB";
+		if (size_mb > 0.99) {
+			asset_size = df.format(size_mb) + " MB";
 		} else {
-			asset_size = size_kb + " KB";
+			asset_size = df.format(size_kb) + " KB";
 		}
 
 		AssetType type_asset = null;
@@ -118,13 +122,44 @@ public class PeopleLibraryController {
 				.body(resource);
 	}
 
-	@GetMapping(value = "/peoplelibrary/{id}", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+	
+
+	@GetMapping("/peoplelibrary/{id}")
+	public String deletePeople(@PathVariable long id) {
+		peopleservice.deletePeople(id);
+		return "redirect:/peoplelibrary";
+
+	}
+	@GetMapping("/updatepeople/{id}")
+	public String updatePeoplePage(Model model,@PathVariable long id) {
+		PeopleLibrary peoplelibrary=peoplerepo.findById(id).get();
+		
+			model.addAttribute("people", peoplelibrary);
+	if(peoplelibrary.getBio()!=null) {
+		model.addAttribute("bio", peoplelibrary.getBio());
+	}
+	
+	AssetLibrary asset=peoplelibrary.getPeople_asset();
+	Long assetid=asset.getAsset_id();
+	if(assetid!=null) {
+		model.addAttribute("people_asset", assetid);
+	}
+	if(peoplelibrary.getPeople_name()!=null) {
+		model.addAttribute("people_name", peoplelibrary.getPeople_name());
+	}
+
+		return "updatepeople";
+	}
+	@PostMapping(value = "/updatepeoplelibrary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String updateContent(
-			@PathVariable long people_id,
+			@RequestParam("people_id") long people_id,
 			@RequestParam("people_name") String people_name,
 			@RequestParam("bio") String bio,
-			@RequestParam("profile_picture") MultipartFile profilePicture) throws Exception {
+			@RequestParam("profile_picture") MultipartFile profilePicture,Model model) throws Exception {
 
+		
+		AssetLibrary asset=null;
+		if(!profilePicture.isEmpty()) {
 		String profilePic = peopleservice.storeProfilePicture(profilePicture);
 		String ProfilePicUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
 				.path(profilePic).toUriString();
@@ -154,24 +189,23 @@ public class PeopleLibraryController {
 
 		if (image.equals(asset_type) || image2.equals(asset_type)) {
 			type_asset = AssetType.Image;
+			
 		}
-
-		AssetLibrary asset = new AssetLibrary(type_asset, asset_name, asset_size, ProfilePicUri);
-		System.out.println("  Type     " + asset_type + "    Name:     " + asset_name + "   Size:   " + asset_size);
-		PeopleLibrary people = new PeopleLibrary();
-		people.setPeople_id(people_id);
+		
+		 asset = new AssetLibrary(type_asset, asset_name, asset_size, ProfilePicUri);
+		}
+		PeopleLibrary people = peoplerepo.findById(people_id).get();
+		if(people_name!=null) {
 		people.setPeople_name(people_name);
+		}
+		if(bio!=null) {
 		people.setBio(bio);
-		people.setPeople_asset(asset);
+		}
+		if(asset!=null) {
+			people.setPeople_asset(asset);}
 		 peopleservice.updatePeople(people);
 		 return "redirect:/peoplelibrary";
-
-	}
-
-	@GetMapping("/peoplelibrary/{id}")
-	public String deletePeople(@PathVariable long id) {
-		peopleservice.deletePeople(id);
-		return "redirect:/peoplelibrary";
+		
 
 	}
 

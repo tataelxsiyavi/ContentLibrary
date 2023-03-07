@@ -199,7 +199,7 @@ var loadFile = function(event) {
 			<h1>Content Management</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
 					<li class="breadcrumb-item active">People Library</li>
 
 				</ol>
@@ -269,6 +269,9 @@ var loadFile = function(event) {
 										class="w3-button w3-display-topright">&times;</span>
 
 									<h4>Upload</h4>
+									<div  class="alert alert-primary"  role="alert" style="background: #1bd5a2; text-align: center;" th:if="${profilepic_error}">
+                                     <p class="error-message" th:text="${profilepic_error}"></p>
+                                     </div>
 									<div class="row">
 										<div>
 											<nav>

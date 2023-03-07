@@ -10,8 +10,8 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link th:href="@{/assets/img/favicon.png}" rel="icon">
+  <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
@@ -20,21 +20,18 @@
 	rel="stylesheet">
 
 <!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+  <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+  <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
 
-<!-- Template Main CSS File -->
-<link href="assets/css/style.css" rel="stylesheet">
-<link rel="stylesheet" th:href="@{/css/maincss.css}">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+  <!-- Template Main CSS File -->
+  <link th:href="@{/assets/css/style.css}" rel="stylesheet">
+  <link rel="stylesheet" th:href="@{/css/maincss.css}">
+  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
 <script th:src="@{/js/script.js}"></script>
 <script type="text/javascript">
@@ -213,7 +210,8 @@ var loadFile = function(event) {
 					<div class="add-people" >
 						<h5 style="margin-left: 20px; font-weight: 600;">Add Person</h5>
 						
-                         <form th:action="@{/addpeoplelibrary}" th:object="${peoplelibrary}" method="POST" enctype="multipart/form-data">
+                         <form th:action="@{/updatepeoplelibrary}" th:object="${people}" method="POST" enctype="multipart/form-data">
+                         <input type="hidden" th:name="people_id" th:value="${people.people_id}">
 						<div>
 							<label
 								style="margin-left: 20px; margin-right: 50px; font-size: 14px;">Profile
@@ -234,6 +232,7 @@ var loadFile = function(event) {
 								style="margin-top: 2%; width: 139px; margin-left: 3%; font-weight: 500;">Name<span
 								style="color: red;">*</span></label>&nbsp; <input type="text" id="fname"
 								th:name="people_name" 
+								th:value="${people_name}"
 								style="height: 30px; width: 250px;"
 								placeholder="Enter person name">
 
@@ -241,8 +240,11 @@ var loadFile = function(event) {
 						<div>
 							<label
 								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Bio<span
-								style="color: red;">*</span></label>&nbsp; <input type="text" id="fname"
+								style="color: red;">*</span></label>&nbsp; 
+								<input type="text" id="fname"
+								
 								th:name="bio"
+								th:value="${bio}"
 								style="height: 80px; width: 250px; margin-top: 2%; margin-bottom: 3%;"
 								placeholder="Type here">
 						</div>
@@ -291,7 +293,9 @@ var loadFile = function(event) {
 													style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
 													or Drag & drop your file here</label>
 												
-													<input type="file" accept="image/*" th:name="profile_picture" id="fileselect"
+													<input type="file" accept="image/*" th:name="profile_picture" 
+													
+													id="fileselect"
 														onchange="loadFile(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
 												
 												

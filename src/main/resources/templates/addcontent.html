@@ -18,6 +18,12 @@
   <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
   <!-- check box-->
   
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+  
 
   <!-- Vendor CSS Files -->
   <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -32,11 +38,8 @@
   <link th:href="@{/assets/css/style.css}" rel="stylesheet">
   <link rel="stylesheet" th:href="@{/css/maincss.css}">
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-<style>
-
-
-</style>
-<script th:src="@{/js/script.js}"></script>
+  <script th:src="@{/js/script.js}"></script>
+<script th:src="@{/js/checkvalidfilernot.js}"></script>
 <script>
 function addons1(){
     document.querySelector('.addons').style.display="none";
@@ -45,38 +48,110 @@ function addons1(){
 }
 
 function loadFile1(event) {
-	var thumbnail_image = document.getElementById('thumbnail_output');
-	thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+document.querySelector("#thumbnailError").innerHTML = "";
+	
+	console.log(event);
+
+	console.log(event.target.files[0].type);
+	var eventFileType = event.target.files[0].type.split("/")[0];
+	
+	if(eventFileType === "image"){
+		var thumbnail_image = document.getElementById('thumbnail_output');
+		thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+	}
+	else{
+		document.querySelector("#thumbnailError").innerHTML="Invalid Thumbnail file format...."
+	}
+	
 	
 	
 };
 
 function loadFileMedia(event) {
+	
+	document.querySelector("#mediaError").innerHTML = "";
+	
+	console.log(event);
+	
 	var type=document.querySelector('#contenttype').value;
-	if(type=='audio'){
-		var audiomedia_audio = document.getElementById('audio_output');
-		audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+	
+	
+	console.log(event.target.files[0].type);
+	
+	var eventFileType = event.target.files[0].type.split("/")[0];
+	
+	if(type === "audio") {
+		
+		if(type.toLowerCase() === eventFileType){
+			var audiomedia_audio = document.getElementById('audio_output');
+			audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+		}
+		
+		else {
+			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+		}
+		
 	}
+	
+	
 	else{
+		
+		if(type.toLowerCase() === eventFileType){
 		 var media_video = document.getElementById('media_output');
 		 media_video.src = URL.createObjectURL(event.target.files[0]);
+		}
+		
+		else {
+			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+		}
 	}
  
 
 
 };
 
-function loadFileAudio(event) {
-  
-};
+
 function loadFilePreview(event) {
-  var preview_image = document.getElementById('preview_output');
-preview_image.src = URL.createObjectURL(event.target.files[0]);
+document.querySelector("#previewError").innerHTML = "";
+	
+	console.log(event);
+	
+	var type=document.querySelector('#contenttype').value;
+	
+	
+	console.log(event.target.files[0].type);
+	
+	var eventFileType = event.target.files[0].type.split("/")[0];
+	
+	
+		if(type.toLowerCase() === eventFileType) {
+		var preview_video = document.getElementById('preview_output');
+	preview_video.src = URL.createObjectURL(event.target.files[0]);
+	}
+
+	else{
+		document.querySelector("#previewError").innerHTML="Invalid Preview file format...."
+	}
+	
+	
+  
 };
 
 function loadFileBanner(event) {
+document.querySelector("#bannerError").innerHTML = "";
+	
+	console.log(event);
+
+	console.log(event.target.files[0].type);
+	var eventFileType = event.target.files[0].type.split("/")[0];
+	
+	if(eventFileType === "image"){
   var banner_image = document.getElementById('banner_output');
 	banner_image.src = URL.createObjectURL(event.target.files[0])
+	}
+	else{
+		document.querySelector("#bannerError").innerHTML="Invalid Banner file format...."
+	}
 };
 
   
@@ -93,9 +168,118 @@ function showCheckboxes() {
  }
 }  
 
-
-
    </script>
+   <script>
+        $('select').selectpicker();
+    </script>
+    
+    
+    <script th:inline="javascript">
+    
+   let peopleArr = [] 
+    const displayTable1 = () => {   
+    	var rollType = document.querySelector("#persontype").value;
+      var peopleName = $('#peoplecheckbox').find(":selected").text();
+    var peopleid=document.querySelector('#peoplecheckbox').value;
+      var peopleData = {
+        roll: rollType,
+        name: peopleName,
+         id:peopleid
+      }
+    
+    
+    
+      peopleArr.push(peopleData);
+    
+    
+    
+     let rollNamesArr = peopleArr.map((data) => {
+    	 return data.roll;
+     });
+     
+     
+     document.querySelector("#one").value = rollNamesArr;
+     
+     
+     console.log(rollNamesArr);
+     
+     
+     let namesArr = peopleArr.map((data) => {
+    	 return data.id;
+     });
+     
+     document.querySelector("#two").value=namesArr;
+     
+     
+     console.log(namesArr);
+    
+    
+      const peopleList = peopleArr.map((people, index) => {
+        return `<tr style="width: 500px; display: flex; justify-content: space-between;"><td ><input type="hidden"  th:value="${people.roll}"><span>${people.roll}</span></td><td><input type="hidden"  th:name="peoples" th:value="${people.id}"> <span>${people.name}</span></td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
+      });
+      var finalPeopleList = "";
+      peopleList.forEach((p) => {
+        finalPeopleList = finalPeopleList + p;
+      })
+      document.querySelector("#displayTable").innerHTML = finalPeopleList;
+    }
+    function deleteClick(event){
+    	
+    	let rowId = event.target.id;
+    	 
+    	let uId = rowId.split("-")[1];
+    	console.log(uId);
+    	
+    	
+    	peopleArr.splice(uId, 1);
+    	
+    	
+    	displayFinalList();
+    }
+    
+    
+    function displayFinalList(){
+    	
+    	
+    	let rollNamesArr = peopleArr.map((data) => {
+       	 return data.roll;
+        });
+        
+        
+        console.log(rollNamesArr);
+        
+        
+        let namesArr = peopleArr.map((data) => {
+       	 return data.name;
+        });
+        
+        
+        console.log(namesArr);
+    	
+    	
+    	
+    	const peopleList = peopleArr.map((people, index) => {
+    	        return `<tr><td>${people.roll}</td><td>${people.name}</td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
+    	      });
+    	      var finalPeopleList = "";
+    	      peopleList.forEach((p) => {
+    	        finalPeopleList = finalPeopleList + p;
+    	      })
+    	      document.querySelector("#displayTable").innerHTML = finalPeopleList;
+    }
+    
+    
+    
+    
+    
+   
+	   
+	   
+	   
+	   
+  
+    
+    </script>
 <style>
 .multiselect {
   width: 200px;
@@ -148,7 +332,7 @@ function showCheckboxes() {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="@{/index}" class="logo d-flex align-items-center">
+      <a href="@{/}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FEE Admin</span>
       </a>
@@ -310,7 +494,7 @@ function showCheckboxes() {
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
           <li class="breadcrumb-item active">Content Library</li>
          
         </ol>
@@ -325,7 +509,7 @@ function showCheckboxes() {
             
            
          <!--  Modal   -->
-    <form  th:action="@{/addcontent1}" th:object="${contentlibrary}" method="POST" enctype="multipart/form-data">
+    <form  id="uploadForm"  th:action="@{/addcontent1}" th:object="${contentlibrary}" method="POST" enctype="multipart/form-data">
 <div class="add-contents"    >
   <div class="left" style="float:left; width:60%; margin-top: 10px; ">
  
@@ -349,11 +533,12 @@ function showCheckboxes() {
     </select>
        <br>
       <label for="contentname" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
-      <input type="text" id="contentname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter a name"   ><br>
+      <input type="text" id="contentname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter content name"  required ><br>
       <label for="perma_link"style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
       <input type="text" id="perma_link" th:name="permalink" style="height:30px; width: 250px;"placeholder="Permalink" ><br>
       <label for="category_type" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
       <select th:name="category_id" id="category_type" style="height:30px;width: 250px; ">
+       <option value="select">Select a content format</option>
         <option th:each=" categories:${categories}"
               th:text="${categories.category_name}"
               th:value="${categories.category_id}" >
@@ -382,7 +567,7 @@ function showCheckboxes() {
           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
           <div onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 300px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
            <a   style="font-size: 13px;text-align: center;">+ Add file</a>
-           <audio id="audio_output" controls autoplay   style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
+           <audio id="audio_output" controls    style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
            
           </div>
           
@@ -402,7 +587,7 @@ function showCheckboxes() {
            <span onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 200px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
             <a  style="font-size: 13px;text-align: center;">+ Add file</a>
             <!--  -->
-            <video id="media_output" controls autoplay width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
+            <video id="media_output" controls  width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
             
             </span>
             
@@ -412,7 +597,7 @@ function showCheckboxes() {
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
            <span onclick="document.getElementById('preview').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 90px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px;position: relative;">
             <a  style="font-size: 13px; text-align: center; ">+ Add file</a>
-            <img id="preview_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            <video id="preview_output" controls  width="120" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 10px;margin-top: 13px;margin-right:10px" /></video>
             </span> 
        </div> 
       </div>
@@ -436,38 +621,53 @@ function showCheckboxes() {
         
     </div>
     <!-- People -->
-    <div class="people" style="display: none;"><!-- flex-->
-        <select th:name="person_type" id="persontupe">
+    
+    <div class="people" style="display: none;"  ><!-- th:each=" cont: ${contentPeople}"-->
+    
+   
+       
+        <select  class="selectpicker" id="persontype"   ><!-- th:name="'contentPeople['+${contStat.index}+'].person_type'"  -->
         <option value="select">Select Person Type</option>
-        <option th:value="director">Director</option>
-        <option th:value="actor">Actor</option>
-         <option th:value="music_director">Music Director</option>
+        <option th:value="Director">Director</option>
+        <option th:value="Actor">Actor</option>
+         <option th:value="Music_Director">Music Director</option>
         </select>&nbsp; &nbsp;
        
-         <input type="checkbox" style="width:20px;"  th:name="peoples"
+         <!-- <input type="checkbox" style="width:20px;"  th:name="peoples"
          th:each="list: ${peoplelist}"
           th:value="${list.people_id}"
          th:text="${list.people_name}"
-         /> 
+         /> -->
         
          
-         <!--  <div class="multiselect">
-          <div class="selectBox" onclick="showCheckboxes()">
-            <select >
-              <option>Select an option</option>
-            </select>
-            <div class="overSelect"></div>
-          </div>
-          <div class="checkboxes" th:name="peoples">
-            <label th:each="list: ${peoplelist}">
-              <input type="checkbox"  
-              th:value="${list.people_id}"
+         <select id="peoplecheckbox" class="selectpicker"   ><!-- th:name="'contentPeople['+${contStat.index}+'].people_id'"   -->
+          <option value="select">Select Person</option>
+      <option  th:each="list: ${peoplelist}"
+               th:value="${list.people_id}"
               th:text="${list.people_name}"
-              /></label>
-            
-          </div> 
-        </div>-->
+      ></option>
+      
+    </select>
+    <input type="hidden" id="one" th:name="person_type">
+    <input type="hidden"  id="two" th:name="people">
+    <input type="button" id="add" value="+ add" onclick="displayTable1()" style=" height:25px;
+        width: 80px;
+        margin-left: 30px;
+        margin-top: 20px;
+        border:none ; 
+        color: aliceblue;
+        background-color:  #18A0FB;
+        border-radius: 5px;">
+    
+       
+         
           </div>
+          <div id="tabledisplay"> <table id="displayTable">
+       </table> </div>
+          
+      
+       
+          
    
    
                    
@@ -489,7 +689,7 @@ function showCheckboxes() {
         </select>
                   
       <span id="addons-1-upload" onclick="document.getElementById('additional').style.display='block'">Upload</span>
-      <span  id="addons-1-cancel">Cancel</span>
+      <span  id="addons-1-cancel">Cancel</span><!--     ////////   -->
 
       
 
@@ -530,6 +730,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('media').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="mediaError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -567,6 +768,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('preview').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+           <p id="previewError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -583,7 +785,7 @@ function showCheckboxes() {
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
                   <label for="preview_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="video/*" th:name="preview_assets" id="preview_fileselect"
+                  <input type="file" accept="video/*" th:name="preview_assets" class="preview_fileselect" id="preview_fileselect"
 														onchange="loadFilePreview(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
                 </div>
                 </fieldset>
@@ -604,6 +806,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+           <p id="bannerError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -641,6 +844,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('additional').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+           <p id="additionalError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -678,6 +882,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+           <p id="thumbnailError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -715,7 +920,7 @@ function showCheckboxes() {
 
 <!-- cancel and save buttons-->
 <div class="cancel-save-btn" >
-  <!-- <button type="submit" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);">Cancel</button>&nbsp;&nbsp;&nbsp; -->
+   <button type="button"  style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);  padding:8px 16px; border-radius: 5px;"><a th:href="@{/contentlibrary}" style="color:black;">Cancel</a></button>&nbsp;&nbsp;&nbsp;
   <button type="submit" value="contentsave">Save</button>
 
 </div>
@@ -756,6 +961,31 @@ function showCheckboxes() {
   </footer><!-- End Footer -->
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+      
+      <script>
+  var type=document.querySelector('#contenttype').value;
+  if(type=='audio'){
+  	 document.querySelector('.media').style.display="none";
+   document.querySelector('.audiomedia').style.display="block";
+   document.querySelector('#mediavideo').style.display="none";
+   document.querySelector('#mediaaudio').style.display="block";
+   
+  }
+  else {
+  	document.querySelector('.media').style.display="block";
+  document.querySelector('.audiomedia').style.display="none";
+   document.querySelector('#mediaaudio').style.display="none";
+    document.querySelector('#mediavideo').style.display="block";
+  }
+  
+  
+  
+  
+  </script>
+      
+      
+      
+      
       
   <!-- Vendor JS Files -->
   <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>

@@ -21,7 +21,7 @@ import lombok.ToString;
 @Table(name="category")
 public class Category {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long category_id;
 	private String category_name;
 	public Category(long category_id) {

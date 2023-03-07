@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+<title>Dashboard</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
+
+<!-- Favicons -->
+<link href="assets/img/favicon.png" rel="icon">
+<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+
+<!-- Vendor CSS Files -->
+<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
+	rel="stylesheet">
+<link href="assets/vendor/boxicons/css/boxicons.min.css"
+	rel="stylesheet">
+<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
+<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
+<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
+<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link href="assets/css/style.css" rel="stylesheet">
+<link rel="stylesheet"  th:href="@{/css/maincss.css}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script th:src="@{/js/script.js}"></script>
+
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+<script type="text/javascript">
+
+var loadFile = function(event) {
+	
+	
+	
+	var image = document.getElementById('output');
+	image.src = URL.createObjectURL(event.target.files[0]);
+};
+
+
+
+
+
+
+
+
+function sectionType() {
+
+  var x=document.querySelector(".playlist-type-man-auto").value;
+
+ if(x == "Manual") {
+    document.querySelector(".auto-elements-input").style.display = "none";
+    document.querySelector(".add-content-input").style.display = "block";
+ }
+
+ else {
+  document.querySelector(".auto-elements-input").style.display = "block";
+    document.querySelector(".add-content-input").style.display = "none";
+ }
+ 
+ 
+ }
+ /**
+ 
+ var sectionName = document.querySelector("#section_Name").value;
+	
+	if(sectionName == null || sectionName == "") {
+		document.querySelector("#featureSaveBtn").disabled = true;
+	}
+	
+	else {
+		document.querySelector("#featureSaveBtn").disabled = false;
+	}
+ 
+}
+
+
+var expanded = false;
+
+function showCheckboxes() {
+  var checkboxes = document.getElementById("checkboxes");
+  if (!expanded) {
+    checkboxes.style.display = "block";
+    expanded = true;
+  } else {
+    checkboxes.style.display = "none";
+    expanded = false;
+  }
+}
+
+
+
+
+function managedFeaturedBtnClick(){
+	
+	
+	
+	var sectionName = document.querySelector("#section_Name").value;
+	
+	if(sectionName == null || sectionName == "") {
+		document.querySelector("#sName-warning").innerHTML="Section Nmae cannot be empty";
+		return false;
+	}
+
+}
+
+
+function sectionNameChange() {
+	var sectionName = document.querySelector("#section_Name").value;
+	
+	console.log(sectionName);
+	
+	if(sectionName == null || sectionName == "") {
+		document.querySelector("#sName-warning").innerHTML="Section Nmae cannot be empty";
+		document.querySelector("#featureSaveBtn").disabled = true;
+	}
+	
+	else {
+		document.querySelector("#featureSaveBtn").disabled = false;
+	}
+}
+
+
+function Validate()
+{   
+ var contentType=document.querySelector('#content_Type').value;  
+ var sectionName=document.querySelector('#section_Name').value;    
+ var addContent=document.querySelector('#content_Id').value;    
+ var Category=document.querySelector('#category').value;   
+ var Criteria=document.querySelector('#criteria').value;  
+ var contentLimit=document.querySelector('#content_limit').value;   
+ var sectionType=document.querySelector('#section_Type').value;    
+   if(sectionType == 'Manual'){             
+     if(contentType == "" || contentType == null){      
+         document.querySelector('#contentType_error').innerHTML="Content Type cannot be empty";  
+             return false;        }      
+     else if(sectionName == "" || sectionName==null){         
+      document.querySelector('#sectionName_error').innerHTML="Section Name cannot be empty";     
+           return false;        
+     }        
+     else if(addContent=="" || addContent==null){
+                 document.querySelector('#addContent_error').innerHTML="Add Content cannot be empty";
+                 return false;        
+     }
+             return true;
+   }
+   else if(sectionType == 'Automatic'){
+           if(contentType == "" || contentType == null){
+               document.querySelector('#contentType_error').innerHTML="Content Type cannot be empty";
+               return false; 
+          }
+            else if(sectionName == "" || sectionName==null){
+                document.querySelector('#sectionName_error').innerHTML="Section Name cannot be empty";
+                return false;
+            }
+            else if(Category == "" || Category==null){
+                document.querySelector('#Category_error').innerHTML="Category cannot be empty";
+                return false;
+            }
+            else if(Criteria == "" || Criteria == null){
+                document.querySelector('#Criteria_error').innerHTML="Criteria cannot be empty";
+                return false;
+            }
+            else if(contentLimit == null){
+                document.querySelector('#contentLimit_error').innerHTML="Content Limit cannot be empty";
+                return false;
+            }
+            return true;
+        }
+      return true;
+     }
+*/
+
+        $('select').selectpicker();
+
+</script>
+
+
+</head>
+
+<body>
+
+	<!-- ======= Header ======= -->
+	<header id="header" class="header fixed-top d-flex align-items-center">
+
+		<div class="d-flex align-items-center justify-content-between">
+			<a th:href="@{/}" class="logo d-flex align-items-center"> <img
+				src="assets/img/logo.png" alt=""> <span
+				class="d-none d-lg-block">FEE Admin</span>
+			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
+		</div>
+		<!-- End Logo -->
+
+		<div class="search-bar">
+			<form class="search-form d-flex align-items-center" method="POST"
+				action="#">
+				<input type="text" name="query" placeholder="Search"
+					title="Enter search keyword">
+				<button type="submit" title="Search">
+					<i class="bi bi-search"></i>
+				</button>
+			</form>
+		</div>
+		<!-- End Search Bar -->
+
+		<nav class="header-nav ms-auto">
+			<ul class="d-flex align-items-center">
+
+				<li class="nav-item d-block d-lg-none"><a
+					class="nav-link nav-icon search-bar-toggle " href="#"> <i
+						class="bi bi-search"></i>
+				</a></li>
+				<!-- End Search Icon-->
+
+				<li class="nav-item dropdown"><a class="nav-link nav-icon"
+					href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
+						<span class="badge bg-primary badge-number">4</span>
+				</a>
+				<!-- End Notification Icon -->
+				<li class="nav-item dropdown"><a class="nav-link nav-icon"
+					href="#" data-bs-toggle="dropdown"> Website <i
+						class="bi bi-box-arrow-up-right"></i> <!-- <span class="badge bg-success badge-number"></span> -->
+				</a>
+				<!-- End Messages Icon --></li>
+				<!-- End Messages Nav -->
+
+				<li class="nav-item dropdown pe-3"><a
+					class="nav-link nav-profile d-flex align-items-center pe-0"
+					href="#" data-bs-toggle="dropdown"> <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+						<span class="d-none d-md-block dropdown-toggle ps-2">Vidhya
+							J S</span>
+				</a>
+				<!-- End Profile Iamge Icon -->
+
+					<ul
+						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+						<li class="dropdown-header">
+							<h6>Vidhya</h6> <span>Web Designer</span>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="users-profile.html"> <i class="bi bi-person"></i> <span>My
+									Profile</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="users-profile.html"> <i class="bi bi-gear"></i> <span>Account
+									Settings</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
+								<span>Need Help?</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
+
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
+									Out</span>
+						</a></li>
+
+					</ul>
+					<!-- End Profile Dropdown Items --></li>
+				<!-- End Profile Nav -->
+
+			</ul>
+		</nav>
+		<!-- End Icons Navigation -->
+
+	</header>
+	<!-- End Header -->
+
+	<!-- ======= Sidebar ======= -->
+	<aside id="sidebar" class="sidebar">
+
+		<ul class="sidebar-nav" id="sidebar-nav">
+
+			<li class="nav-item"><a class="nav-link " th:href="@{/}">
+					<i class="bi bi-grid"></i> <span>Dashboard</span>
+			</a></li>
+			<!-- End Dashboard Nav -->
+
+
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-menu-button-wide"></i><span>Content
+						Management</span><i class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="components-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a th:href="@{/contentlibrary}"> <i
+							class="bi bi-circle"></i><span>Contents Library</span>
+					</a></li>
+					<li><a th:href="@{/assetlibrary}"> <i class="bi bi-circle"></i><span>Asset
+								Library</span>
+					</a></li>
+					<li><a th:href="@{/playlistlibrary}"> <i
+							class="bi bi-circle"></i><span>Playlist Library</span>
+					</a></li>
+					<li><a th:href="@{/featuredsections}"> <i
+							class="bi bi-circle"></i><span>Featured Sections</span>
+					</a></li>
+					<li><a th:href="@{/contnentsettings}"> <i
+							class="bi bi-circle"></i><span>Content Settings</span>
+					</a></li>
+
+				</ul></li>
+			<!-- End CMS Nav -->
+		</ul>
+
+	</aside>
+	<!-- End Sidebar-->
+
+	<main id="main" class="main">
+
+		<div class="pagetitle">
+			<h1>Content Management</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+					<li class="breadcrumb-item active">Featured Section</li>
+
+				</ol>
+			</nav>
+		</div>
+
+		<section class="section dashboard">
+			<div class="row">
+				<div class="inside-content">
+					
+					<div class="add-section" >
+						<h5 style="margin-left: 20px; font-weight: 600;margin-top:30px;">Manage Featured Section</h5>
+						
+                         <form th:action="@{/createsection}" th:object="${featuredsection}"  method="POST" enctype="multipart/form-data" >
+						<div id="id01" style="margin-left:18%;margin-top:20px;">
+							<!-- <span onclick="document.getElementById('id01').style.display='none'">&times;</span> -->
+                       <br>
+                        <div>
+                        <label>Content Type<span style="color:red;">*</span></label>&ensp;
+                        <select th:name="content_Type" id="content_Type"style="height:33.5px;width: 220px;">
+                          <option value="">Select</option>
+                           <option th:value="video">Video</option>
+                          <option th:value="audio">Audio</option>
+                        </select>
+                      <!-- p id="contentType_error"></ p-->
+						</div>
+						<br>
+						
+						<div>
+							<label>Section Name<span style="color:red;">*</span></label>&ensp;
+                <input type="text" id="section_Name" th:name="section_Name" style="height:33.5px;width: 220px;margin-left:-5px;"placeholder="Enter Featured Section Name"><br><br>
+                 <!--p id="sectionName_error"></p-->
+               
+                <label>Section Type<span style="color:red;">*</span></label>
+                <select th:name="section_Type" id="section_Type" class="playlist-type-man-auto" style="height:33.5px;width: 220px;margin-left:12px;" onchange="sectionType(); ">
+                  <option th:value="Manual" id="select-manual-section">Manual</option>
+                  <option th:value="Automatic" id="select-auto-section">Automatic</option>
+                </select>
+                        
+						</div>
+                       <br>
+						<div>
+                        
+               
+  <div class="add-content-input" >
+    <div class="selectBox" onclick="showCheckboxes()">
+      <label>Add Content<span style="color:red;">*</span></label>
+      <div style="margin-top:-4.5%;margin-left:16%;">
+      <select class="selectpicker" id="content_Id" th:name="content_Id"  multiple >
+      <option th:each="list: ${contentlist}"
+         th:value="${list.content_id}"
+            th:text="${list.content_name}">
+</option>
+</select>
+    
+  </div>
+    </div>
+    </div>
+  
+               
+              
+                            <div class="auto-elements-input" style="display: none;">
+                            <div class="selectBox" onclick="showCheckboxes()">
+                           
+             <label>Category<span style="color:red;">*</span></label>
+         <div style="margin-top:-4.5%;margin-left:16%;">
+       <select class="selectpicker" id="category" th:name="category_Id"  multiple>
+       <option th:each="list: ${categories}"
+ th:value="${list.category_id}"
+ th:text="${list.category_name}">
+</option>
+</select> 
+ <!--p id="Category_error"></p-->
+      
+                            </div>   
+                            </div>
+                              
+                           
+                                         
+    
+   
+                          
+                              <label>Criteria<span style="color:red;">*</span></label>&ensp;
+                              <select  th:name="criteria" id="criteria"style="height:33.5px;width: 220px;margin-left:30px;">
+                                <option value="select">Select</option>
+                                <option th:value="Category">Category</option>
+                                <option th:value="Recently_Seen">Recently Seen</option>
+                              </select>
+                              <!-- p id="Criteria_error"></p-->
+                              <br>
+                              <br>
+                              <label>Content Limit<span style="color:red;">*</span></label>&ensp;
+                              <input  type="text" th:name="content_limit" id="content_limit" placeholder="1-400" style="height:33.5px;width: 220px;margin-left:1px;">
+                             <!-- p id="contentLimit_error"></ p-->
+                            </div>
+    
+						</div>
+						<!-- cancel and save buttons-->
+						<div class="cancel-save-btn-addpeople" >
+                            <div style="margin-left:30%;margin-top:10%;">
+                                <button type="submit" value="submit" id="featureSaveBtn" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;">Save</a></button>   
+                                <!--<button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{/featuredsections}">Cancel</a></button>-->
+                               </div>
+
+						</div>
+						
+</form>
+						
+					</div>
+
+
+				</div>
+
+				<!-- Left side columns -->
+				<div class="col-lg-8">
+					<div class="row"></div>
+				</div>
+			</div>
+		</section>
+
+
+	</main>
+	<!-- End #main -->
+
+
+	<!--Add content-->
+
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer" class="footer">
+		<div class="copyright">
+			&copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights
+			Reserved
+		</div>
+		<div class="credits">
+
+			Designed by <a href="">Devil</a>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<!-- Vendor JS Files -->
+	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
+	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	<script src="assets/vendor/chart.js/chart.umd.js"></script>
+	<script src="assets/vendor/echarts/echarts.min.js"></script>
+	<script src="assets/vendor/quill/quill.min.js"></script>
+	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
+	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
+	<script src="assets/vendor/php-email-form/validate.js"></script>
+
+	<!-- Template Main JS File -->
+	<script src="assets/js/main.js"></script>
+
+</body>
+
+</html>

@@ -108,6 +108,7 @@ function displaymedia(){
     document.querySelector(".people").style.display = "none";
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
+     document.querySelector('#tabledisplay').style.display="none"
     // document.querySelector('.audiomedia').style.display="none";
 }
 function displaybanner(){
@@ -117,6 +118,7 @@ function displaybanner(){
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
     document.querySelector('.audiomedia').style.display="none";
+     document.querySelector('#tabledisplay').style.display="none"
 }
 function displaypeople(){
     document.querySelector(".people").style.display = "flex";
@@ -125,6 +127,7 @@ function displaypeople(){
     document.querySelector(".addons").style.display = "none";
     document.querySelector('.addons-1').style.display="none"
     document.querySelector('.audiomedia').style.display="none";
+     document.querySelector('#tabledisplay').style.display="block"
 }
 function displayaddons(){
     document.querySelector(".addons").style.display = "block";
@@ -133,12 +136,14 @@ function displayaddons(){
     document.querySelector(".media").style.display = "none";
     document.querySelector('.addons-1').style.display="none";
     document.querySelector('.audiomedia').style.display="none";
+     document.querySelector('#tabledisplay').style.display="none"
 
 }
 
 function addons1(){
     document.querySelector('.addons').style.display="none";
     document.querySelector('.addons-1').style.display="block";
+     document.querySelector('#tabledisplay').style.display="none"
 
 }
 function previewnone(){

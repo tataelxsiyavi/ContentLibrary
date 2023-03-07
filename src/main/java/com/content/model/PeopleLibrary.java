@@ -1,11 +1,14 @@
 package com.content.model;
 
+import java.util.List;
+
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
 import lombok.AllArgsConstructor;
@@ -20,11 +23,13 @@ import lombok.ToString;
 @ToString
 public class PeopleLibrary {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long people_id;
 	private String people_name;
 	private String bio;
 //	private String profile_picture;
+@OneToMany(mappedBy="people_id")
+private List<PeopleLibrary>peopleLibrary;
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn()

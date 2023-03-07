@@ -8,6 +8,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,9 +21,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.content.config.ContentConfig;
 import com.content.dao.ContentLibraryRepo;
+import com.content.dao.PeopleLibraryRepo;
 import com.content.exception.FileStorageException;
 import com.content.exception.MyFileNotFoundException;
+import com.content.model.Category;
 import com.content.model.ContentLibrary;
+import com.content.model.ContentPeople;
+import com.content.model.PeopleLibrary;
 import com.content.util.AppConstants;
 
 @Service
@@ -30,6 +35,10 @@ public class ContentLibraryService {
 
 	@Autowired
 	ContentLibraryRepo contentrepo;
+	@Autowired
+	PeopleLibraryService peopleservice;
+	@Autowired
+	PeopleLibraryRepo peoplerepo;
 
 	private final Path fileStorageLocation;
 
@@ -49,34 +58,14 @@ public class ContentLibraryService {
 	}
 
 	public ContentLibrary createContent(ContentLibrary contentlib) throws Exception {
-		Optional<ContentLibrary> st = contentrepo.findById(contentlib.getContent_id());
-
-		try {
-			if (st.isPresent()) {
-				System.out.println("Content_Id is already present ");
-			}
-		} catch (Exception ex) {
-			System.out.println(ex);
-		}
-
+	
+	
 		return contentrepo.save(contentlib);
 	}
 
 	public ContentLibrary updateContent(ContentLibrary contentlib) throws Exception {
-		ContentLibrary content = contentrepo.findById(contentlib.getContent_id())
-				.orElseThrow(() -> new Exception("content id is not present"));
-		content.setContent_name(contentlib.getContent_name());
-		content.setPermalink(contentlib.getPermalink());
-		content.setPerson_type(contentlib.getPerson_type());
-		content.setSearch_tags(contentlib.getSearch_tags());
-		content.setStory(contentlib.getStory());
-		content.setAdditional_assets(contentlib.getAdditional_assets());
-		content.setBanner_assets(contentlib.getBanner_assets());
-		content.setMedia_assets(contentlib.getMedia_assets());
-		content.setPreview_assets(contentlib.getPreview_assets());
-		content.setThumbnail_assets(contentlib.getThumbnail_assets());
-		content.setCategories(contentlib.getCategories());
-		content.setPeople_library(contentlib.getPeople_library());
+		ContentLibrary content = contentrepo.findById(contentlib.getContent_id()).get();
+
 
 		return contentrepo.save(content);
 
@@ -86,13 +75,19 @@ public class ContentLibraryService {
 		contentrepo.deleteById(id);
 	}
 
+	public Optional<ContentLibrary> findContentById(long id) {
+
+		return contentrepo.findById(id);
+	}
+	
+	
 	// primary file
 	public String storePrimaryFile(MultipartFile primarymedia) throws IOException {
-		// if
-		// (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-		// ||
-		// primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		 if
+		 (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+		 ||
+		 primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f = new File(primarymedia.getOriginalFilename());
 		f.createNewFile();
 		FileOutputStream fout = new FileOutputStream(f);
@@ -121,8 +116,8 @@ public class ContentLibraryService {
 
 	// Preview
 	public String storePreviewFile(MultipartFile preview) throws IOException {
-		// if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
-		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		 if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
+		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f1 = new File(preview.getOriginalFilename());
 		f1.createNewFile();
 		FileOutputStream fout1 = new FileOutputStream(f1);
@@ -148,10 +143,10 @@ public class ContentLibraryService {
 
 	// banner
 	public String storeBannerFile(MultipartFile banner) throws IOException {
-		// if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-		// || banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-		// || banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		 if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+		 || banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+		 || banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f2 = new File(banner.getOriginalFilename());
 		f2.createNewFile();
 
@@ -186,13 +181,13 @@ public class ContentLibraryService {
 
 	// additional file
 	public String storeAdditionalFile(MultipartFile additionalfile) throws IOException {
-		// if
-		// (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
-		// ||
-		// additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-		// ||
-		// additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		 if
+		 (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
+		 ||
+		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+		 ||
+		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f3 = new File(additionalfile.getOriginalFilename());
 		f3.createNewFile();
 
@@ -220,10 +215,10 @@ public class ContentLibraryService {
 
 	// Thumb nail file
 	public String storeTumbnailFile(MultipartFile tumbnail) throws IOException {
-		// if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-		// || tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-		// || tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-		// throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+		 if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f4 = new File(tumbnail.getOriginalFilename());
 		f4.createNewFile();
 
@@ -272,5 +267,7 @@ public class ContentLibraryService {
 			throw new MyFileNotFoundException(AppConstants.FILE_NOT_FOUND + fileName, ex);
 		}
 	}
+
+	
 
 }

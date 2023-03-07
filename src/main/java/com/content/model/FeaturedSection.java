@@ -23,13 +23,13 @@ import lombok.ToString;
 @Table(name="featured_section")
 public class FeaturedSection {
 	@Id
-	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long featuredSection_Id;
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	private Long featuredSection_Id;
 	private String content_Type;
 	private String section_Name;
 	private String section_Type;
 	private String criteria;
-	private int    content_Limit;
+	private Long    content_Limit;
 	@ManyToMany
     @JoinColumn(name="category")
 	private List<Category> Category;
@@ -37,7 +37,7 @@ public class FeaturedSection {
     @JoinColumn(name="content")
     private List<ContentLibrary> contentLibrary;
 	public FeaturedSection(String content_Type, String section_Name, String section_Type, String criteria,
-			int content_Limit, List<com.content.model.Category> category, List<ContentLibrary> contentLibrary) {
+			Long content_Limit, List<Category> category, List<ContentLibrary> contentLibrary) {
 		super();
 		this.content_Type = content_Type;
 		this.section_Name = section_Name;
