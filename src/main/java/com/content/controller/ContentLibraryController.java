@@ -102,7 +102,7 @@ public class ContentLibraryController {
 			@RequestParam("content_format") String content_format,
 			@RequestParam("content_group") String content_group,
 			@RequestParam("content_name") String content_name,
-			@RequestParam(required = false, value ="permalink") String permalink,
+			@RequestParam("permalink") String permalink,
 			@RequestParam(required = false, value ="story") String story,
 			@RequestParam(required = false, value ="search_tags") String search_tags,
 			
@@ -361,10 +361,9 @@ public class ContentLibraryController {
 			model.addAttribute("previd", previd);
 		}
 	
-		AssetLibrary thumbnail=content.getThumbnail_assets();
-
+		
 		model.addAttribute("cat", cat);
-		model.addAttribute("thumbnail", thumbnail);
+		
 		model.addAttribute("peoplelist", peoplelist);
 		model.addAttribute("contentlib", content);
 
@@ -384,13 +383,13 @@ public class ContentLibraryController {
 			
 			@RequestParam("content_name") String content_name,
 			@RequestParam("permalink") String permalink,
-			@RequestParam("story") String story, 
-			@RequestParam("search_tags") String search_tags,
+			@RequestParam(required=false,value="story") String story, 
+			@RequestParam(required=false,value="search_tags") String search_tags,
 			
 			@RequestParam(required=false,value="media_assets") MultipartFile media_assets,
 			@RequestParam(required=false,value="preview_assets") MultipartFile preview_assets,
 			@RequestParam(required=false,value="additional_assets") MultipartFile additional_assets,
-			@RequestParam(value="thumbnail_assets") MultipartFile thumbnail_assets,
+			@RequestParam(required=false,value="thumbnail_assets") MultipartFile thumbnail_assets,
 			@RequestParam(required=false,value="banner_assets") MultipartFile banner_assets,
 			@RequestParam(required=false,value="category_id") long category_id,
 			@RequestParam(required=false,value="additional_asset_type") String additional_asset_type,

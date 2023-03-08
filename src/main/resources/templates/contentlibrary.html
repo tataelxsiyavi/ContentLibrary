@@ -226,16 +226,16 @@
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active">Content Library</h2>
                 <div class="inside-search-content">
-                    <form action="/action_page.php">
-                      <input type="text" placeholder="Search.." name="search">
-                      <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>
+                    <input type="text" id="search-input" placeholder="Search.." name="search">
+                      <button type="button"><i class="bi bi-search"></i></button>
                 </div>
                 <div class="inside-button-content">
-                    <a th:href="@{/addcontent}"style="font-size: 13px; margin-top:10px " ><i class="bi bi-plus" style="margin:2px" > Add Content</i></a>
+                   <button style="font-size: 13px;  "> <a th:href="@{/addcontent}"  style=" color: aliceblue;"><i class="bi bi-plus" style="margin:2px;word-wrap: break-word;" > Add Content</i></a></button>
                 </div>
 
             </div>
+            
+            
             <div class="table-div"  >
             <table style="width:95%;">
              <tr class ="thead-class" style="width:100%; display: flex; height: 35px;">
@@ -247,13 +247,22 @@
                         
                 </tr>
             
-               
+                <tbody id="table-content">
                 
-                    <tr  style="display: flex;  height: 90px; margin-top:10px;width:100%;" th:each="content: ${contentlist}" >
-                        <td th:each="asset: ${content.thumbnail_assets}" style=" display: flex; flex-direction:row; width: 45%; ">
-                        <img th:src="@{${asset.asset_filepath}} " width="60" height="60" fill="currentColor"  >
-                           <p style="font-size: 10px; margin-left: 30px; ">Content ID:<span th:text="${content.content_id}"></span><br>Full Name:<span th:text="${content.content_name}"></span></p> 
+                    <tr class="tr-data" style="display: flex;  height: 90px; margin-top:10px;width:100%;" th:each="content: ${contentlist}" >
+                        <td  th:if="${content.thumbnail_assets!=null}" th:each="asset: ${content.thumbnail_assets}" style=" display: flex; flex-direction:row; width: 45%; ">
+                        <img th:src="@{${asset.asset_filepath} }" width="60" height="60" fill="currentColor"  >
+                           <p style="font-size: 10px; margin-left: 30px; ">Content ID:<span th:text="${content.content_id}"></span><br>Full Name:<span  th:text="${content.content_name}"></span></p> 
                          </td>
+                         
+                         
+                          <td th:unless="${content.thumbnail_assets!=null}" style=" display: flex; flex-direction:row; width: 45%; ">
+                        <img th:src="@{/img/video-placeholder.jpg} " width="60" height="60" fill="currentColor"  >
+                           <p style="font-size: 10px; margin-left: 30px; ">Content ID:<span th:text="${content.content_id}"></span><br>Full Name:<span  th:text="${content.content_name}"></span></p> 
+                         </td>
+                         
+                         
+                         
                           <td   style=" width: 30% ;  " >
                           <i class="bi bi-music-note-beamed" style="margin-left:px;">&nbsp;<span th:text="${content.content_type}" style="margin-left:5px;"></span> </i>
                           </td>
@@ -264,6 +273,7 @@
                           <td  style="width:15%; padding: 10px;"><a th:href="@{'/updatecontent/'+${content.content_id}}"><i class="bi bi-pencil-square"></i></a>&nbsp;<a th:href="@{'/deleteContent/'+${content.content_id}}"><i class="bi bi-trash"></i></a>&nbsp;</td><!--  -->
                     
                     </tr>
+                    </tbody>
                 
             </table>
             </div>
@@ -315,6 +325,51 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+   
+   <script>
+
+  const searchInput = document.querySelector("#search-input");
+  const tRows = document.querySelectorAll(".tr-data");
+  const tableBody = document.querySelector("#table-content");
+  
+
+   
+   console.log(searchInput.value);
+   
+   document.querySelector("#search-input").addEventListener("change", (e) => {
+	   
+	   let tableRows = "";
+	   
+	  let searchValue = e.target.value;
+	  searchValue = searchValue.toLowerCase();
+	  // console.log(tRows);
+	  
+	  tRows.forEach((data) => {
+		  
+		  console.log(data.children[0].children[1].innerText)
+		  
+		  let tdValue = data.children[0].children[1].innerText.toLowerCase();
+		  
+		//  console.log(tdValue.includes(searchValue));
+		 
+		  if(tdValue.includes(searchValue))  tableRows += data.outerHTML;
+	  })
+	  
+	  
+	  console.log(tableRows);
+	  
+	  tableBody.innerHTML = tableRows;
+	 
+	  
+	  
+   }); 
+   
+   /* function searchInput(event) {
+	   console.log(event);
+   } */
+  
+  </script>
+   
 
 </body>
 

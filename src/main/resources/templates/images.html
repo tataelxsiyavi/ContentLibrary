@@ -305,10 +305,10 @@ else {
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active" style="font-family: cursive;">Image Library</h2>
                 <div class="inside-search-content">
-                    <form action="/action_page.php">
+                     <!--  <form action="/action_page.php">
                       <input type="text" placeholder="Search.." name="search">
                       <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>
+                    </form>-->
                 </div>
                 <div class="inside-button-content">
                     <button type="submit" onclick="document.getElementById('id01').style.display='block'" ><span class="bi bi-upload">Upload Image</span></button>
@@ -363,7 +363,7 @@ else {
                 </thead>
                 <tbody>
                     <tr  th:each="asset : ${assetlist}"  th:if="${asset.asset_type}==${asset.asset_type.Image}" >
-                        <th  height="100"  style="display: flex; flex-direction:row; margin-top:10px;  font-size:15px; font-weight:lighter;"><img th:src="@{${asset.asset_filepath}}" alt="${asset.asset_name}" height="100px" width="75px" /><p th:text="${asset.asset_name}" style=" margin-left:8px; margin-top:33px; font-size:10px; font-weight:lighter;"></p></th>
+                        <th  height="100" width="420"  style="display: flex; flex-direction:row; margin-top:10px;  font-size:15px; font-weight:lighter;"><img th:src="@{${asset.asset_filepath}}" alt="${asset.asset_name}" height="100px" width="75px" /><p th:text="${asset.asset_name}" style=" margin-left:8px; margin-top:33px; font-size:12px; font-weight:lighter; word-wrap: break-word; width:230px;"></p></th>
                         <th  style="font-size:15px;  font-weight:lighter;">File Size: [[${asset.asset_size}]] <i class="bi bi-info-circle-fill"></i></th>
                         <th  ><a th:href="@{${asset.asset_filepath}}"><i class="bi bi-download"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/assetlibraryDelete3(asset_id=${asset.asset_id})}"><i class="bi bi-trash3-fill"></i></a></th>
                     </tr>

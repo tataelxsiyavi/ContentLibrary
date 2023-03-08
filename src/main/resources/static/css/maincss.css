@@ -51,7 +51,7 @@
      flex-direction: row;
     }
     .inside-search-content{
-        margin-left: 180px;
+        margin-left: 150px;
         margin-top: 8px;
     }
     .inside-search-content button {
@@ -68,18 +68,11 @@
       .inside-button-content{
        
         margin-left: 25px;
+        float:right;
        
       }
-      #btAdd{
-       border: none;
-        height: 35px;
-        margin-top:5px;
-        padding: 10px;
-        border-radius: 5px;
-        color: aliceblue;
-        background-color:  #18A0FB;
-      }
-      .inside-button-content a{
+     
+      .inside-button-content button{
         border: none;
         height: 40px;
         
@@ -289,10 +282,7 @@
       display: flex;
       flex-direction: row;
      }
-     .inside-search-content{
-         margin-left: 180px;
-         margin-top: 8px;
-     }
+     
      .inside-search-content button {
          height: 30px;
          /* padding: 6px 10px; */

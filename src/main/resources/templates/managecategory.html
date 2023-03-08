@@ -221,17 +221,20 @@
         <div class="inside-content">
             <div class="link">
                 <a th:href="@{/contentlibrary}" style="color: rgb(99, 95, 95);">Content library</a>
-                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgb(99, 95, 95);">People library</ath>
+                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgb(99, 95, 95);">People library</a>
                 <a th:href="@{/managecategory}"  style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">Manage category</a>
-                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
+                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Upload</a>
                 
             </div>
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active" style="font-size: 27px;">Manage Category</h2>
-                
-                <div class="inside-button-content">
-                    <span id="btAdd"  class="bt" style="font-size: 15px; margin-left: 370px;" onclick="addCategory() "><i class="bi bi-plus" ></i> Add Category</span>
+                <div class="inside-search-content">
+                    
                 </div>
+                <div class="inside-button-content">
+                    <button id="btAdd"  class="bt" style="font-size: 13px;  " onclick="addCategory() "><i class="bi bi-plus" style="margin:2px;word-wrap: break-word;"></i> Add Category</button>
+                </div>
+                
             </div>
             <div class="table-div">
             <table style="width:95%">

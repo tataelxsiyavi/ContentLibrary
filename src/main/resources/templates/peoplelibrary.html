@@ -32,6 +32,7 @@
   <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
   <script th:src="@{/js/script.js}"></script>
+
  
 </head>
 
@@ -221,19 +222,19 @@
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active">People Library</h2>
                 <div class="inside-search-content">
-                    <form action="/action_page.php">
-                      <input type="text" placeholder="Search.." name="search">
-                      <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>
+                 
+                      <input type="text" id="search-input" placeholder="Search.." name="search">
+                      <button type="button"><i class="bi bi-search"></i></button>
+                    
                 </div>
-                <div class="inside-button-content">
-                    <a th:href="@{/addpeople}"style="font-size: 13px; margin-top:30px " ><i class="bi bi-plus" style="margin:2px" > Add people</i></a>
+                 <div class="inside-button-content">
+                   <button style="font-size: 13px;  "> <a th:href="@{/addcontent}"  style=" color: aliceblue;"><i class="bi bi-plus" style="margin:2px;word-wrap: break-word;" > Add People</i></a></button>
                 </div>
             </div>
            
             <div class="table-div">
             <table style="width:95%;">
-                <tr class ="thead-class" style="width:100%; display: flex; height: 35px;">
+                <tr class ="thead-class " style="width:100%; display: flex; height: 35px;">
                     
                         <td style="width: 30%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Person Name</td>
                         <td style="width: 50%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Bio</td>
@@ -242,21 +243,35 @@
                         
                 </tr>
                 
-                <tr  style="display: flex;  height: 70px; margin-top:10px;" th:each="people: ${peoplelist}"><!-- -->
+                
+               <tbody id="table-content">
+               
+               
+                 <tr  class="tr-data" style="display: flex;  height: 70px; margin-top:10px;" th:each="people: ${peoplelist}"><!-- -->
                     
-                        <td  th:each="profile:  ${people.people_asset}"style=" display: flex; flex-direction:row;"  >
+                        <td   th:if="${people.people_asset!=null}" th:each="profile:  ${people.people_asset}"style=" display: flex; flex-direction:row;"  >
                         <img th:src="@{${profile.asset_filepath}}" width="60px" height="60px" fill="currentColor"> 
+                        </td>
+                         <td  th:unless="${people.people_asset!=null}" style=" display: flex; flex-direction:row;"  >
+                        <img th:src="@{/img/user-placeholder.jpg}" width="60px" height="60px" fill="currentColor"> 
                         </td>
                           <!--th:text="${peoplelist.people_asset_asset_id}"  -->
                           
                          
-                        <td  th:text="${people.people_name}" style="margin-left: 10px; margin-top: 20px; margin-right: 100px; margin-bottom: 5px; width:60px ; " ></td><!-- Andrew  -->
+                        <td class="td-CName" th:text="${people.people_name}" style="margin-left: 10px; margin-top: 20px; margin-right: 100px; margin-bottom: 5px; width:60px ; " ></td><!-- Andrew  -->
                         
                         <td   th:text="${people.bio}" style="width:50%; font-size: 12px; font-weight: 400; padding: 10px; " > </td><!-- -->
                         <td  style="width:20%; padding: 10px;"><a th:href="@{'/updatepeople/'+${people.people_id}}"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;<a th:href="@{'/peoplelibrary/'+${people.people_id}}"><i class="bi bi-trash"></i></a></td><!--  -->
                        
                 </tr>
+               </tbody>
                 
+                
+                
+              
+ 
+               
+               
                 
             </table>
             </div>
@@ -305,6 +320,47 @@
 
   <!-- Template Main JS File -->
   <script src="assets/js/main.js"></script>
+   
+   <script>
+
+  const searchInput = document.querySelector("#search-input");
+  const tRows = document.querySelectorAll(".tr-data");
+  const tableBody = document.querySelector("#table-content");
+  
+
+   
+   console.log(searchInput.value);
+   
+   document.querySelector("#search-input").addEventListener("change", (e) => {
+	   
+	   let tableRows = "";
+	   
+	  let searchValue = e.target.value;
+	  searchValue = searchValue.toLowerCase();
+	  // console.log(tRows);
+	  
+	  tRows.forEach((data) => {
+		  
+		  let tdValue = data.children[1].innerText.toLowerCase();
+		  console.log(tdValue.includes(searchValue));
+		 
+		  if(tdValue.includes(searchValue))  tableRows += data.outerHTML;
+	  })
+	  
+	  
+	  console.log(tableRows);
+	  
+	  tableBody.innerHTML = tableRows;
+	 
+	  
+	  
+   }); 
+   
+   /* function searchInput(event) {
+	   console.log(event);
+   } */
+  
+  </script>
 
 </body>
 

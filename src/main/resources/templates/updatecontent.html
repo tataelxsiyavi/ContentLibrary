@@ -480,9 +480,9 @@ function showCheckboxes() {
       </select>
       <br/>
       <label for="content_story" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
-      <input type="text" id="content_story" th:name="story" th:field="${contentlib.story}" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
+      <input type="text" id="content_story" th:name="story" th:value="${contentlib.story}" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
       <label for="searchtags" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
-      <input type="text" id="searchtags" th:name="search_tags" th:field="${contentlib.search_tags}" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
+      <input type="text" id="searchtags" th:name="search_tags" th:value="${contentlib.search_tags}" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
       
      
       <!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
@@ -500,8 +500,9 @@ function showCheckboxes() {
           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
           <div onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 300px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
            <a   style="font-size: 13px;text-align: center;">+ Add file</a>
-           <audio id="audio_output" th:src="@{${contentlib.media_assets.asset_filepath}}" controls    style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
-           
+           <audio th:if="${contentlib.media_assets!=null}" id="audio_output" th:src="@{${contentlib.media_assets.asset_filepath}}" controls    style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
+            <audio th:unless="${contentlib.media_assets!=null}" id="audio_output"  controls    style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
+           <!-- th:if="${contentlib.media_assets.asset_filepath!=null}" -->
           </div>
           
       </div>
@@ -519,9 +520,9 @@ function showCheckboxes() {
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
            <span onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 200px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
             <a  style="font-size: 13px;text-align: center;">+ Add file</a>
-            <!--  -->
-            <video id="media_output" th:src="@{${contentlib.media_assets.asset_filepath}}" controls  width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
-            
+            <!--th:if="${contentlib.media_assets.asset_filepath!=null}"  -->
+            <video th:if="${contentlib.media_assets!=null}" id="media_output" th:src="@{${contentlib.media_assets.asset_filepath}}" controls  width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
+            <video th:unless="${contentlib.media_assets!=null}" id="media_output" controls  width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
             </span>
             
        </div>  
@@ -530,7 +531,8 @@ function showCheckboxes() {
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
            <span onclick="document.getElementById('preview').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 90px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px;position: relative;">
             <a  style="font-size: 13px; text-align: center; ">+ Add file</a>
-            <img id="preview_output" th:src="@{${{contentlib.content_type}=='video' ? 'contentlib.preview_assets.asset_filepath' : ''}}"  width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            <video th:if="${contentlib.preview_assets!=null}" id="preview_output" th:src="@{${{contentlib.content_type}=='video' ? 'contentlib.preview_assets.asset_filepath' : ''}}"  width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" ></video>
+            <video th:unless="${contentlib.preview_assets!=null}" id="preview_output"   width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" ></video>
             </span> 
        </div> 
       </div>
@@ -544,7 +546,8 @@ function showCheckboxes() {
            <p style="font-size: 12px; white-space: nowrap;margin-top:1%;margin-bottom: 2px;">Website</p>  
            <span onclick="document.getElementById('banner').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
             <a >+ Add file</a>
-            <img id="banner_output" th:src="@{${contentlib.banner_assets.asset_filepath}}" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            <img th:if="${contentlib.banner_assets!=null}" id="banner_output" th:src="@{${contentlib.banner_assets.asset_filepath}}" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            <img th:unless="${contentlib.banner_assets!=null}" id="banner_output"  width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
             
             </span>
        </div>  
@@ -588,9 +591,7 @@ function showCheckboxes() {
         color: aliceblue;
         background-color:  #18A0FB;
         border-radius: 5px;">
-    
-       
-         
+        
           </div>
           <div id="tabledisplay"> <table id="displayTable">
        </table> </div>
@@ -610,7 +611,7 @@ function showCheckboxes() {
     <div class ="addons-1" style="display: none;">
       <h6>Label Name</h6>
       <p>Media Type</p>
-      <select th:name="additional_asset_type" th:field="${contentlib.additional_asset_type}" id="additional-type">
+      <select th:name="additional_asset_type"  id="additional-type">
         <option th:value="video">Video</option>
         <option th:value="audio">Audio</option>
         <option th:value="pdf">PDF</option>
@@ -643,7 +644,9 @@ function showCheckboxes() {
     <div class="w3-container">
       <span onclick="document.getElementById('thumbnail').style.display='block'" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
         <a style="font-size: 13px; text-align: center;">+ Add file</a>
-        <img id="thumbnail_output" th:src="@{${contentlib.thumbnail_assets.asset_filepath}}" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        <img th:if="${contentlib.thumbnail_assets!=null}" id="thumbnail_output" th:src="@{${contentlib.thumbnail_assets.asset_filepath}}" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        <img th:unless="${contentlib.thumbnail_assets!=null}" id="thumbnail_output"  width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        
         </span>
     <p style="font-size: 12px;white-space: nowrap;margin-top:8%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
 
@@ -673,11 +676,14 @@ function showCheckboxes() {
                  <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
-                  <label for="media_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <label  for="media_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
                   <input type="file" accept="video/*,audio/*"  th:name="media_assets" 
-                  th:value="${contentlib.media_assets.asset_id}" id="media_fileselect"
+                  id="media_fileselect"
 														
 					onchange="loadFileMedia(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;"> 
+					
+					
+					
                 </div>
                 </fieldset>
                 <div id="mediavideo" style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
@@ -716,13 +722,10 @@ function showCheckboxes() {
                   <input type="file" accept="video/*"
                   
                    th:name="preview_assets"
-                   th:value="${previd}"
                  
-                            
-                  
-               
-                  id="preview_fileselect"
+                    id="preview_fileselect"
 				  onchange="loadFilePreview(event)"  style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+				 
                 </div>
                 </fieldset>
                 <div    style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
@@ -758,8 +761,9 @@ function showCheckboxes() {
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
                   <label for="banner_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                   <input type="file" accept="image/*" th:name="banner_assets" th:value="${contentlib.banner_assets.asset_id}" id="banner_fileselect"
+                   <input type="file" accept="image/*" th:name="banner_assets" id="banner_fileselect"
 														onchange="loadFileBanner(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+					
                 </div>
                 </fieldset>
                 <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, jpeg, png, gif, svg, jfif )</div>
@@ -794,9 +798,10 @@ function showCheckboxes() {
                  <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
-                  <label for="additional_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file"  th:name="additional_assets" th:value="${contentlib.additional_assets.asset_id}" id="additional_fileselect"
+                  <label  for="additional_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file"  th:name="additional_assets" id="additional_fileselect"
 														onchange="loadFile(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+			    
                 </div>
                 </fieldset>
                 <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Upload given media type file</div>
@@ -831,9 +836,13 @@ function showCheckboxes() {
                  <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
-                  <label for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="image/*" th:name="thumbnail_assets" th:value="${contentlib.thumbnail_assets.asset_id}" id="thumbnail_fileselect"
+                  <label  for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="image/*" th:name="thumbnail_assets"  id="thumbnail_fileselect"
 														onchange="loadFile1(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
+								<!-- <label th:unless="${contentlib.thumbnail_assets.asset_id!=null}" for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
+                  <input type="file" accept="image/*" th:name="thumbnail_assets"  id="thumbnail_fileselect"
+														onchange="loadFile1(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">						
+                  -->
                 </div>
                 </fieldset>
                 <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif)</div>

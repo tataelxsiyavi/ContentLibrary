@@ -57,8 +57,15 @@ public class PeopleLibraryController {
 	}
 
 	@PostMapping(value = "/addpeoplelibrary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) //
-	public String createPeople(@RequestParam("people_name") String people_name, @RequestParam("bio") String bio,
-			@RequestParam("profile_picture") MultipartFile profilePicture) throws Exception {
+	public String createPeople(
+			@RequestParam("people_name") String people_name,
+			@RequestParam("bio") String bio,
+			@RequestParam(required=false,value="profile_picture") MultipartFile profilePicture) throws Exception {
+		
+		
+		
+		AssetLibrary asset =null;
+		if(!profilePicture.isEmpty()) {
 		String profilePic = peopleservice.storeProfilePicture(profilePicture);
 		String ProfilePicUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
 				.path(profilePic).toUriString();
@@ -85,10 +92,11 @@ public class PeopleLibraryController {
 			type_asset = AssetType.Image;
 		}
 
-		System.out.println("     hey guys    type_asset :" + type_asset);
+		
 
-		AssetLibrary asset = new AssetLibrary(type_asset, asset_name, asset_size, ProfilePicUri);
-		System.out.println("  Type     " + asset_type + "    Name:     " + asset_name + "   Size:   " + asset_size);
+		 asset = new AssetLibrary(type_asset, asset_name, asset_size, ProfilePicUri);
+		 }
+		
 		PeopleLibrary people = new PeopleLibrary();
 		people.setPeople_name(people_name);
 		people.setBio(bio);
@@ -138,11 +146,12 @@ public class PeopleLibraryController {
 	if(peoplelibrary.getBio()!=null) {
 		model.addAttribute("bio", peoplelibrary.getBio());
 	}
-	
+	if(peoplelibrary.getPeople_asset()!=null) {
 	AssetLibrary asset=peoplelibrary.getPeople_asset();
 	Long assetid=asset.getAsset_id();
 	if(assetid!=null) {
 		model.addAttribute("people_asset", assetid);
+	}
 	}
 	if(peoplelibrary.getPeople_name()!=null) {
 		model.addAttribute("people_name", peoplelibrary.getPeople_name());
