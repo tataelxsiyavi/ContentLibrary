@@ -531,9 +531,9 @@ function showCheckboxes() {
            <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
            <span onclick="document.getElementById('preview').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 90px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px;position: relative;">
             <a  style="font-size: 13px; text-align: center; ">+ Add file</a>
-            <video th:if="${contentlib.preview_assets!=null}" id="preview_output" th:src="@{${{contentlib.content_type}=='video' ? 'contentlib.preview_assets.asset_filepath' : ''}}"  width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" ></video>
-            <video th:unless="${contentlib.preview_assets!=null}" id="preview_output"   width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" ></video>
-            </span> 
+            <video th:if="${contentlib.preview_assets!=null}" id="preview_output" th:src="@{${contentlib.preview_assets.asset_filepath}}"  controls width="110" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
+            <video th:unless="${contentlib.preview_assets!=null}" id="preview_output"  controls  width="110" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;" ></video>
+            </span> <!-- th:src="@{${{contentlib.content_type}=='video' ? 'contentlib.preview_assets.asset_filepath' : ''}}" -->
        </div> 
       </div>
          <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : Video files</p>
@@ -618,7 +618,7 @@ function showCheckboxes() {
         </select>
                   
       <span id="addons-1-upload" onclick="document.getElementById('additional').style.display='block'">Upload</span>
-      <span  id="addons-1-cancel">Cancel</span>
+      <span  id="addons-1-cancel" onclick="displayNone()">Cancel</span>
 
       
 
@@ -936,6 +936,10 @@ function showCheckboxes() {
     document.querySelector('#mediavideo').style.display="block";
   }
   
+  function displayNone(){
+	  document.querySelector('.addons-1').style.display="none";
+	  document.querySelector('.addons').style.display="block";
+  }
   
   
   

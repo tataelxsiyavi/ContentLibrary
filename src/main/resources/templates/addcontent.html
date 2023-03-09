@@ -689,7 +689,7 @@ function showCheckboxes() {
         </select>
                   
       <span id="addons-1-upload" onclick="document.getElementById('additional').style.display='block'">Upload</span>
-      <span  id="addons-1-cancel">Cancel</span><!--     ////////   -->
+      <span  id="addons-1-cancel" onclick="displayNone()">Cancel</span><!--     ////////   -->
 
       
 
@@ -978,7 +978,10 @@ function showCheckboxes() {
     document.querySelector('#mediavideo').style.display="block";
   }
   
-  
+  function displayNone(){
+	  document.querySelector('.addons-1').style.display="none";
+	  document.querySelector('.addons').style.display="block";
+  }
   
   
   </script>
