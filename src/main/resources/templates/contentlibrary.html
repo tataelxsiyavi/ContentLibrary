@@ -264,7 +264,8 @@
                          
                          
                           <td   style=" width: 30% ;  " >
-                          <i class="bi bi-music-note-beamed" style="margin-left:px;">&nbsp;<span th:text="${content.content_type}" style="margin-left:5px;"></span> </i>
+                          <i th:if="${content.content_type=='audio'}" class="bi bi-music-note-beamed" style="margin-left:px;">&nbsp;<span th:text="${content.content_type}" style="margin-left:5px;"></span> </i>
+                          <i th:unless="${content.content_type=='audio'}" class="bi bi-camera-video" style="margin-left:px;">&nbsp;<span th:text="${content.content_type}" style="margin-left:5px;"></span> </i>
                           </td>
                           <td style="width:20%; font-size: 12px; font-weight: 400; padding: 10px; " >
                           
