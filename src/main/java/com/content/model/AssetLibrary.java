@@ -24,7 +24,7 @@ import lombok.ToString;
 public class AssetLibrary {
 	@Id
 	@GeneratedValue(strategy=GenerationType.AUTO)
-	private long asset_id;
+	private Long asset_id;
 //	private String asset_type;
 	@Enumerated(EnumType.STRING)
 	private AssetType asset_type;

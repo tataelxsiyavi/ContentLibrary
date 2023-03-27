@@ -15,11 +15,17 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.content.model.AssetLibrary;
+import com.content.model.ContentLibrary;
+import com.content.model.FeaturedSection;
+import com.content.model.PlaylistLibrary;
 import com.content.enumclass.AssetType;
 import com.content.service.AssetLibraryService;
 import com.content.service.FileStorageService;
 import com.content.util.AppConstants;
 import com.content.dao.AssetLibraryRepo;
+import com.content.dao.ContentLibraryRepo;
+import com.content.dao.FeaturedSectionRepo;
+import com.content.dao.PlaylistLibraryRepo;
 
 
 @Controller
@@ -32,6 +38,10 @@ public class AssetLibraryController {
 	FileStorageService   fileservice;
 	@Autowired
 	AssetLibraryRepo assetrepo;
+	@Autowired
+	ContentLibraryRepo contentrepo;
+	@Autowired
+	PlaylistLibraryRepo playlistrepo;
 	
 	DecimalFormat df=new DecimalFormat();
 	
@@ -283,16 +293,31 @@ public class AssetLibraryController {
 }
 
 	@GetMapping("/assetlibraryDelete1")
-	public String deleteAsset(@RequestParam(name="asset_id") long asset_id)
+	public String deleteAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		assetservice.deleteAssets(asset_id);
+		List<ContentLibrary> content=contentrepo.findAll();
+		List<PlaylistLibrary> playlist=playlistrepo.findAll();
+		List<AssetLibrary> asset=assetrepo.findAll();
+		for(int i=0;i<content.size();i++) {
+			if( !content.get(i).getMedia_assets().equals(asset.get(i)) ) {
+				assetservice.deleteAssets(asset_id);
+				
+			}
+			
+		else {
+			redir.addFlashAttribute("Perror","asset cannot delete...");
+			
+		}}
+		
+		
 		
 		return "redirect:/assetlibrary";
 	}
 	
 	@GetMapping("/assetlibraryDelete2")
-	public String deleteAudioAsset(@RequestParam(name="asset_id") long asset_id)
+	public String deleteAudioAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
+		
 		assetservice.deleteAssets(asset_id);
 		
 		return "redirect:/audio";

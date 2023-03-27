@@ -105,3 +105,6 @@
       .thumbnail-banner-h2:hover {
         color: #3b73e5;
       }
+      #content_Id option {
+		  display:block;
+	  }

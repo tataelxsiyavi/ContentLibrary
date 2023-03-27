@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home</title>
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="Nav">
+        <div class="Logo-div">
+            <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
+            <p class="Logo-name">Cloud</p>
+        </div>
+        <div class="links">
+            <a th:href="@{/UserHome}" style="color: #f4ce24; text-decoration: none;"><ul>Home</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Video</ul></a>
+            <a th:href="@{/UserAudio}"><ul>Audio</ul></a>
+            <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
+            <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
+        </div>
+    </div>
+    <div class="banner">
+        <div id="myCarousel" class="carousel slide" data-ride="carousel">
+            <!-- Indicators -->
+            <ol class="carousel-indicators">
+              <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
+              <li data-target="#myCarousel" data-slide-to="1"></li>
+              <li data-target="#myCarousel" data-slide-to="2"></li>
+            </ol>
+        
+            <!-- Wrapper for slides -->
+            <div class="carousel-inner">
+              <div class="item active" interval={3000}>
+                <img src="https://th.bing.com/th/id/R.8507f90d74a40b47290766ce6f373043?rik=yjjS0dp%2bDbZ6BQ&riu=http%3a%2f%2fcflanders7.files.wordpress.com%2f2013%2f02%2favengers-pic.jpg&ehk=Qf%2fu0dTOupcWGpc%2b2CKVu7ccfVNGcBA1mFV0qKncZx0%3d&risl=&pid=ImgRaw&r=0" alt="Los Angeles" style="width:100%;height: 650px;">
+              </div>
+              
+              <div class="item" interval={3000}>
+                <img src="https://th.bing.com/th/id/R.7ec15d9916bbc683fb08127e6f763e04?rik=oXsY%2fQ6Tu8PBdg&riu=http%3a%2f%2forig04.deviantart.net%2fd453%2ff%2f2011%2f201%2fd%2fd%2fthe_amazing_spider_man_banner_by_barney_01-d4141q2.jpg&ehk=uZaEU91TyEjqUgxU%2f3G2tJOjNeihkXvgOVCKWOR8x38%3d&risl=&pid=ImgRaw&r=0" alt="Chicago" style="width:100%;height: 650px;">
+              </div>
+
+              <div class="item" interval={3000}>
+                <img src="https://cdn.wallpapersafari.com/92/56/O3IDWP.jpg" alt="Chicago" style="width:100%;height: 650px;">
+              </div>
+            </div>
+        
+            <!-- Left and right controls -->
+            <a class="left carousel-control" href="#myCarousel" data-slide="prev">
+              <span class="glyphicon glyphicon-chevron-left"></span>
+              <span class="sr-only">Previous</span>
+            </a>
+            <a class="right carousel-control" href="#myCarousel" data-slide="next">
+              <span class="glyphicon glyphicon-chevron-right"></span>
+              <span class="sr-only">Next</span>
+            </a>
+          </div>
+    </div>
+    <div class="cards">
+      <p class="title">Latest Video & Audio</p>
+      <div class="hero-container" >
+        <div class="main-container" th:each="content: ${contentlist}">
+        <div class="poster-container">
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div>
+        
+        
+        </div>
+    </div>
+    <!--div class="cards">
+      <p class="title">Latest Audio</p>
+      <div class="hero-container" >
+        <div class="main-container"th:each="content: ${contentlist}" th:if="${content.content_type=='audio'}">
+        <div class="poster-container" >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div>
+        
+        
+        </div>
+    </div> -->
+    <div class="cards">
+      <div th:each="section: ${section}">
+        <p class="title" th:text="${section.section_Name}" ></p>
+      <div class="hero-container" >
+        <div class="main-container" th:each="content: ${section.contentLibrary}" >
+        <div class="poster-container" >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div>
+        
+        
+        </div>
+      </div>
+    </div>
+    <footer>
+        <div>
+          <a href="">Contact Us</a>
+          <a href="">Terms and Conditions</a>
+          <a href="">Privacy and Cookies</a>
+          <a href="">Privacy Options</a>
+          <a href="">Help</a>
+        </div>  
+        <p>Copyright @ TATA Elxsi 2023</p>
+    </footer>
+</body>
+</html>

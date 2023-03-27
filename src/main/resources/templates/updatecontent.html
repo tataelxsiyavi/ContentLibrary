@@ -52,38 +52,114 @@ function addons1(){
 }
 
 function loadFile1(event) {
+	var fileInput = document.getElementById('thumbnail_fileselect');
+     var filePath = fileInput.value;
+     var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+     if(!allowedExtensions.exec(filePath)){
+    	 document.querySelector("#thumbnailError").innerHTML = "Invalid Thumbnail format...."
+     fileInput.value = '';
+     return false;
+     }else{
 	var thumbnail_image = document.getElementById('thumbnail_output');
 	thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
-	
-	
+}
 };
+
+
 
 function loadFileMedia(event) {
-	var type=document.querySelector('#contenttype').value;
-	if(type=='audio'){
-		var audiomedia_audio = document.getElementById('audio_output');
-		audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+
+	document.querySelector("#mediaError").innerHTML = "";
+
+	console.log(event);
+
+	var type = document.querySelector('#contenttype').value;
+
+
+	console.log(event.target.files[0].type);
+
+	var eventFileType = event.target.files[0].type.split("/")[0];
+
+	if (type === "audio") {
+
+		if (type.toLowerCase() === eventFileType) {
+			var audiomedia_audio = document.getElementById('audio_output');
+			audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+		}
+
+		else {
+			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+				document.querySelector("#media_fileselect").value='';
+			return false;
+		}
+
 	}
-	else{
-		 var media_video = document.getElementById('media_output');
-		 media_video.src = URL.createObjectURL(event.target.files[0]);
+
+
+	else {
+
+		if (type.toLowerCase() === eventFileType) {
+			var media_video = document.getElementById('media_output');
+			media_video.src = URL.createObjectURL(event.target.files[0]);
+		}
+
+		else {
+			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+				document.querySelector("#media_fileselect").value='';
+			return false;
+		}
 	}
- 
+
 
 
 };
 
-function loadFileAudio(event) {
-  
-};
+
 function loadFilePreview(event) {
-  var preview_image = document.getElementById('preview_output');
-preview_image.src = URL.createObjectURL(event.target.files[0]);
+	document.querySelector("#previewError").innerHTML = "";
+
+	console.log(event);
+
+	var type = document.querySelector('#contenttype').value;
+
+
+	console.log(event.target.files[0].type);
+
+	var eventFileType = event.target.files[0].type.split("/")[0];
+
+
+	if (type.toLowerCase() === eventFileType) {
+		var preview_video = document.getElementById('preview_output');
+		preview_video.src = URL.createObjectURL(event.target.files[0]);
+	}
+
+	else {
+		document.querySelector("#previewError").innerHTML = "Invalid Preview file format....";
+		document.querySelector("#media_fileselect").value='';
+		return false;
+	}
+
+
+
 };
 
 function loadFileBanner(event) {
-  var banner_image = document.getElementById('banner_output');
-	banner_image.src = URL.createObjectURL(event.target.files[0])
+	document.querySelector("#bannerError").innerHTML = "";
+
+	console.log(event);
+
+	console.log(event.target.files[0].type);
+	var eventFileType = event.target.files[0].type.split("/")[0];
+
+	if (eventFileType === "image") {
+		var banner_image = document.getElementById('banner_output');
+		banner_image.src = URL.createObjectURL(event.target.files[0])
+	}
+	else {
+		document.querySelector("#bannerError").innerHTML = "Invalid Banner file format...."
+		document.querySelector("#banner_fileselect").value='';
+		return false;
+	}
 };
 
   
@@ -99,16 +175,6 @@ function showCheckboxes() {
    expanded = false;
  }
 }  
-
-
-
-
- 
-
-
-
-
-
 
    </script>
    <script>
@@ -209,8 +275,84 @@ function showCheckboxes() {
     }
     
     
+  //additional
+	
+	
+	function fileupolad(){
+     
+    var type = document.getElementById('additional-type').value;
+    var fileInput = document.getElementById('additional_fileselect');
+    var filePath = fileInput.value;
+if(type == "pdf"){
+    var allowedExtensions = /(\.pdf)$/i;
+    if(!allowedExtensions.exec(filePath)){
+	document.getElementById('additionalError').innerHTML="Please upload file having extensions .pdf only.";
+
+    fileInput.value = '';
+    return false;
+}else{
+		document.getElementById('additionalError').innerHTML='';
+	}
+}
+else if(type == "video") {
+	var allowedExtensions = /(\.mp4|\.wmv|\.mov|\.flv)$/i;
+    if(!allowedExtensions.exec(filePath)){
+    document.getElementById('additionalError').innerHTML="Please upload file having extensions  mp4, wmv, mov, flv, vob, m4v, mkv only.";
+    fileInput.value = '';
+    return false;
+	}else{
+		document.getElementById('additionalError').innerHTML='';
+	}
+}
+else if(type == "audio") {
+    var allowedExtensions = /(\.mp3|\.wav|\.mpeg)$/i;
+
+    if(!allowedExtensions.exec(filePath)){
+    document.getElementById('additionalError').innerHTML="Please upload file having extensions mp3, wav, aac, aiff, m4a, m4b, m4p, dvf, raw,wma, webm only.";
+    fileInput.value = '';
+    return false;
+	}else{
+		document.getElementById('additionalError').innerHTML='';
+	}
+
+}
+
+}
+    
+    
     
     </script>
+     <script th:inline="javascript">
+	
+	
+	function requiredFields(){
+        
+        
+        var contentname1 = document.getElementById("contentname").value;
+        var perma_link1 = document.getElementById("perma_link").value;
+        var category_type1 = document.getElementById("category_type").value;
+        var validForm = true;
+        //console.log(contentformat1);
+          
+          if (contentname1  === ""){
+          document.querySelector("#contentname_Error").innerHTML = "The Content Name field is required";
+          validForm = false;
+          }
+           if (perma_link1  === ""){
+          document.querySelector("#perma_link_Error").innerHTML = "The Permalink field is required";
+          validForm = false;
+          }
+           if (category_type1  === ""){
+          document.querySelector("#category_type_Error").innerHTML = "The Category field is required";
+          validForm = false;
+          } 
+          
+          return validForm;
+        
+      }
+      
+      
+	</script>
 <style>
 .multiselect {
   width: 200px;
@@ -263,14 +405,14 @@ function showCheckboxes() {
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="@{/index}" class="logo d-flex align-items-center">
+      <a th:href="@{/}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FEE Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar" >
+    <!--  --<div class="search-bar" >
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -298,10 +440,9 @@ function showCheckboxes() {
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+         <a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
             <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
+                      </a>
 
           
 
@@ -374,7 +515,7 @@ function showCheckboxes() {
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -425,9 +566,9 @@ function showCheckboxes() {
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
-          <li class="breadcrumb-item active">Content Library</li>
-         
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/contentlibrary}">Content Library</a></li>     
+        <li class="breadcrumb-item active"><a>Edit Content</a></li>
         </ol>
       </nav>
     </div>
@@ -440,7 +581,7 @@ function showCheckboxes() {
             
            
          <!--  Modal   -->
-    <form  th:action="@{/updatecontent1}" th:object="${contentlib}" method="POST" enctype="multipart/form-data">
+    <form  th:action="@{/updatecontent1}" th:object="${contentlib}" method="POST" enctype="multipart/form-data" onsubmit="return requiredFields()">
 <div class="add-contents"    >
 
   <div class="left" style="float:left; width:60%; margin-top: 10px; ">
@@ -467,8 +608,12 @@ function showCheckboxes() {
        <br>
       <label for="contentname" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
       <input type="text" id="contentname" th:name="content_name" th:field="${contentlib.content_name}"    style="height:30px; width: 250px;"placeholder="Enter a name"   ><br>
+      <p style="color:red;margin-left: 165px;" id="contentname_Error"></p>
+      
       <label for="perma_link"style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
       <input type="text" id="perma_link" th:name="permalink" th:field="${contentlib.permalink}"  style="height:30px; width: 250px;"placeholder="Permalink" ><br>
+      <p style="color:red;margin-left: 165px;" id="perma_link_Error"></p>
+      
       <label for="category_type" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
       <select  th:name="category_id"  th:value="${contentlib.categories.category_id}"  id="category_type" style="height:30px; width: 250px;  ">
      <option  th:value="${contentlib.categories.category_id}" th:text="${contentlib.categories.category_name}" selected></option>
@@ -479,6 +624,8 @@ function showCheckboxes() {
         
       </select>
       <br/>
+      <p style="color:red;margin-left: 165px;" id="category_type_Error"></p>
+      
       <label for="content_story" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
       <input type="text" id="content_story" th:name="story" th:value="${contentlib.story}" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
       <label for="searchtags" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
@@ -487,12 +634,14 @@ function showCheckboxes() {
      
       <!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
 
-      <div class="link1"  style="display: flex;">
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaymedia()">Media</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaybanner()">Banner</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaypeople()">People</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displayaddons()">Add Ons</div>&nbsp;&nbsp;
-      </div>
+      <div class="link1"   style="display: flex;">
+								<div id="mediaid" style="color:#6c757d; margin-right: 20px;" onclick="displaymedia()">Media</div>&nbsp;&nbsp;
+								<div id="bannerid" style="color:#6c757d; margin-right: 20px;" onclick="displaybanner()">Banner</div>&nbsp;&nbsp;
+								<div id="peopleid"style="color:#6c757d; margin-right: 20px;" onclick="displaypeople()">People</div>&nbsp;&nbsp;
+								<div id="addonsid" style="color:#6c757d; margin-right: 20px;"onclick="displayaddons()">Add Ons</div>&nbsp;&nbsp;
+								
+									
+							</div>
 <!-- Audio -->
 <div class="audiomedia" style="display: none;">
 <div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px; ">
@@ -558,12 +707,11 @@ function showCheckboxes() {
     </div>
     <!-- People -->
     <div class="people" style="display: none;" th:object="${cont_people}"><!-- flex-->
-        <select  class="selectpicker"  id="persontype" >
-        
-        <option value="select">Select Person Type</option>
+        <select class="selectpicker"  id="persontype" >
+        <option value="">Select Person Type</option>
         <option th:value="director">Director</option>
         <option th:value="actor">Actor</option>
-         <option th:value="music_director">Music Director</option>
+        <option th:value="music_director">Music Director</option>
         </select>&nbsp; &nbsp;
        
          
@@ -661,6 +809,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('media').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="mediaError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -703,6 +852,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('preview').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="previewError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -745,6 +895,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="bannerError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -774,7 +925,7 @@ function showCheckboxes() {
       </div>
 
     </div><!-- end pop up  banner -->
-    <div id="additional" class="w3-modal" >
+    <div id="additional" class="w3-modal" onchange= 'return fileupolad()' >
 
       <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
@@ -783,6 +934,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('additional').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="additionalError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -821,6 +973,7 @@ function showCheckboxes() {
           <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="thumbnailError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -943,6 +1096,30 @@ function showCheckboxes() {
   
   
   
+  </script>
+   <script>
+  	 
+        var contentname1 = document.getElementById("contentname");
+        var perma_link1 = document.getElementById("perma_link");
+        var category_type1 = document.getElementById("category_type");
+  	
+	 
+	 
+	  contentname.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#contentname_Error").innerHTML = "";
+	 })
+	 
+	 perma_link.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#perma_link_Error").innerHTML = "";
+	 })
+	 
+	 category_type.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#category_type_Error").innerHTML = "";
+	 })
+	 
   </script>
 
 </body>

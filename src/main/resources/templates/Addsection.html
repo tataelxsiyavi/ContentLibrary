@@ -10,39 +10,39 @@
 <meta content="" name="keywords">
 
 <!-- Favicons -->
-<link href="assets/img/favicon.png" rel="icon">
-<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
-
+<link th:href="@{/assets/img/favicon.png}" rel="icon">
+  <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 <!-- Google Fonts -->
 <link href="https://fonts.gstatic.com" rel="preconnect">
-<link
-	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 	rel="stylesheet">
-
-<!-- Vendor CSS Files -->
-<link href="assets/vendor/bootstrap/css/bootstrap.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/bootstrap-icons/bootstrap-icons.css"
-	rel="stylesheet">
-<link href="assets/vendor/boxicons/css/boxicons.min.css"
-	rel="stylesheet">
-<link href="assets/vendor/quill/quill.snow.css" rel="stylesheet">
-<link href="assets/vendor/quill/quill.bubble.css" rel="stylesheet">
-<link href="assets/vendor/remixicon/remixicon.css" rel="stylesheet">
-<link href="assets/vendor/simple-datatables/style.css" rel="stylesheet">
-
-<!-- Template Main CSS File -->
-<link href="assets/css/style.css" rel="stylesheet">
-<link rel="stylesheet"  th:href="@{/css/maincss.css}">
-<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-
-<script th:src="@{/js/script.js}"></script>
-
+<!-- Check box -->
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
+
+<!-- Vendor CSS Files -->
+<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+<link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
+<link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
+<link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link th:href="@{/assets/css/style.css}" rel="stylesheet">
+<link rel="stylesheet"  th:href="@{/css/maincss.css}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<script th:src="@{/js/script.js}"></script>
+
 
 
 <script type="text/javascript">
@@ -192,6 +192,115 @@ function Validate()
         $('select').selectpicker();
 
 </script>
+<script th:inline="javascript">
+	
+	
+	function requiredFields(){
+	   
+       var contentType=document.querySelector('#content_Type').value;  
+       var sectionName=document.querySelector('#section_Name').value;    
+       var sectionType=document.querySelector('#section_Type').value;
+        var addContent1=document.querySelector('#content_Id1').value; 
+         var addContent2=document.querySelector('#content_Id2').value;  
+       var addContent=document.querySelector('#content_Id').value; 
+        
+       var Category=document.querySelector('#category').value;   
+       var Criteria=document.querySelector('#criteria').value;  
+       var contentLimit=document.querySelector('#content_limit').value;
+       
+       var validForm = true;
+        if(sectionType === 'Manual'){  
+	        if(contentType === ""){
+				document.querySelector("#contentType_Error").innerHTML = "The Content Type field is required";
+				validForm = false;
+			}
+	        if(sectionName === "" ){
+				document.querySelector("#sectionName_Error").innerHTML = "The Featured Section Name field is required";
+				validForm = false;
+			}
+	        if(addContent === "" && addContent1 === "" && addContent2 === ""){
+				document.querySelector("#addContent_Error").innerHTML = "Please select the contents";
+				validForm = false;
+			}
+	        if(sectionType === "") {
+				document.querySelector("#sectionType_Error").innerHTML = "Please fill this.";
+	            validForm = false;
+	        }
+				return validForm;
+      }
+      
+      if(sectionType === 'Automatic'){  
+	        if(contentType === ""){
+				document.querySelector("#contentType_Error").innerHTML = "The Content Type field is required";
+				validForm = false;
+			}
+	        if(sectionName === "" ){
+				document.querySelector("#sectionName_Error").innerHTML = "The Featured Section Name field is required";
+				validForm = false;
+			}
+	        
+	        if(sectionType === "") {
+				document.querySelector("#sectionType_Error").innerHTML = "Please fill this.";
+	            validForm = false;
+	        }
+	        if(Category === "") {
+				document.querySelector("#Category_Error").innerHTML = "The Category field is required";
+	            validForm = false;
+	        }
+	        if(Criteria === "") {
+				document.querySelector("#Criteria_Error").innerHTML = "The Criteria field is required";
+	            validForm = false;
+	        }
+	        if(contentLimit === "") {
+				document.querySelector("#contentLimit_Error").innerHTML = "The Content Limit field is required";
+	            validForm = false;
+	        }
+				return validForm;
+      }
+    /*       
+  else {
+	  
+	  
+	  
+	  //console.log(`Category=${Category}, Criteria=${Criteria}, Limit${contentLimit}`);
+	      if (contentType === ""){
+		   
+		   	  document.querySelector("#contentType_Error").innerHTML = "Please fill this.";
+		   	  return false; 
+		   	  
+		   	  }
+		   	  
+		   	 else if (sectionName === ""){
+		   
+		   	  document.querySelector("#sectionName_Error").innerHTML = "Please fill this.";
+		   	  return false; 
+		   	  
+		   	  }
+		   	 
+	          else if (Category === "" ){
+	          document.querySelector("#Category_Error").innerHTML = "Please fill this.";
+	          return false;
+	          
+	          }
+	         
+	          if (Criteria === ""){
+	          document.querySelector("#Criteria_Error").innerHTML = "Please fill this.";
+	          return false;
+	          }
+	          
+	         if (contentLimit === ""){ 
+	          document.querySelector("#contentLimit_Error").innerHTML = "Please fill this.";
+		       return false;
+	         
+	       }
+      }*/
+      
+      
+      
+    }  
+	</script>
+
+
 
 
 </head>
@@ -209,18 +318,6 @@ function Validate()
 		</div>
 		<!-- End Logo -->
 
-		<div class="search-bar">
-			<form class="search-form d-flex align-items-center" method="POST"
-				action="#">
-				<input type="text" name="query" placeholder="Search"
-					title="Enter search keyword">
-				<button type="submit" title="Search">
-					<i class="bi bi-search"></i>
-				</button>
-			</form>
-		</div>
-		<!-- End Search Bar -->
-
 		<nav class="header-nav ms-auto">
 			<ul class="d-flex align-items-center">
 
@@ -235,10 +332,10 @@ function Validate()
 						<span class="badge bg-primary badge-number">4</span>
 				</a>
 				<!-- End Notification Icon -->
-				<li class="nav-item dropdown"><a class="nav-link nav-icon"
-					href="#" data-bs-toggle="dropdown"> Website <i
-						class="bi bi-box-arrow-up-right"></i> <!-- <span class="badge bg-success badge-number"></span> -->
-				</a>
+				<li class="nav-item dropdown">
+				<a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
+            <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
 				<!-- End Messages Icon --></li>
 				<!-- End Messages Nav -->
 
@@ -347,7 +444,8 @@ function Validate()
 			<nav>
 				<ol class="breadcrumb">
 					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-					<li class="breadcrumb-item active">Featured Section</li>
+					<li class="breadcrumb-item active"><a th:href="@{/featuredsections}">Featured Section</a></li>
+					<li class="breadcrumb-item active">Add Section</li>
 
 				</ol>
 			</nav>
@@ -359,51 +457,71 @@ function Validate()
 					
 					<div class="add-section" >
 						<h5 style="margin-left: 20px; font-weight: 600;margin-top:30px;">Manage Featured Section</h5>
+				
 						
-                         <form th:action="@{/createsection}" th:object="${featuredsection}"  method="POST" enctype="multipart/form-data" >
+                         <form th:action="@{/createsection}" th:object="${featuredsection}"  method="POST" enctype="multipart/form-data" onsubmit="return requiredFields()">
 						<div id="id01" style="margin-left:18%;margin-top:20px;">
 							<!-- <span onclick="document.getElementById('id01').style.display='none'">&times;</span> -->
                        <br>
                         <div>
                         <label>Content Type<span style="color:red;">*</span></label>&ensp;
-                        <select th:name="content_Type" id="content_Type"style="height:33.5px;width: 220px;">
+                        <select th:name="content_Type" id="content_Type" onchange="valueChange(this)" style="height:33.5px;width: 220px;">
                           <option value="">Select</option>
                            <option th:value="video">Video</option>
                           <option th:value="audio">Audio</option>
-                        </select>
-                      <!-- p id="contentType_error"></ p-->
-						</div>
-						<br>
+                        </select></div>
+                         <p style="color:red;margin-left:130px;font-size: 13px;" id="contentType_Error"></p>
+						
+						
 						
 						<div>
 							<label>Section Name<span style="color:red;">*</span></label>&ensp;
-                <input type="text" id="section_Name" th:name="section_Name" style="height:33.5px;width: 220px;margin-left:-5px;"placeholder="Enter Featured Section Name"><br><br>
-                 <!--p id="sectionName_error"></p-->
+                <input type="text" id="section_Name" th:name="section_Name" style="height:33.5px;width: 220px;margin-left:-5px;font-size: 14px;"placeholder="Enter Featured Section Name"><br>
+                 <p style="color:red;margin-left:129px;font-size: 13px;" id="sectionName_Error"></p>
+					</div>	
                
                 <label>Section Type<span style="color:red;">*</span></label>
                 <select th:name="section_Type" id="section_Type" class="playlist-type-man-auto" style="height:33.5px;width: 220px;margin-left:12px;" onchange="sectionType(); ">
                   <option th:value="Manual" id="select-manual-section">Manual</option>
                   <option th:value="Automatic" id="select-auto-section">Automatic</option>
                 </select>
-                        
-						</div>
-                       <br>
+                       
+						</div><br>
+                       
 						<div>
                         
                
   <div class="add-content-input" >
     <div class="selectBox" onclick="showCheckboxes()">
-      <label>Add Content<span style="color:red;">*</span></label>
-      <div style="margin-top:-4.5%;margin-left:16%;">
-      <select class="selectpicker" id="content_Id" th:name="content_Id"  multiple >
+      <label style="margin-left:150px;">Add Content<span style="color:red;">*</span></label>
+      
+      <div id="selectDiv" style="display: block;margin-top:-4.5%;margin-left:33%;">
+     <select class="selectpicker" id="content_Id1" th:name="content_Id"  multiple >
       <option th:each="list: ${contentlist}"
          th:value="${list.content_id}"
             th:text="${list.content_name}">
 </option>
 </select>
-    
+      </div>
+      <div id="videoDiv" style="display: none;margin-top:-4.5%;margin-left:33%;">
+<select class="selectpicker" id="content_Id2" th:name="content_Id"  multiple >
+      <option th:each="list: ${contentvideolist}"
+         th:value="${list.content_id}"
+            th:text="${list.content_name}">
+</option>
+</select>
+      </div>
+      <div id="audioDiv" style="display: none;margin-top:-4.5%;margin-left:33%;">
+<select class="selectpicker" id="content_Id" th:name="content_Id"  multiple >
+      <option th:each="list: ${contentaudiolist}"
+         th:value="${list.content_id}"
+            th:text="${list.content_name}">
+</option>
+</select>
+      </div>
+    <p style="color:red;margin-left:10px;margin-top:5px;font-size: 14px;" id="addContent_Error"></p>
   </div>
-    </div>
+    
     </div>
   
                
@@ -411,15 +529,15 @@ function Validate()
                             <div class="auto-elements-input" style="display: none;">
                             <div class="selectBox" onclick="showCheckboxes()">
                            
-             <label>Category<span style="color:red;">*</span></label>
-         <div style="margin-top:-4.5%;margin-left:16%;">
+             <label style="margin-left:150px;">Category<span style="color:red;">*</span></label>
+         <div style="margin-top:-4%;margin-left:33%;">
        <select class="selectpicker" id="category" th:name="category_Id"  multiple>
        <option th:each="list: ${categories}"
  th:value="${list.category_id}"
  th:text="${list.category_name}">
 </option>
 </select> 
- <!--p id="Category_error"></p-->
+<p style="color:red;margin-left:4px;font-size: 13px;" id="Category_Error"></p>
       
                             </div>   
                             </div>
@@ -429,26 +547,27 @@ function Validate()
     
    
                           
-                              <label>Criteria<span style="color:red;">*</span></label>&ensp;
-                              <select  th:name="criteria" id="criteria"style="height:33.5px;width: 220px;margin-left:30px;">
-                                <option value="select">Select</option>
+                              <label style="margin-left:140px;margin-top:-19px;">Criteria<span style="color:red;">*</span></label>&ensp;
+                              <select  th:name="criteria" id="criteria"style="height:33.5px;width: 220px;margin-left:40px;">
+                                <option value="">Select</option>
                                 <option th:value="Category">Category</option>
                                 <option th:value="Recently_Seen">Recently Seen</option>
                               </select>
-                              <!-- p id="Criteria_error"></p-->
-                              <br>
-                              <br>
-                              <label>Content Limit<span style="color:red;">*</span></label>&ensp;
-                              <input  type="text" th:name="content_limit" id="content_limit" placeholder="1-400" style="height:33.5px;width: 220px;margin-left:1px;">
-                             <!-- p id="contentLimit_error"></ p-->
+                              <p style="color:red;margin-left:280px;font-size: 13px;" id="Criteria_Error"></p>
+                              
+                              <label style="margin-left:150px;margin-top:-15px;">Content Limit<span style="color:red;">*</span></label>&ensp;
+                              <input  type="text" th:name="content_limit" id="content_limit" placeholder="1-400" style="height:33.5px;width: 220px;margin-left:0px;" value="">
+                             <p style="color:red;margin-left:280px;font-size: 13px;" id="contentLimit_Error"></p>
                             </div>
     
 						</div>
 						<!-- cancel and save buttons-->
 						<div class="cancel-save-btn-addpeople" >
                             <div style="margin-left:30%;margin-top:10%;">
-                                <button type="submit" value="submit" id="featureSaveBtn" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;">Save</a></button>   
-                                <!--<button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{/featuredsections}">Cancel</a></button>-->
+                                <button type="button"  style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);  padding:8px 16px; border-radius: 5px;"><a th:href="@{/featuredsections}" style="color:black;">Cancel</a></button>&nbsp;&nbsp;&nbsp;
+                                <button type="submit" value="contentsave">Save</button>
+                                <!--button type="submit" value="submit" id="featureSaveBtn" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;">Save</a></button>   
+                                <<button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{/featuredsections}">Cancel</a></button>-->
                                </div>
 
 						</div>
@@ -504,6 +623,84 @@ function Validate()
 
 	<!-- Template Main JS File -->
 	<script src="assets/js/main.js"></script>
+
+
+<script> 
+        var contentType = document.querySelector("#content_Type "); 
+        var sectionName = document.querySelector("#section_Name");  
+        var addContent = document.querySelector("#content_Id"); 
+         var addContent1 = document.querySelector("#content_Id1"); 
+          var addContent2 = document.querySelector("#content_Id2"); 
+        var Category = document.querySelector("#category");
+        var Criteria = document.querySelector("#criteria");
+        var contentLimit = document.querySelector("#content_limit") 
+      contentType.addEventListener("change", (e) => { 
+ 
+              if(e.target.value !== "") document.querySelector("#contentType_Error").innerHTML = ""; 
+      }) 
+  
+ 
+      sectionName.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#sectionName_Error").innerHTML = ""; 
+      }) 
+ 
+ 
+       Category.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#Category_Error").innerHTML = ""; 
+      }) 
+      
+      Criteria.addEventListener("change", (e) => { 
+ 
+              if(e.target.value !== "") document.querySelector("#Criteria_Error").innerHTML = ""; 
+      }) 
+  
+ 
+      contentLimit.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#contentLimit_Error").innerHTML = ""; 
+      }) 
+ 
+ 
+       addContent.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#addContent_Error").innerHTML = ""; 
+      }) 
+      
+       addContent1.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#addContent_Error").innerHTML = ""; 
+      }) 
+      
+       addContent2.addEventListener("change", (e) => { 
+ 
+          if(e.target.value !== "") document.querySelector("#addContent_Error").innerHTML = ""; 
+      }) 
+      
+     
+      
+</script> 
+
+<script th:inline="javascript">
+    function valueChange(objCombo){
+        if (objCombo.value ==="video"){
+            document.querySelector('#videoDiv').style.display="block";
+            document.querySelector('#selectDiv').style.display="none";
+            document.querySelector('#audioDiv').style.display="none";
+        } else if(objCombo.value ==="audio") {
+            document.querySelector('#audioDiv').style.display="block";
+            document.querySelector('#videoDiv').style.display="none";
+            document.querySelector('#selectDiv').style.display="none";
+        }else{
+	        document.querySelector('#videoDiv').style.display="none";
+            document.querySelector('#selectDiv').style.display="block";
+            document.querySelector('#audioDiv').style.display="none";
+        }
+    }
+</script>
+
+
 
 </body>
 

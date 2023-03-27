@@ -24,11 +24,7 @@ public class AssetLibraryService {
 
 	public void createAssets(AssetLibrary asset) throws Exception {
 		
-			Optional<AssetLibrary> el = assetrepo.findById(asset.getAsset_id());
-			if (el.isPresent()) {
-				throw new Exception("ContentId is already present");
-				
-			}
+			
 			assetrepo.save(asset);
 			
 		}

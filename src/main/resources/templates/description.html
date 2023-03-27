@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Content Description</title>
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="Nav">
+        <div class="Logo-div">
+            <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
+            <p class="Logo-name">Cloud</p>
+        </div>
+        <div class="links">
+            <a th:href="@{/UserHome}"><ul>Home</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Video</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Audio</ul></a>
+            <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
+            <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
+        </div>
+    </div>
+<div class="desc">
+    <div class="sample">
+        <img class="Thumbnail-photo" th:src="${contentlib.thumbnail_assets.asset_filepath}"  alt="">
+    </div>
+    <div class="otherside">
+        <div class="left-container">
+            <p class="heading" th:text="${contentlib.content_name}"></p>
+        </div>
+        <div th:if="${contentlib.content_type=='video'}">
+            <video  class="file-source" th:src="${contentlib.media_assets.asset_filepath}" controls></video>
+        </div>
+        <div th:if="${contentlib.content_type=='audio'}">
+            <audio class="audio-file-source" th:src="${contentlib.media_assets.asset_filepath}"  controls></audio>
+        </div>
+        <div class="description">
+            <p class="description-title">Description : </p>
+            <p class="description-content" th:text="${contentlib.story}" ></p>
+        </div>
+         <div class="people" th:if="${contentlib.content_type=='video'}">
+            <div th:each="people : ${con}">
+            <p class="cast" th:if="${people.person_type=='Actor'}">Cast : [[${people.people_id.people_name}]]</p>
+            <p class="director" th:if="${people.person_type=='Director'}">Director : [[${people.people_id.people_name}]]</p>
+            <p class="director" th:if="${people.person_type=='Music_Director'}">Music Director : [[${people.people_id.people_name}]]</p>
+            </div>
+        </div>
+        <div class="people" th:if="${contentlib.content_type=='audio'}">
+            <div th:each="people : ${con}">
+             <p class="cast" th:if="${people.person_type=='Actor'}">Cast : [[${people.people_id.people_name}]]</p>
+            <p class="director" th:if="${people.person_type=='Director'}">Director : [[${people.people_id.people_name}]]</p>
+            <p class="director" th:if="${people.person_type=='Music_Director'}">Music Director : [[${people.people_id.people_name}]]</p>
+            </div>
+        </div>
+    </div>
+</div>
+    <footer>
+        <div>
+            <a href="">Contact Us</a>
+            <a href="">Terms and Conditions</a>
+             <a href="">Privacy and Cookies</a>
+             <a href="">Privacy Options</a>
+             <a href="">Help</a>
+        </div>
+         <p>Copyright @ TATA Elxsi 2023</p>
+        
+    </footer>
+
+</body>
+</html>

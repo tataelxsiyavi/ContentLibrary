@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Playlist Description</title>
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="Nav">
+        <div class="Logo-div">
+            <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
+            <p class="Logo-name">Cloud</p>
+        </div>
+        <div class="links">
+            <a th:href="@{/UserHome}"><ul>Home</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Video</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Audio</ul></a>
+            <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
+            <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
+        </div>
+    </div>
+<div class="desc">
+    <div class="sample">
+        <img class="Thumbnail-photo" th:src="${playlist.thumbnail_assets.asset_filepath}"  alt="">
+    </div>
+    <div class="otherside">
+        <div class="left-container">
+            <p class="heading" th:text="${playlist.title}"></p>
+        </div>
+        <div class="videoplaylist" th:each="con: ${con}" th:if="${playlist.playlist_type=='video'}">
+            <a th:href="@{'/description/'+${con.content_id}}">
+            <img  class="file-source-playlist" th:src="${con.thumbnail_assets.asset_filepath}">
+            <p class="name" th:text="${con.content_name}"></p>
+            </a>
+        </div>
+        <div class="audioplaylist" th:each="con: ${con}" th:if="${playlist.playlist_type=='audio'}">
+           <a th:href="@{'/description/'+${con.content_id}}">
+            <img  class="file-source-playlist" th:src="${con.thumbnail_assets.asset_filepath}">
+            <p class="name" th:text="${con.content_name}"></p>
+           </a>
+        </div>
+        <div class="playlist-description">
+            <p class="description-title">Description : </p>
+            <p class="description-content" th:text="${playlist.description}" ></p>
+        </div>
+        
+    </div>
+</div>
+    <footer>
+        <div>
+            <a href="">Contact Us</a>
+            <a href="">Terms and Conditions</a>
+             <a href="">Privacy and Cookies</a>
+             <a href="">Privacy Options</a>
+             <a href="">Help</a>
+        </div>
+         <p>Copyright @ TATA Elxsi 2023</p>
+        
+    </footer>
+
+</body>
+</html>

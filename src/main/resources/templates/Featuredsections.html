@@ -48,7 +48,7 @@
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar" >
+   <!--  -- <div class="search-bar" >
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -76,10 +76,9 @@
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+          <a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
             <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
+                      </a>
 
           
 
@@ -220,36 +219,39 @@
             </div>  
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active">Featured Section</h2>
-                <div class="inside-search-content">
-                   <!--  <form action="/action_page.php">
-                      <input type="text" placeholder="Search.." name="search">
-                      <button type="submit"><i class="bi bi-search"></i></button>
-                    </form> -->
+                   <div class="inside-search-content">
+                    <input type="text" id="search-input" placeholder="Search.." name="search">
+                      <button type="button"><i class="bi bi-search"></i></button>
                 </div>
                 <div class="inside-button-content">
-                    <a th:href="@{/Addsection}"style="font-size: 13px; margin-top:30px " ><i class="bi bi-plus" style="margin:2px" > Add section</i></a>
+                   <a th:href="@{/Addsection}"style="font-size: 13px; margin-top:30px " > <button><i class="bi bi-plus" style="margin:2px" > Add section</i></button></a>
                 </div>
             </div>
            
             <div class="table-div">
             <table style="width:95%;">
+              
                 <tr class ="thead-class" style="width:100%; display: flex; height: 35px;">
                     
-                        <td style="width: 30%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Section Name</td>
-                        <!-- <td style="width: 50%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">Bio</td> -->
+                        <td style="width: 30%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;margin-left: 45px;">Section Name</td>
+                        <td style="width: 50%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;margin-left: 145px;">Section Type</td> 
                         <td style="width: 20%; margin-bottom: 5px; margin-top: 5px; font-weight: 150;">&nbsp;&nbsp;</td>
                        
                         
                 </tr>
                 
-                <tr  style="display: flex;  height: 70px; margin-top:10px;" th:each="section: ${sectionlist}"><!-- -->
+                <tbody id="table-content">
+                
+                <tr class="tr-data" id="container" style="display: flex; justify-content: space-between;  height: 70px; margin-top:10px;" th:each="section: ${sectionlist}"><!-- -->
                     
-                        <td  th:text="${section.section_Name}" style="margin-left: 70px; margin-top: 20px; margin-right: 100px; margin-bottom: 5px; width:60px ; " ></td><!-- Andrew  -->
-                         <td  style="width:20%; padding: 10px;"><a th:href="@{'/updatesection/'+${section.featuredSection_Id}}"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;<a th:href="@{'/featuredsection/'+${section.featuredSection_Id}}"><i class="bi bi-trash"></i></a></td><!--  -->
-                        </td>
+                        <td  th:text="${section.section_Name}" style="margin-left: 70px; margin-right: 100px; margin-top: 10px; margin-bottom: 5px; width:60px ;" ></td><!-- Andrew  -->
+                        <td th:text="${section.section_Type}" style="margin-left: 70px; margin-right: 100px; margin-top: 10px; margin-bottom: 5px; width:60px ;" ></td><!-- Andrew  -->
+                         <td  style="width:20%; padding: 10px; height: 80%; margin-top: auto; margin-bottom: auto;"><a th:href="@{'/updatesection/'+${section.featuredSection_Id}}"><i class="bi bi-pencil-square"></i>&nbsp;&nbsp;<a th:href="@{'/featuredsection/'+${section.featuredSection_Id}}"><i class="bi bi-trash"></i></a></td><!--  -->
+                        
+                    
                        
                 </tr>
-                
+                </tbody>
                 
             </table>
             </div>
@@ -287,17 +289,69 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+ <!-- Vendor JS Files -->
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  
+   <script>
+
+  const searchInput = document.querySelector("#search-input");
+  const tRows = document.querySelectorAll(".tr-data");
+  const tableBody = document.querySelector("#table-content");
+  
+
+   
+   console.log(searchInput.value);
+   
+   document.querySelector("#search-input").addEventListener("change", (e) => {
+	   
+	   let tableRows = "";
+	   
+	  let searchValue = e.target.value;
+	  searchValue = searchValue.toLowerCase();
+	  // console.log(tRows);
+	  
+	  tRows.forEach((data) => {
+		  
+		  console.log(data.children);
+		  
+		  console.log(data.children[1].innerText.toLowerCase());
+		  
+		  let tdValue1 = data.children[0].innerText.toLowerCase();
+		  let tdValue2 = data.children[1].innerText.toLowerCase();
+		  
+		//  console.log(tdValue.includes(searchValue));
+		
+		console.log(data.children);
+		 
+		  if(tdValue1.includes(searchValue) || tdValue2.includes(searchValue))  tableRows += data.outerHTML;
+	  })
+	  
+	  
+	  console.log(tableRows);
+	  
+	  tableBody.innerHTML = tableRows;
+	 
+	  
+	  
+   }); 
+   
+   /* function searchInput(event) {
+	   console.log(event);
+   } */
+  
+  </script>
+   
+
 
 </body>
 

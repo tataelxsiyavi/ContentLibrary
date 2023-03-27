@@ -10,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
+
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import lombok.ToString;
 
 @Entity
@@ -37,7 +41,7 @@ public class PlaylistLibrary {
 	@JoinColumn(name="banner_asset_id")
 	private AssetLibrary banner_assets;
 	
-	@ManyToMany
+	@ManyToMany(cascade= CascadeType.MERGE)
     @JoinColumn(name="content_id")
     private List<ContentLibrary> contentLibrary;
 	public PlaylistLibrary(String playlist_type, String title, String permalink, Category categories,

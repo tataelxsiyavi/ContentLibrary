@@ -3,15 +3,22 @@ package com.content.model;
 import java.util.List;
 
 import javax.persistence.CascadeType;
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -36,7 +43,10 @@ public class ContentLibrary {
 	private String permalink;
 	@OneToOne(cascade = {CascadeType.MERGE})
 	@JoinColumn(name="category")
+	
 	private Category categories;
+	@Lob
+	
 	private String story;
 	private String search_tags;
 	
@@ -44,20 +54,20 @@ public class ContentLibrary {
 	@OneToMany(mappedBy="content_id",cascade =CascadeType.ALL)
 	private List<ContentPeople>contenpeople;
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade =CascadeType.ALL)
 	@JoinColumn(name="media_asset")
 	private AssetLibrary media_assets;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade =CascadeType.ALL)
 	@JoinColumn(name="preview_asset",nullable=true)
 	private AssetLibrary preview_assets;
 	private String additional_asset_type;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade =CascadeType.ALL)
 	@JoinColumn(name="additional_asset")
 	private AssetLibrary additional_assets;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade =CascadeType.ALL)
 	@JoinColumn(name="thumbnail_asset")
 	private AssetLibrary thumbnail_assets;
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne(cascade =CascadeType.ALL)
 	@JoinColumn(name="banner_asset")
 	private AssetLibrary banner_assets;
 

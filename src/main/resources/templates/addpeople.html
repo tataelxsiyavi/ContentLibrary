@@ -40,13 +40,38 @@
 <script type="text/javascript">
 
 var loadFile = function(event) {
-	
-	
-	
+	document.querySelector("#profilePicError").innerHTML = "";
+	console.log(event.target.files[0].type);
+	var eventFileType = event.target.files[0].type.split("/")[0];
+	if(eventFileType === "image"){
 	var image = document.getElementById('output');
-	image.src = URL.createObjectURL(event.target.files[0]);
+	image.src = URL.createObjectURL(event.target.files[0]);}
+	else{
+	document.querySelector("#profilePicError").innerHTML = "Invalid Profile Picture file format...."
+		document.querySelector("#fileselect").value='';
+		return false;}
 };
 </script>
+<script th:inline="javascript">
+function requiredFields(){
+	   
+       var name=document.querySelector('#fname').value;  
+       var bio=document.querySelector('#bname').value;    
+       var validForm = true;
+       
+        if (name === "" ){
+        document.querySelector("#name_Error").innerHTML = "The Name field is required";
+        validForm = false;
+        }
+        
+        if (bio === "" ){
+        document.querySelector("#bio_Error").innerHTML = "The Bio field is required";
+        validForm = false;
+        }
+        return validForm;
+        }
+</script>
+
 </head>
 
 <body>
@@ -55,14 +80,14 @@ var loadFile = function(event) {
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
 		<div class="d-flex align-items-center justify-content-between">
-			<a href="index.html" class="logo d-flex align-items-center"> <img
+			<a th:href="@{/}" class="logo d-flex align-items-center"> <img
 				src="assets/img/logo.png" alt=""> <span
 				class="d-none d-lg-block">FEE Admin</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
 		</div>
 		<!-- End Logo -->
 
-		<div class="search-bar">
+		<!--  --<div class="search-bar">
 			<form class="search-form d-flex align-items-center" method="POST"
 				action="#">
 				<input type="text" name="query" placeholder="Search"
@@ -88,10 +113,10 @@ var loadFile = function(event) {
 						<span class="badge bg-primary badge-number">4</span>
 				</a>
 				<!-- End Notification Icon -->
-				<li class="nav-item dropdown"><a class="nav-link nav-icon"
-					href="#" data-bs-toggle="dropdown"> Website <i
-						class="bi bi-box-arrow-up-right"></i> <!-- <span class="badge bg-success badge-number"></span> -->
-				</a>
+				<li class="nav-item dropdown">
+				<a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
+            <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
 				<!-- End Messages Icon --></li>
 				<!-- End Messages Nav -->
 
@@ -157,7 +182,7 @@ var loadFile = function(event) {
 
 		<ul class="sidebar-nav" id="sidebar-nav">
 
-			<li class="nav-item"><a class="nav-link " href="index.html">
+			<li class="nav-item"><a class="nav-link " th:href="@{/}">
 					<i class="bi bi-grid"></i> <span>Dashboard</span>
 			</a></li>
 			<!-- End Dashboard Nav -->
@@ -213,7 +238,7 @@ var loadFile = function(event) {
 					<div class="add-people" >
 						<h5 style="margin-left: 20px; font-weight: 600;">Add Person</h5>
 						
-                         <form th:action="@{/addpeoplelibrary}" th:object="${peoplelibrary}" method="POST" enctype="multipart/form-data">
+                         <form th:action="@{/addpeoplelibrary}" th:object="${peoplelibrary}" method="POST" enctype="multipart/form-data" onsubmit="return requiredFields()">
 						<div>
 							<label
 								style="margin-left: 20px; margin-right: 50px; font-size: 14px;">Profile
@@ -238,14 +263,16 @@ var loadFile = function(event) {
 								placeholder="Enter person name">
 
 						</div>
+						<p style="color:red;margin-left: 174px;" id="name_Error"></p>
 						<div>
 							<label
 								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Bio<span
-								style="color: red;">*</span></label>&nbsp; <input type="text" id="fname"
+								style="color: red;">*</span></label>&nbsp; <input type="text" id="bname"
 								th:name="bio"
 								style="height: 80px; width: 250px; margin-top: 2%; margin-bottom: 3%;"
 								placeholder="Type here">
 						</div>
+						<p style="color:red;margin-left: 174px;margin-top:-19px;" id="bio_Error"></p>
 						<!-- cancel and save buttons-->
 						<div class="cancel-save-btn-addpeople" >
 							<a th:href="@{/peoplelibrary}" style="color:black;"><button type="button"  style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);  padding:8px 16px; border-radius: 5px;">Cancel</button></a>&nbsp;&nbsp;&nbsp;
@@ -258,7 +285,7 @@ var loadFile = function(event) {
 						<div id="profilepic" class="w3-modal">
 
 							<div class="w3-modal-content"
-								style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+								style="height: 60%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
 
 								<div class="w3-container">
 
@@ -267,10 +294,11 @@ var loadFile = function(event) {
 										class="w3-button w3-display-topright">&times;</span>
 
 									<h4>Upload</h4>
-									<div  class="alert alert-primary"  role="alert" style="background: #1bd5a2; text-align: center;" th:if="${profilepic_error}">
-                                     <p class="error-message" th:text="${profilepic_error}"></p>
+									
+								 <p id="profilePicError" style="color: red;"></p>
+                                   
                                      </div>
-									<div class="row">
+									<div class="row" style="margin-left: 3px;margin-right: 3px;">
 										<div>
 											<nav>
 												<ol class="breadcrumb">
@@ -350,17 +378,35 @@ var loadFile = function(event) {
 		class="bi bi-arrow-up-short"></i></a>
 
 	<!-- Vendor JS Files -->
-	<script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-	<script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	<script src="assets/vendor/chart.js/chart.umd.js"></script>
-	<script src="assets/vendor/echarts/echarts.min.js"></script>
-	<script src="assets/vendor/quill/quill.min.js"></script>
-	<script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-	<script src="assets/vendor/tinymce/tinymce.min.js"></script>
-	<script src="assets/vendor/php-email-form/validate.js"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
-	<!-- Template Main JS File -->
-	<script src="assets/js/main.js"></script>
+  <!-- Template Main JS File -->
+  <script th:src="@{/assets/js/main.js}"></script>
+	
+	<script>
+  	 const name = document.querySelector("#fname");
+  	 var bio = document.getElementById("bname");
+       
+  	 
+     name.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#name_Error").innerHTML = "";
+	 })
+	 
+	 bio.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#bio_Error").innerHTML = "";
+	 })
+	 
+	 
+  </script>
 
 </body>
 

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -63,11 +64,43 @@ DecimalFormat df=new DecimalFormat();
 		model.addAttribute("playlist", playlist);
 		return "playlistlibrary";
 	}
+	@GetMapping("/UserPlaylist")
+	public String UserplaylistPage(Model model) {
+		List<PlaylistLibrary> playlist = playlistrepo.findAll();
+		model.addAttribute("playlist", playlist);
+		return "UserPlaylist";
+	}
+	@GetMapping("/UserAbout")
+	public String UserAboutPage() {
+		return "about";
+	}
+	@GetMapping("/PlaylistDescription/{id}")
+	public String updatePage(Model model, @PathVariable long id) {
+		PlaylistLibrary playlist = playlistrepo.findById(id).get();
+		List<ContentLibrary> con = playlist.getContentLibrary();
+		model.addAttribute("playlist", playlist);
+		model.addAttribute("con", con);
+		return "PlaylistDescription";
+	}
+	
 
 	@GetMapping("/Addplaylist")
 	public String addPlaylistPage(Model model) {
 		List<Category> categories = categoryrepo.findAll();
 		List<ContentLibrary> contentlist = contentrepo.findAll();
+		List<ContentLibrary> contentvideolist=new ArrayList<>();
+		List<ContentLibrary> contentaudiolist=new ArrayList<>();
+		for(int i=0;i<contentlist.size();i++) {
+		if(contentlist.get(i).getContent_type().equals("video")) {
+			 contentvideolist.add(contentlist.get(i));
+		}else {		
+			
+			 contentaudiolist.add(contentlist.get(i));
+			
+		}
+		}
+		model.addAttribute("contentvideolist",contentvideolist );
+		model.addAttribute("contentaudiolist",contentaudiolist );
 		model.addAttribute("contentlist", contentlist);
 		model.addAttribute("playlist", new PlaylistLibrary());
 		model.addAttribute("categories", categories);
@@ -79,20 +112,24 @@ DecimalFormat df=new DecimalFormat();
 	@PostMapping(value = "/playlistlibrary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	public String createPlaylist(@RequestParam("playlist_type") String playlist_type,
 			@RequestParam("title") String title, @RequestParam("permalink") String permalink,
-			@RequestParam("category_id") long category_id, @RequestParam("description") String description,
-			@RequestParam("search_tags") String search_tags,
-			@RequestParam("thumbnail_assets") MultipartFile thumbnail_assets,
-			@RequestParam("banner_assets") MultipartFile banner_assets,
-			@RequestParam("content_Id") List<Long> content_Id,Model model, RedirectAttributes redirAttrs) throws Exception {
+			@RequestParam("category_id") Long category_id, @Nullable@RequestParam(required=false,value="description") String description,
+			@Nullable@RequestParam(required=false,value="search_tags") String search_tags,
+			@Nullable@RequestParam(required=false,value="thumbnail_assets") MultipartFile thumbnail_assets,
+			@Nullable@RequestParam(required=false,value="banner_assets") MultipartFile banner_assets,
+			@Nullable@RequestParam(required=false,value="content_Id") List<Long> content_Id,Model model, RedirectAttributes redirAttrs) throws Exception {
 
-		String thumbnail_img = fileservice.storeTumbnailFile(thumbnail_assets);
-		String banner_img = fileservice.storeTumbnailFile(banner_assets);
+		String image = "image/jpeg";
+		String image2 = "image/png";
+		
+		// thumbnail-------------------------------------------------------------------------------------------------------------
+		AssetLibrary thumbnail_asset = null;
+		if(!thumbnail_assets.isEmpty()) {
+			
+		String thumbnail_img = playlistservice.storeTumbnailFile(thumbnail_assets);
 		String thumbnail_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
 				.path(thumbnail_img).toUriString();
-		String banner_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
-				.path(banner_img).toUriString();
-		// thumbnail-------------------------------------------------------------------------------------------------------------
-		String value_type = thumbnail_assets.getContentType();
+		
+		String thumbnail_asset_type = thumbnail_assets.getContentType();
 		String thumbnail_asset_name = thumbnail_assets.getOriginalFilename();
 		long thumbnail_size = thumbnail_assets.getSize();
 		String thumbnail_asset_size;
@@ -105,24 +142,30 @@ DecimalFormat df=new DecimalFormat();
 		} else {
 			thumbnail_asset_size = df.format(thumbnail_size_kb) + " KB";
 		}
-		PlaylistLibrary playlist = new PlaylistLibrary();
+		System.out.println("  Type     " + thumbnail_asset_type + "    Name:     " + thumbnail_asset_name + "   Size:   "
+				+ thumbnail_asset_size);
 		
 		
-		AssetType thumbnail_asset_type = null;
-		if (value_type.equals(AssetType.Image.getValue1()) || value_type.equals(AssetType.Image.getValue2())) {
-			thumbnail_asset_type = AssetType.Image;
-			System.out.println(thumbnail_asset_type);
-			System.out.println("  Type     " + thumbnail_asset_type + "    Name:     " + thumbnail_asset_name
-					+ "   Size:   " + thumbnail_asset_size);
+		AssetType thumbnail_type_asset = null;
+		if (image.equals(thumbnail_asset_type) || image2.equals(thumbnail_asset_type)) {
+			thumbnail_type_asset = AssetType.Image;
+		}
 
-			AssetLibrary thumbnail_asset = new AssetLibrary(thumbnail_asset_type, thumbnail_asset_name,
+		thumbnail_asset = new AssetLibrary(thumbnail_type_asset, thumbnail_asset_name,
 					thumbnail_asset_size, thumbnail_img_Uri);
-			playlist.setThumbnail_assets(thumbnail_asset);
+			
 		}
 		
 
 		// banner-------------------------------------------------------------------------------------------------------------
-		String value_type2 = banner_assets.getContentType();
+		AssetLibrary banner_asset=null;
+		if(!banner_assets.isEmpty()) {
+		
+		String banner_img = playlistservice.storeBannerFile(banner_assets);
+		String banner_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
+				.path(banner_img).toUriString();
+		
+		String banner_asset_type = banner_assets.getContentType();
 		String banner_asset_name = banner_assets.getOriginalFilename();
 		long banner_size = banner_assets.getSize();
 		String banner_asset_size;
@@ -130,54 +173,67 @@ DecimalFormat df=new DecimalFormat();
 		float banner_size_kb = banner_size / 1024;
 		float banner_size_mb = banner_size_kb / 1024;
 
-		if (banner_size_mb > 0.99) {
+		if (banner_size_mb > 0) {
 			banner_asset_size =df.format( banner_size_mb) + " MB";
 		} else {
 			banner_asset_size = df.format(banner_size_kb) + " KB";
 		}
-		AssetType banner_asset_type = null;
-		if (value_type2.equals(AssetType.Image.getValue1()) || value_type2.equals(AssetType.Image.getValue2())) {
-
-			banner_asset_type = AssetType.Image;
-			System.out.println("  Type     " + banner_asset_type + "    Name:     " + banner_asset_name + "   Size:   "
-					+ banner_asset_size);
-
-			AssetLibrary banner_asset = new AssetLibrary(banner_asset_type, banner_asset_name, banner_asset_size,
+		AssetType banner_type_asset = null;
+		if (image.equals(banner_asset_type) || image2.equals(banner_asset_type)) {
+			banner_type_asset = AssetType.Image;
+		}
+			
+        banner_asset = new AssetLibrary(banner_type_asset, banner_asset_name, banner_asset_size,
 					banner_img_Uri);
-			playlist.setBanner_assets(banner_asset);
 		}
 
 //Category
 		
+		try {
+			Category cate =null;
+			if(category_id != null) {
 			Optional<Category> categoryId = categoryservice.getCategoryById(category_id);
-			if (categoryId.isEmpty())
-				throw new Exception("Is empty categoryID");
+			if (categoryId.isEmpty()) {
+				throw new Exception("Category id is empty");
+			}
+			cate = new Category(category_id);
+			}
 
-			Category cat = new Category(category_id);
-
-			List<ContentLibrary> contentids = new ArrayList<>();
+		List<ContentLibrary> contentids = null;
+		if (content_Id != null) {
+			contentids = new ArrayList<>();
 			for (int i = 0; i < content_Id.size(); i++) {
 				Optional<ContentLibrary> content_id = contentrepo.findById(content_Id.get(i));
-				if (content_id.isEmpty())
+				if (content_id.isEmpty()) {
 					throw new Exception("Is empty contentID");
+				}
 				contentids.add(new ContentLibrary(content_Id.get(i)));
 			}
+		} else {
+			contentids = null;
+		}
 			
 				
 				
-//			PlaylistLibrary playlist = new PlaylistLibrary();
-			playlist.setPlaylist_type(playlist_type);
-			playlist.setTitle(title);
-			playlist.setPermalink(permalink);
-			playlist.setCategories(cat);
-			playlist.setDescription(description);
-			playlist.setSearch_tags(search_tags);
-			playlist.setContentLibrary(contentids);		
-			
-				playlistservice.createPlaylist(playlist);
+		PlaylistLibrary playlist = new PlaylistLibrary();
+		playlist.setPlaylist_type(playlist_type);
+		playlist.setTitle(title);
+		playlist.setPermalink(permalink);
+		playlist.setCategories(cate);
+		playlist.setDescription(description);
+		playlist.setSearch_tags(search_tags);
+		playlist.setContentLibrary(contentids);	
+		playlist.setThumbnail_assets(thumbnail_asset);
+		playlist.setBanner_assets(banner_asset);
 		
-		          return "redirect:/playlistlibrary";
+	    playlistservice.createPlaylist(playlist);
 		
+		} catch (Exception ex) {
+			System.out.println(ex);
+		}
+
+	          return "redirect:/playlistlibrary";
+	          
 	}
 
 	@GetMapping("/updateplaylist/{id}")
@@ -187,6 +243,30 @@ DecimalFormat df=new DecimalFormat();
 		List<ContentLibrary> con = playlist.getContentLibrary();
 		List<Category> categories = categoryrepo.findAll();
 		List<ContentLibrary> contentlist = contentrepo.findAll();
+		List<ContentLibrary> contentvideolist=new ArrayList<>();
+		List<ContentLibrary> contentaudiolist=new ArrayList<>();
+		for(int i=0;i<contentlist.size();i++) {
+		if(contentlist.get(i).getContent_type().equals("video")) {
+			
+			for(int j=0;j<con.size();j++) {
+				if(con.get(j) != contentlist.get(i)) {
+			
+			 contentvideolist.add(contentlist.get(i));
+				}
+			}
+		}
+		else {		
+			for(int j=0;j<con.size();j++) {
+				if(con.get(j) != contentlist.get(i)) {
+			
+			 contentaudiolist.add(contentlist.get(i));
+				}
+			}
+			
+		}
+		}
+		model.addAttribute("contentvideolist",contentvideolist );
+		model.addAttribute("contentaudiolist",contentaudiolist );
 		AssetLibrary thumbnail = playlist.getThumbnail_assets();
 		AssetLibrary banner = playlist.getBanner_assets();
 		model.addAttribute("contentlist", contentlist);
@@ -202,77 +282,79 @@ DecimalFormat df=new DecimalFormat();
 	public String updatePlaylistLibrary(@RequestParam("playlist_id") long playlist_id,
 			@RequestParam("playlist_type") String playlist_type, @RequestParam("title") String title,
 			@RequestParam("permalink") String permalink, @RequestParam("category_id") long category_id,
-			@RequestParam("description") String description, @RequestParam("search_tags") String search_tags,
-			@RequestParam("thumbnail_assets") MultipartFile thumbnail_assets,
-			@RequestParam("banner_assets") MultipartFile banner_assets,
-			@RequestParam("content_Id") List<Long> content_Id) throws Exception {
+			@RequestParam(required=false,value="description") String description,
+			@RequestParam(required=false,value="search_tags") String search_tags,
+			@RequestParam(required=false,value="thumbnail_assets") MultipartFile thumbnail_assets,
+			@RequestParam(required=false,value="banner_assets") MultipartFile banner_assets,
+			@RequestParam(required=false,value="content_Id") List<Long> content_Id) throws Exception {
+		String image = "image/jpeg";
+		String image2 = "image/png";
+		
+		// thumbnail-------------------------------------------------------------------------------------------------------------
 		AssetLibrary thumbnail_asset = null;
-		if (!thumbnail_assets.isEmpty()) {
-			String thumbnail_img = fileservice.storeTumbnailFile(thumbnail_assets);
-			String thumbnail_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-					.path(AppConstants.DOWNLOAD_PATH).path(thumbnail_img).toUriString();
-			String value_type = thumbnail_assets.getContentType();
-			String thumbnail_asset_name = thumbnail_assets.getOriginalFilename();
-			long thumbnail_size = thumbnail_assets.getSize();
-			String thumbnail_asset_size;
+		if(!thumbnail_assets.isEmpty()) {
+			
+		String thumbnail_img = playlistservice.storeTumbnailFile(thumbnail_assets);
+		String thumbnail_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
+				.path(thumbnail_img).toUriString();
+		
+		String thumbnail_asset_type = thumbnail_assets.getContentType();
+		String thumbnail_asset_name = thumbnail_assets.getOriginalFilename();
+		long thumbnail_size = thumbnail_assets.getSize();
+		String thumbnail_asset_size;
 
-			float thumbnail_size_kb = thumbnail_size / 1024;
-			float thumbnail_size_mb = thumbnail_size_kb / 1024;
+		float thumbnail_size_kb = thumbnail_size / 1024;
+		float thumbnail_size_mb = thumbnail_size_kb / 1024;
 
-			if (thumbnail_size_mb > 0.99) {
-				thumbnail_asset_size = df.format(thumbnail_size_mb) + " MB";
-			} else {
-				thumbnail_asset_size = df.format(thumbnail_size_kb) + " KB";
-			}
-
-			// PlaylistLibrary playlist = new PlaylistLibrary();
-			AssetType thumbnail_asset_type = null;
-			if (value_type.equals(AssetType.Image.getValue1()) || value_type.equals(AssetType.Image.getValue2())) {
-				thumbnail_asset_type = AssetType.Image;
-				System.out.println(thumbnail_asset_type);
-				System.out.println("  Type     " + thumbnail_asset_type + "    Name:     " + thumbnail_asset_name
-						+ "   Size:   " + thumbnail_asset_size);
-
-				thumbnail_asset = new AssetLibrary(thumbnail_asset_type, thumbnail_asset_name, thumbnail_asset_size,
-						thumbnail_img_Uri);
-
-			}
+		if (thumbnail_size_mb > 0) {
+			thumbnail_asset_size = df.format(thumbnail_size_mb) + " MB";
+		} else {
+			thumbnail_asset_size = df.format(thumbnail_size_kb) + " KB";
+		}
+		System.out.println("  Type     " + thumbnail_asset_type + "    Name:     " + thumbnail_asset_name + "   Size:   "
+				+ thumbnail_asset_size);
+		
+		
+		AssetType thumbnail_type_asset = null;
+		if (image.equals(thumbnail_asset_type) || image2.equals(thumbnail_asset_type)) {
+			thumbnail_type_asset = AssetType.Image;
 		}
 
-		AssetLibrary banner_asset = null;
-
-		if (!banner_assets.isEmpty()) {
-			String banner_img = fileservice.storeTumbnailFile(banner_assets);
-
-			String banner_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
-					.path(AppConstants.DOWNLOAD_PATH).path(banner_img).toUriString();
-
-			String value_type2 = banner_assets.getContentType();
-			String banner_asset_name = banner_assets.getOriginalFilename();
-			long banner_size = banner_assets.getSize();
-			String banner_asset_size;
-
-			float banner_size_kb = banner_size / 1024;
-			float banner_size_mb = banner_size_kb / 1024;
-
-			if (banner_size_mb > 0) {
-				banner_asset_size = banner_size_mb + " MB";
-			} else {
-				banner_asset_size = banner_size_kb + " KB";
-			}
-			AssetType banner_asset_type = null;
-			if (value_type2.equals(AssetType.Image.getValue1()) || value_type2.equals(AssetType.Image.getValue2())) {
-
-				banner_asset_type = AssetType.Image;
-				System.out.println("  Type     " + banner_asset_type + "    Name:     " + banner_asset_name
-						+ "   Size:   " + banner_asset_size);
-
-				banner_asset = new AssetLibrary(banner_asset_type, banner_asset_name, banner_asset_size,
-						banner_img_Uri);
-
-			}
+		thumbnail_asset = new AssetLibrary(thumbnail_type_asset, thumbnail_asset_name,
+					thumbnail_asset_size, thumbnail_img_Uri);
+			
 		}
+		
 
+		// banner-------------------------------------------------------------------------------------------------------------
+		AssetLibrary banner_asset=null;
+		if(!banner_assets.isEmpty()) {
+		
+		String banner_img = playlistservice.storeBannerFile(banner_assets);
+		String banner_img_Uri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
+				.path(banner_img).toUriString();
+		
+		String banner_asset_type = banner_assets.getContentType();
+		String banner_asset_name = banner_assets.getOriginalFilename();
+		long banner_size = banner_assets.getSize();
+		String banner_asset_size;
+
+		float banner_size_kb = banner_size / 1024;
+		float banner_size_mb = banner_size_kb / 1024;
+
+		if (banner_size_mb > 0) {
+			banner_asset_size =df.format( banner_size_mb) + " MB";
+		} else {
+			banner_asset_size = df.format(banner_size_kb) + " KB";
+		}
+		AssetType banner_type_asset = null;
+		if (image.equals(banner_asset_type) || image2.equals(banner_asset_type)) {
+			banner_type_asset = AssetType.Image;
+		}
+			
+        banner_asset = new AssetLibrary(banner_type_asset, banner_asset_name, banner_asset_size,
+					banner_img_Uri);
+		}
 		// Category id
 		try {
 			Optional<Category> categoryId = categoryservice.getCategoryById(category_id);
@@ -333,6 +415,8 @@ DecimalFormat df=new DecimalFormat();
 
 	@GetMapping("/deleteplist/{id}")
 	public String deletePlaylist(@PathVariable long id) {
+		PlaylistLibrary playlist=playlistrepo.findById(id).get();
+	playlist.getContentLibrary();
 		playlistservice.deletePlaylist(id);
 		return "redirect:/playlistlibrary";
 	}

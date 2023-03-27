@@ -1,0 +1,243 @@
+body{
+    margin: 0%;
+    background-color: rgb(3, 15, 31) !important;
+}
+.Nav{
+    display: flex;
+    flex-direction: row;
+    position: fixed;
+    z-index: 99;
+    width: 100%;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAABaAAAAAJCAMAAADzVXt7AAABSlBMVEUMIDkMIDoMIToMITsMITwMIjwNIj0NIj4NIz8NI0ANJEENJEINJEMNJUQOJUQOJUUOJkYOJ0YOJ0cOJ0gOKEgOKEkOKEoPKEsPKEwPKU0PKU4QKk8QKlAQK1AQK1EQK1IQLFIQLFMQLVMQLVQQLVUQLVYQLVcQLlcQLlgQLlkRLlkRL1oRL1sRL1wRMFwRMF0RMV4RMV8RMl8SMl8SMmASM2ESM2ISM2MSM2QSNGQTNGUSNGUTNGYTNWYTNWcTNWgTNmgTNmkTNmoTN2oTN2sUN2sUN2wUOGwUOG0UOG4UOW4UOW8UOXAUOXEVOXEVOXIVOnIVOnMVOnQVO3QVO3UVPHUVPHYVPHcWPXcWPXgWPXkWPnkWPnoWP3oWP3sWP3wWP30WP34WP38WQH8WQIAWQYAWQYEWQYIXQoIXQoMXQoQXQ4UOJUYSMV+YA0gEAAAGdUlEQVR4Ac2a65ncNgxFcZQ60oL3v2vxVueUEjewJaQQnTxm+S0vQcnx8zNiOyJw8RR5Z0Yz1H+CSBWPRU2CA1KymBLQjXlFUVjHDsUADKTMMWLRcjKuyKRkFt6UtIJJJek9/qwBBWr1tEefMlMeU7P7iiEzF0vMWMaEe5NrpxljCU2A04A9/aqQ8E6rIKmXyLEKYqjD8hrtAjGMt+KFyj1AnDTeeYqJiiu3/ibS6Upq8bEnOx/QTJdLGWGUVwec/RzQaTmi88hR2hvvKdU5fdSqUzUjva2zFtUaJSz2rN7QtvHnKvxwdvxQ9TFuEFFo9jTE1LZqJ39sbuLk+Vuth7ufz4B0C5LIWDXWqenIPb979xIM2iltn5sGI0iWHYqFCbBnaNwJ4b/kPyYDaezjoOrA13kdzSlSMjdx0Chsv5zLpQEjExezRla4o7jA9PQB2nO0UE6DdrnsznTlUlzx6j5G26J+sVjsORi94fbbXOEoHW/3cM68CweT1cY7MYwJGc2AgZ/iZgQY5HjReCsRr8FFVuPlnTb+jeG1IiULgYiyE3PWOFf58q5eevUtJPvo9NwyrcGGNuJNBN1IoNENseFB9u+g+4qFJ4ft5aleZnYa8WkM2yJ2bukMzAzHYPMkqU7QWTQQ5QR7kPo9QY8IUEfs+tZha4UqWPDNe8ZmyAQerYtjYeheOtP+mEMbirgMydGQgM76KZlnH5rBNDgR9624g/Q3RiysbUJTFHue7YGwR2hNdpukJqsx2rLXubg4nwC94M237Kdj1G6LdWXU97//VW5f8uwuOI/MuhRXo41Xoe6lJSCOTbyDfnoaFO1gKLkPnZG4BLLxg+CmY8SyLL3NatwYJedFO9SzHsCsv4vDpq2WtsH7QExQbz9FvUC4h7ra5YYMzNXbZ9BzGjy3LtO5J/B3e1czSLh5et6z0sXc1TJBkvcjb10K8y7btTkM2CqQcLk8sY4LquO7z7ZKlgmspXK7m/DyU64xZxuL3G9424uKbTdIlMjFActb5ppNG56BgjrP4duidvn0aYQtiExQLGQo6KisVR8aMidXRyD1ec1NBykfPw4MRckOGjpSTat9rNHWoo9q1CRokSpsxVLOpGsvC24PAAWvisf/CYcP29vQoto2Y5NEdAvt+MBF4lVvYnJGXpTMhIEpyn8zP890tq4FJ7Ke4XRvs7oenSNubHtcR8CH/V6Cq+9pkfbyyjx6txEYJ+/7CZf05eWh/oIn2nhpqVJaMOA6mS1oVKrz0Tde9pJ3IZ6yaGuavlJg4op2/Ij/XRFGn5U6EZXSz1ffBK4Em1AMjW5A9NmNC2Dl5yk0mqfsy8XP2iyQoTvqlxHrRws/LKSfSefXdM2vOwTqR8nJ3Yz8DjvJO/V5hz2/fVD6nc4I3Shf0jaNjr+/vP8O28qftPXIfL+EBEGzPnztXxEYTx25nxW0xwFebVLzktXCcF49CDh5Dky0La86ezAueOADw9C0I8uYmy4dL1Pk4WCd8+Qdtev6hhrHFWty8nECX8CA5zIucmnen+xrYI30TbpWh08z5z3gPG0Yq/xWNsmdQMZXW/RE8CjAO5J1vbB0GTKjO1sFeT5WBOVaHb59BrEsWyni1ac7pXBYjOAL+JH6PDXbWsT0ps4/x2IKD44lEI4ay5TLnU7gZcQNOGuhbIOoq8Pzcw0NYYQ+sPv9kMgmjEKMLwkTQAvDfMX11zut5Za6kPxS7bnqjzcsb0XI+rQGMnrWnKihN2DF//6WkLktWvud3jJPINLlOMfjGpfwRcyfDA4sQamlumwx/aMaMxQN0ounXZHLVLk/SMyTlmYZ98TURQrM0F8oWF0EMIiVztVBMYuYq5GGWA+g3UNSESNsnLELwRmcTrbrUqXoHEXYAp2qp+Bc8obTUq9TkRDgSHa1XF9iLocdNVAs9d8/4oBHh5gWa/zK7iVjuEB6+J6bpRsZ1XYngrgWgibIoL32c3Ei+2HtJM/4O5ueqt5+Z0eQPY356MHTQC46nUEYWo1ZQ7FUf9k7kbUHn6AeUMdJ1bGiiJzMOhLYc+UvBwmX9mp1LE3QomWvCWLjvF7Rms8iV1bu7gWy53ksLETqC0Tc87MrFRht3p/1DuginZ/7YGAlXzvfxYlnMhu3I7RDwmiBsK3GfUsnWdLVE/IYYnfoWO/mSFcTy1hhmXu0S68eBjSc81fQ+33a5daMUbo7BOH6N8zpxVXYJkl/AAAAAElFTkSuQmCC");
+}
+.Logo-div{
+    display: flex;
+    flex-direction: row;
+}
+.Logo-div img{
+    width: 100px;
+    height: 100px;
+    
+}
+.Logo-name{
+    
+  color: #43CBFF;
+  background-image: -webkit-linear-gradient(0deg, #43CBFF 25%,#9708CC 57%,#5EFCE8 78%);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  margin-top: 24px;
+  font-size: 30px;
+  font-style: italic;
+  font-weight: bold;
+}
+.links{
+    display: flex;
+    flex-direction: row;
+    margin-left: 210px;
+}
+.links a{
+    text-decoration: none;
+    color: white;
+    font-size: 23px;
+    margin-top: 34px;
+    font-family: "Sky Text";
+}
+.links a :hover{
+    text-decoration: none;
+    color: #f4ce24;
+}
+.banner{
+    padding-top: 100px;
+}
+footer {
+    width: 100%;
+    height: 30vh;
+    border-top: 1px solid gray;
+    background-color: rgb(3, 15, 31) !important;
+    color: white;
+  }
+footer div {
+    width: 100%;
+    height: 75%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+  
+footer a {
+    margin: 30px;
+    text-decoration: none;
+    color: white;
+    font-size: 20px;
+    font-family: "Sky Text";
+
+    
+}
+footer a:hover{
+   
+    text-decoration: none;
+}
+footer p {
+    text-align: center;
+    font-size: 20px;
+    font-family: "Sky Text";
+}
+.cards{
+    background-color: rgb(3, 15, 31) !important;
+}
+.hero-container {
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+}
+.main-container {
+    width: 75px;
+    height: 340px;
+    position: relative;
+    margin: 0 75px;
+}
+.poster-container {
+    width: 210px;
+    position: absolute;
+    top: 0;
+    left: 20px;
+    margin-top:23%;
+}
+.poster {
+    width: 80%;
+    height: 230px;
+}
+.title{
+    color: white;
+    font-size: 40px;
+    padding-top: 10px;
+    margin-left: 85px;
+    font-family: "Sky Text";
+}
+.contentTitle{
+    color: white;
+    font-size: 17px;
+    padding-top: 10px;
+    font-family: "Sky Text";
+}
+.desc{
+    padding-top: 100px;
+    background-color: rgb(3, 15, 31) !important;
+    display: flex;
+    flex-direction: row;
+
+ }
+ .sample{
+    margin-top: 20px;
+    margin-left: 50px;
+ }
+.file-source{
+    margin-top: 20px;
+    margin-left: 140px;
+    width: 650px;
+    height: 450px;
+}
+.left-container{
+    margin-top: 20px;
+    margin-left: 30px;
+    font-size: 25px;
+
+}
+.Thumbnail-photo{
+    height:370px;
+    width:280px;
+    margin-top:20px;
+    margin-bottom:20px;
+}
+ .heading{
+    margin-left: 35px;
+    color: white;
+    font-family: "Sky Text";
+    font-size: 35px;
+ }
+ .audio-file-source{
+    margin-top: 20px;
+    margin-left: 140px;
+    width: 650px;
+    height: 65px;
+ }
+.description{
+	color: white;
+    padding-top: 10px;
+    width:750px;
+    overflow-wrap: break-word;
+    margin-left: 85px;
+    font-family: "Sky Text";
+}
+.description-title{
+	font-size: 20px;
+}
+.description-content{
+	font-size: 17px;
+	
+}
+.people{
+	color: white;
+    padding-top: 10px;
+    width:750px;
+    margin-left: 85px;
+    font-family: "Sky Text";
+}
+.cast{
+	font-size: 20px;
+}
+.director{
+	font-size: 20px;
+}
+.video-cards{
+	 background-color: rgb(3, 15, 31) !important;
+	 padding-top: 100px;
+}
+.Audio-cards{
+	background-color: rgb(3, 15, 31) !important;
+	 padding-top: 100px;
+}
+.file-source-playlist{
+	margin-top: 20px;
+    margin-left: 85px;
+    width: 100px;
+    height: 120px;
+}
+.videoplaylist a{
+	display: flex;
+	flex-direction: row;
+}
+.name{
+	color: white;
+    font-size: 17px; 
+    margin-top:30px;
+    margin-left:20px;
+    font-family: "Sky Text";
+}
+.file-source-playlist2{
+	margin-top: 20px;
+    margin-left: 85px;
+    width: 300px;
+    height: 50px;
+}
+.audioplaylist a {
+	display: flex;
+	flex-direction: row;
+}
+.playlist-description{
+	color: white;
+    padding-top: 10px;
+    margin-top:20px;
+    width:750px;
+    overflow-wrap: break-word;
+    margin-left: 85px;
+    font-family: "Sky Text";
+}
+.about p {
+	font-family: "Sky Text";
+	font-size: 17px;
+}
+.about h1 {
+	font-family: "Sky Text";
+}

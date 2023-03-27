@@ -41,14 +41,14 @@
   <header id="header" class="header fixed-top d-flex align-items-center">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a th:href="@{/index}" class="logo d-flex align-items-center">
+      <a th:href="@{/}" class="logo d-flex align-items-center">
         <img src="assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">FEE Admin</span>
       </a>
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar" >
+   <!--  -- <div class="search-bar" >
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -76,10 +76,9 @@
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+         <a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
             <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
+                      </a>
 
           
 
@@ -152,7 +151,7 @@
     <ul class="sidebar-nav" id="sidebar-nav">
 
       <li class="nav-item">
-        <a class="nav-link " href="index.html">
+        <a class="nav-link " th:href="@{/}">
           <i class="bi bi-grid"></i>
           <span>Dashboard</span>
         </a>
@@ -202,7 +201,7 @@
       <h1>Content Management</h1>
       <nav>
         <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
           <li class="breadcrumb-item active">Playlist Library</li>
          
         </ol>
@@ -212,22 +211,14 @@
     <section class="section dashboard">
       <div class="row">
          <div class="inside-content">
-            <!-- <div class="link">
-                <a th:href="@{/contentlibrary}" style="color: rgb(99, 95, 95);">Content library</a>
-                <a th:href="@{/peoplelibrary}" style="margin-left: 20px; color: rgba(134, 5, 255, 0.895);">People library</a>
-                <a th:href="@{/category}" style="margin-left: 20px; color: rgb(99, 95, 95);">Manage category</a>
-                <a th:href="@{/bulkupload}" style="margin-left: 20px; color: rgb(99, 95, 95);">Bulk Uplaod</a>
-            </div>  -->
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active">Playlist Library</h2>
                 <div class="inside-search-content">
-                    <!--  <form action="/action_page.php">
-                      <input type="text" placeholder="Search.." name="search">
-                      <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>-->
+                    <input type="text" id="search-input" placeholder="Search.." name="search">
+                      <button type="button"><i class="bi bi-search"></i></button>
                 </div>
                 <div class="inside-button-content">
-                    <a th:href="@{/Addplaylist}"style="font-size: 13px; margin-top:30px " ><i class="bi bi-plus" style="margin:2px" > Add playlist</i></a>
+                  <a th:href="@{/Addplaylist}"style="font-size: 13px; margin-top:30px " ><button><i class="bi bi-plus" style="margin:2px" > Add playlist</i></button></a>
                 </div>
             </div>
            
@@ -241,14 +232,21 @@
                        
                         
                 </tr>
-                
-                <tr  style="display: flex;  height: 90px; margin-top:10px;width:100%;" th:each="plist: ${playlist}" >
-                        <td th:each="asset: ${plist.thumbnail_assets}" style=" display: flex; flex-direction:row; width: 50%; ">
+                <tbody id="table-content">
+                <tr class="tr-data" style="display: flex;  height: 90px; margin-top:10px;width:100%;" th:each="plist: ${playlist}" >
+                        <td th:if=${plist.thumbnail_assets!=null} th:each="asset: ${plist.thumbnail_assets}" style=" display: flex; flex-direction:row; width: 50%; ">
                         <img th:src="@{${asset.asset_filepath}} " width="60" height="60" fill="currentColor"  >
                            <span th:text="${plist.title}" style="margin-left:12px; margin-top: 20px;"></span> </i>
                          </td>
+                         
+                     <td th:unless="${plist.thumbnail_assets!=null}" style=" display: flex; flex-direction:row; width: 50%; ">
+                        <img th:src="@{/img/playlist-img.png} " width="60" height="60" fill="currentColor"  >
+                            <span th:text="${plist.title}" style="margin-left:12px; margin-top: 20px;"></span> </i>
+                         </td>
+                         
                           <td   style=" width: 30% ; margin-top: 20px;" >
-                          <span th:text="${plist.categories.category_name}" style="margin-left:5px; "></span> </i>
+                          <i th:if="${plist.playlist_type=='audio'}" class="bi bi-music-note-beamed" style="margin-left:2px;">&nbsp;<span th:text="${plist.categories.category_name}" style="margin-left:5px; "></span> </i>
+                           <i th:unless="${plist.playlist_type=='audio'}" class="bi bi-camera-video" style="margin-left: 2px;">&nbsp; <span th:text="${plist.categories.category_name}" style="margin-left:5px; "></span> </i>
                           </td>
                          
                         
@@ -262,7 +260,7 @@
                     
                     </tr>
                 
-                
+                </tbody>
             </table>
             </div>
     
@@ -299,17 +297,62 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+
+<script>
+
+  const searchInput = document.querySelector("#search-input");
+  const tRows = document.querySelectorAll(".tr-data");
+  const tableBody = document.querySelector("#table-content");
+  
+
+   
+   console.log(searchInput.value);
+   
+   document.querySelector("#search-input").addEventListener("change", (e) => {
+	   
+	   let tableRows = "";
+	   
+	  let searchValue = e.target.value;
+	  searchValue = searchValue.toLowerCase();
+	  // console.log(tRows);
+	  
+	  tRows.forEach((data) => {
+		  
+		  console.log(data.children[0].children[1].innerText)
+		  
+		  let tdValue = data.children[0].children[1].innerText.toLowerCase();
+		  
+		//  console.log(tdValue.includes(searchValue));
+		 
+		  if(tdValue.includes(searchValue))  tableRows += data.outerHTML;
+	  })
+	  
+	  
+	  console.log(tableRows);
+	  
+	  tableBody.innerHTML = tableRows;
+	 
+	  
+	  
+   }); 
+   
+   /* function searchInput(event) {
+	   console.log(event);
+   } */
+  
+  </script>
+   
 
 </body>
 

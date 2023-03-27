@@ -15,9 +15,15 @@
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.gstatic.com" rel="preconnect">
-	<link
-		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 		rel="stylesheet">
+		
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 	<!-- Vendor CSS Files -->
 	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -36,12 +42,7 @@
 
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
+    
     <script>$('select').selectpicker();</script>
     
 	<script type="text/javascript">
@@ -120,55 +121,94 @@
 		}
 
 		function loadFileThumbnail(event) {
-			var thumbnail_image = document.getElementById('thumbnail_output');
-			thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+			document.querySelector("#thumbnailError").innerHTML = "";
+
+			console.log(event);
+
+			console.log(event.target.files[0].type);
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+			if (eventFileType === "image") {
+				var banner_image = document.getElementById('thumbnail_output');
+				banner_image.src = URL.createObjectURL(event.target.files[0])
+			}
+			else {
+				document.querySelector("#thumbnailError").innerHTML = "Invalid thumbnail file format...."
+				document.querySelector("#thumbnail_fileselect").value='';
+				return false;
+			}
 		};
 
 		function loadFileBanner(event) {
-			var banner_image = document.getElementById('banner_output');
-			banner_image.src = URL.createObjectURL(event.target.files[0])
+			document.querySelector("#bannerError").innerHTML = "";
+
+			console.log(event);
+
+			console.log(event.target.files[0].type);
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+			if (eventFileType === "image") {
+				var banner_image = document.getElementById('banner_output');
+				banner_image.src = URL.createObjectURL(event.target.files[0])
+			}
+			else {
+				document.querySelector("#bannerError").innerHTML = "Invalid Banner file format...."
+				document.querySelector("#banner_fileselect").value='';
+				return false;
+			}
 		};
 		
 		 function bannerOpen() {
     document.querySelector("#res-text").innerHTML = 'Resolution : 1600x480 px';
-    document.querySelector("#thumbnail-upload").style.display = "none";
-    document.querySelector("#banner-upload").style.display = "block";
+    document.querySelector("#thumbnailfield").style.display = "none";
+    document.querySelector("#bannerfield").style.display = "block";
 
   }
 
 
   function thumbnailOpen() {
     document.querySelector("#res-text").innerHTML = 'Resolution : 288X424 px';
-    document.querySelector("#thumbnail-upload").style.display = "block";
-    document.querySelector("#banner-upload").style.display = "none";
+    document.querySelector("#thumbnailfield").style.display = "block";
+    document.querySelector("#bannerfield").style.display = "none";
   }
-    
-  function handlePlaylist(){
-	  var playlist_type = document.getElementById('playlist-type');
-	  var _title = document.getElementById('title');
-	  var perma_link = document.getElementById('permalink');
-	  var _category = document.getElementById('category_id');
-	  
-	  
-	  if(playlist_type === 'select' || playlist_type === ''){
-		  alert("Please select your playlist type!");
-	  }
-	  
-	  if(_title === ''){
-		  alert("Please include a title to your playlist!");
-	  }
-	  
-	  if(perma_link === ''){
-		  alert("Please select your permanent link!");
-	  }
-	  
-	  if(_category === ''){
-		  alert("Please select your preferred category!");
-	  }
-  }	
-
+  
+ 
 	</script>
 
+  
+<script th:inline="javascript">
+	
+	
+	function requiredFields(){
+        var title = document.getElementById("title1").value;
+        var playlist_Type = document.getElementById("playlisttype1").value;
+        var permalink = document.getElementById("permalink1").value;
+        var categoryId = document.getElementById("categoryid1").value;
+        var validForm = true;
+        if(playlist_Type === ""){
+			document.querySelector("#playlisttype_Error").innerHTML = "The Playlist Type field is required";
+			validForm = false;
+		}
+		
+		if(title === ""){
+			document.querySelector("#title_Error").innerHTML = "The Playlist Name field is required";
+			validForm = false;
+		}
+		
+		if(permalink === ""){
+			document.querySelector("#permalink_Error").innerHTML = "The Permalink field is required";
+			validForm = false;
+		}
+		
+		if(categoryId === ""){
+			document.querySelector("#category_Error").innerHTML = "The Category field is required";
+			validForm = false;
+		}
+		return validForm;
+}
+      
+      
+	</script>
 
 </head>
 
@@ -178,7 +218,7 @@
 	<header id="header" class="header fixed-top d-flex align-items-center">
 
 		<div class="d-flex align-items-center justify-content-between">
-			<a th:href="@{/index.html}" class="logo d-flex align-items-center">
+			<a th:href="@{/}" class="logo d-flex align-items-center">
 				<img src="assets/img/logo.png" alt="">
 				<span class="d-none d-lg-block">FEE Admin</span>
 			</a>
@@ -213,10 +253,9 @@
 
 				<li class="nav-item dropdown">
 
-					<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
-						<i class="bi bi-box-arrow-up-right"></i>
-						<!-- <span class="badge bg-success badge-number"></span> -->
-					</a><!-- End Messages Icon -->
+					<a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
+            <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
 
 
 
@@ -289,7 +328,7 @@
 		<ul class="sidebar-nav" id="sidebar-nav">
 
 			<li class="nav-item">
-				<a class="nav-link " th:href="@{/index.html}">
+				<a class="nav-link " th:href="@{/}">
 					<i class="bi bi-grid"></i>
 					<span>Dashboard</span>
 				</a>
@@ -303,27 +342,27 @@
 				</a>
 				<ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 					<li>
-						<a href="@{/contentlibrary}">
+						<a th:href="@{/contentlibrary}">
 							<i class="bi bi-circle"></i><span>Contents Library</span>
 						</a>
 					</li>
 					<li>
-						<a href="@{/assetlibrary}">
+						<a th:href="@{/assetlibrary}">
 							<i class="bi bi-circle"></i><span>Asset Library</span>
 						</a>
 					</li>
 					<li>
-						<a href="@{/playlistlibrary}">
+						<a th:href="@{/playlistlibrary}">
 							<i class="bi bi-circle"></i><span>Playlist Library</span>
 						</a>
 					</li>
 					<li>
-						<a href="@{/featuredsections}">
+						<a th:href="@{/featuredsections}">
 							<i class="bi bi-circle"></i><span>Featured Sections</span>
 						</a>
 					</li>
 					<li>
-						<a href="@{/contnentsettings}">
+						<a th:href="@{/contnentsettings}">
 							<i class="bi bi-circle"></i><span>Contnet Settings</span>
 						</a>
 					</li>
@@ -341,9 +380,9 @@
 			<h1>Content Management</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
 					<li class="breadcrumb-item active"><a th:href="@{/playlistlibrary}">Playlist Library</a></li>
-					<li class="breadcrumb-item active">Add Playlist</li>
+					<li class="breadcrumb-item active">Edit Playlist</li>
 				</ol>
 			</nav>
 		</div>
@@ -354,39 +393,42 @@
 				<!--  Modal   -->
 				<div class="inside-content">
 					<div class="inside-content-header">
-						<h4 class="breadcrumb-item active" style="font-weight:bold;margin-top:2%;"> Add New Playlist
+						<h4 class="breadcrumb-item active" style="font-weight:bold;margin-top:2%;"> Edit Playlist
 						</h4>
 					</div>
 					<div class="left">
 
      <form th:action="@{/updateplaylist1}" th:object="${playlist}" method="POST"
-							enctype="multipart/form-data">
+							enctype="multipart/form-data" onsubmit="return requiredFields()">
 							<div class="add-contents">
-								<div class="left" style="float:left; width:60%; margin-top: 9px; ">
-								<input type="hidden" th:name="playlist_id" th:value="${playlist.playlist_id}"
+								<div class="left" style="float:left; width:60%; margin-top: 10px; ">
+								<input type="hidden" th:name="playlist_id" th:value="${playlist.playlist_id}">
 									<label for="playlist_type"
-										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Type<span style="color:red;">*</span></label>&nbsp;
-									<select th:name="playlist_type" th:field="${playlist.playlist_type}" style="height:33.5px; width: 220px; margin-left:66px;">
-										<option value="" id="playlist_type"  onclick="handlePlaylist()">Select a playlist type</option>
+										style="margin-top:7%;margin-left:17px;width: 139px;font-weight: 500;">Playlist Type<span style="color:red;">*</span></label>&nbsp;
+									<select th:name="playlist_type" id="playlisttype1" th:field="${playlist.playlist_type}" onchange="valueChange(this)" style="height:33.5px; width: 220px; margin-left:-1px;">
+										<option value="">Select a playlist type</option>
 										<option th:value="video">Video</option>
 										<option th:value="audio">Audio</option>
 									</select><br>
+									<p style="color:red;margin-left: 165px;" id="playlisttype_Error"></p>
 									<label for="title"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Title<span
 											style="color:red;">*</span></label>&nbsp;
-									<input type="text" id="title" onclick="handlePlaylist()" th:name="title" th:value="${playlist.title}" style="height:30px; width: 220px;"
+									<input type="text" id="title1" th:name="title" th:value="${playlist.title}" style="height:30px; width: 220px;"
 										placeholder="Enter a name">
 									<br>
+									<p style="color:red;margin-left: 165px;" id="title_Error"></p>
 									<label for="permalink"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span
 											style="color:red;">*</span></label>&nbsp;
-									<input type="text" id="permalink" onclick="handlePlaylist()" th:name="permalink" th:value="${playlist.permalink}"
+									<input type="text" id="permalink1" th:name="permalink" th:value="${playlist.permalink}"
 										style="height:30px; width: 220px;" placeholder="Permalink">
 									<br>
+									<p style="color:red;margin-left: 165px;" id="permalink_Error"></p>
 									<label for="category_id"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Category<span
 											style="color:red;">*</span></label>&nbsp;
-									<select th:name="category_id"  th:value="${playlist.categories.category_id}" id="category_id"  style="height:30px;width: 220px; ">
+									<select th:name="category_id" id="categoryid1"  th:value="${playlist.categories.category_id}"  style="height:30px;width: 220px; ">
 										<option th:value="${playlist.categories.category_id}" th:text="${playlist.categories.category_name}"></option>
 										<option th:each=" categories:${categories}"
 											th:text="${categories.category_name}" 
@@ -394,6 +436,7 @@
 										</option>
 									</select>
 									<br />
+									<p style="color:red; margin-left: 165px;" id="category_Error"></p>
 									<label for="description"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
 									<input type="text" id="description" th:name="description" th:value="${playlist.description}"
@@ -403,50 +446,60 @@
 									<input type="text" id="searchtags" th:name="search_tags" th:value="${playlist.search_tags}"
 										style="height:30px; width: 220px;" placeholder="Add a tag"><br>
 										
+										<div class="content-1">
 										<label for="content_Id"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Items</label>&nbsp;
+									   
+									    <div class="contentDiv" style="display:block;margin-top:4%;margin-left: 2%;">	
+									    <select class="selectpicker" th:name="content_Id" multiple>									  
+					    				<option th:each="con: ${con}" th:value="${con.content_id}" th:text="${con.content_name}" selected ></option>										
+									    <option class="content" th:each=" list1:${contentvideolist}" th:value="${list1.content_id}" th:if="${playlist.playlist_type=='video'}" th:text="${list1.content_name}"></option>
+									    <option class="content" th:each=" list1:${contentaudiolist}" th:value="${list1.content_id}" th:if="${playlist.playlist_type=='audio'}" th:text="${list1.content_name}"></option>
+									    </select></div>
 										
-									  <select class="selectpicker" th:name="content_Id" multiple>
-									  
-									  <option th:each="con: ${con}" 
-										th:value="${con.content_id}" 
-										th:text="${con.content_name}" selected ></option>
+										<div class="videoDiv" style="display:none;margin-top:4%;margin-left: 2%;" >
+										<select class="selectpicker"  th:name="content_Id"  multiple>																	
+										<option class="video-content" th:each=" list1:${contentvideolist}" th:text="${list1.content_name}" th:value="${list1.content_id}" ></option>
+										</select>
+										</div>
 										
-										<option th:each=" list:${contentlist}"
-										    th:value="${list.content_id}"
-											th:text="${list.content_name}">
-										</option>
-									</select>
-									<br />
+										<div class="audioDiv" style="display:none;margin-top:4%;margin-left: 2%;" >
+										<select class="selectpicker"  th:name="content_Id"  multiple>
+										<option class="audio-content" th:each=" list1:${contentaudiolist}" th:text="${list1.content_name}" th:value="${list1.content_id}" ></option>
+										</select>
+										</div>
+											
+										</div>								
+									    <br />
 
 										</div>
 							</div>
 
 							<!-- Left side columns -->
 
-							<div class="right" style="float: right;width: 40%;margin-top:-47%;margin-left:60%;">
-    <h2 class="thumbnail" style="font-size:20px; cursor: pointer;" onclick="thumbnailOpen()">Tumbnail</h2>
-    <h2 class="banner" style="font-size:20px;margin-left:40%;margin-top:-10%; cursor: pointer;" onclick="bannerOpen()">Banner</h2>
-    
-      <div class="link">
-          <a href="#" style="color: rgba(134, 5, 255, 0.895);">website</a>
-          </div>
+<div class="right" style="float: right;width: 40%;margin-top:-56%;margin-left:60%;">
+    <h2 class="thumbnail" style="font-size:20px;margin-left:5%; cursor: pointer;" onclick="thumbnailOpen()">Thumbnail</h2>
+    <h2 class="banner" style="font-size:20px;margin-left:45%;margin-top:-10%; cursor: pointer;" onclick="bannerOpen()">Banner</h2>
+      <div><a href="#" style="margin-left:5%">website</a></div>
        <br>
-        <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;" id="res-text">Resolution : 288X424 px</p>   
-        <div class="w3-container">
-          <span onclick="document.getElementById('thumbnail').style.display='block'" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
+          
+         <div class="w3-container">
+          <span onclick="document.getElementById('thumbnail').style.display='block'" id="thumbnailfield" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;margin-top:-2%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
         <a style="font-size: 13px; text-align: center;">+ Add file</a>
-        <img id="thumbnail_output" width="200" th:src="${playlist.thumbnail_assets.asset_filepath}" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        <img th:if="${playlist.thumbnail_assets!=null}" id="thumbnail_output" width="200" th:src="${playlist.thumbnail_assets.asset_filepath}" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+        <img th:unless="${playlist.thumbnail_assets!=null}" id="thumbnail_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
         </span>
 
 
-            <span onclick="document.getElementById('banner').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
+            <span onclick="document.getElementById('banner').style.display='block'" id="bannerfield" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;display:none;">
             <a >+ Add file</a>
-            <img id="banner_output" width="200" th:src="${playlist.banner_assets.asset_filepath}" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
-            
+            <img th:if="${playlist.banner_assets!=null}" id="banner_output" width="200" th:src="${playlist.banner_assets.asset_filepath}" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+            <img th:unless="${playlist.banner_assets!=null}" id="banner_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
             </span>
             
-           <div id="banner" class="w3-modal" >
+            <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;" id="res-text">Resolution : 288X424 px</p> 
+            
+           <div id="banner" class="w3-modal"  >
 
       <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
@@ -455,6 +508,7 @@
           <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          	<p id="bannerError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -471,7 +525,7 @@
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
                   <label for="banner_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                   <input type="file" accept="image/*" th:name="banner_assets" th:value="${playlist.banner_assets.asset_id}" id="banner_fileselect"
+                   <input type="file" accept="image/*" th:name="banner_assets" id="banner_fileselect"
 														onchange="loadFileBanner(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
                 </div>
                 </fieldset>
@@ -493,6 +547,7 @@
           <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
 
           <h4>Upload</h4>
+          <p id="thumbnailError" style="color: red;"></p>
           <div class="row">
             <div>
               <nav>
@@ -509,7 +564,7 @@
                 <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
                 <div>
                   <label for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="image/*" th:name="thumbnail_assets" th:value="${playlist.thumbnail_assets.asset_id}" id="thumbnail_fileselect"
+                  <input type="file" accept="image/*" th:name="thumbnail_assets" id="thumbnail_fileselect"
 														onchange="loadFileThumbnail(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
                 </div>
                 </fieldset>
@@ -522,16 +577,30 @@
 
     </div><!-- end pop up thumbnail-->
 
+  
+  </div>
   </div>
   </div>
   
-</div>
-    <div style="margin-top:65%;margin-left:80%;">
-      <!--button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{Saveplaylist}">Cancel</a></button-->
-      <button type="Save"  value="Save" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;" onclick="Validate()">Save</button>           
+  
+  
+  
+
+   <div class="cancel-save-btn" style="width:200px; margin-right:100px;margin-left: 500px;">
+      <button type="button" value="Cancel" style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);  padding:8px 16px; border-radius: 5px;"><a th:href="@{playlistlibrary}" style="color:black;">Cancel</a></button>
+      <button type="submit"  value="Save" >Save</button>           
     </div>
     <!-- cancel and save buttons-->
-  </form>
+   
+   </form>
+ <div class="col-lg-8">
+          <div class="row">
+        </div>
+        </div>
+  
+
+
+ 
     </section>
 
   </main><!-- End #main -->
@@ -550,17 +619,69 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  
+    <script th:inline="javascript">
+  
+  
+    function valueChange(objCombo){
+        if (objCombo.value ==="video"){
+            document.querySelector('.audioDiv').style.display="none";
+            document.querySelector('.contentDiv').style.display="none";
+	        document.querySelector('.videoDiv').style.display="block";
+        } 
+        else if (objCombo.value ==="audio"){
+            document.querySelector('.audioDiv').style.display="block";
+	        document.querySelector('.videoDiv').style.display="none";
+	        document.querySelector('.contentDiv').style.display="none";
+        }
+        else{
+			document.querySelector('.audioDiv').style.display="none";
+	        document.querySelector('.videoDiv').style.display="none";
+	        document.querySelector('.contentDiv').style.display="block";
+		}
+        
+    }
+</script>
+  
+  <script>
+  	 const playlistType = document.querySelector("#playlisttype1");
+  	 var title = document.getElementById("title1");
+        var permalink = document.getElementById("permalink1");
+        var categoryId = document.getElementById("categoryid1");
+  	 
+     playlistType.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#playlisttype_Error").innerHTML = "";
+	 })
+	 
+	 title.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#title_Error").innerHTML = "";
+	 })
+	 
+	 
+	  permalink.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#permalink_Error").innerHTML = "";
+	 })
+	 
+	 
+	  categoryId.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#category_Error").innerHTML = "";
+	 })
+  </script>
 
 </body>
 

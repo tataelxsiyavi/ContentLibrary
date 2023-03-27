@@ -72,6 +72,20 @@ public class FeaturedSectionController {
 	public String AddSectionPage(Model model) {
 		List<Category> categories = categoryrepo.findAll();
 		List<ContentLibrary> contentlist = contentrepo.findAll();
+		
+		List<ContentLibrary> contentvideolist=new ArrayList<>();
+		List<ContentLibrary> contentaudiolist=new ArrayList<>();
+		for(int i=0;i<contentlist.size();i++) {
+		if(contentlist.get(i).getContent_type().equals("video")) {
+		contentvideolist.add(contentlist.get(i));
+		}
+		else {
+		         contentaudiolist.add(contentlist.get(i));
+		}
+        }
+		 model.addAttribute("contentvideolist",contentvideolist );
+		 model.addAttribute("contentaudiolist",contentaudiolist );
+		
 		model.addAttribute("contentlist", contentlist);
 		model.addAttribute("featuredsection", new FeaturedSection());
 		model.addAttribute("categories", categories);
@@ -201,12 +215,32 @@ public class FeaturedSectionController {
 		List<Category> categories = categoryrepo.findAll();
 		List<ContentLibrary> con = section.getContentLibrary();
 		List<ContentLibrary> contentlist = contentrepo.findAll();
+		
+		List<ContentLibrary> contentvideolist=new ArrayList<>();
+		List<ContentLibrary> contentaudiolist=new ArrayList<>();
+		for(int i=0;i<contentlist.size();i++) {
+		if(contentlist.get(i).getContent_type().equals("video")) {
+		contentvideolist.add(contentlist.get(i));
+		}
+		else {
+		         contentaudiolist.add(contentlist.get(i));
+		}
+        }
+		List<ContentLibrary> contentvideo=new ArrayList<>(contentvideolist);
+		 List<ContentLibrary> contentaudio=new ArrayList<>(contentaudiolist);
+		categories.removeAll(cat);
+		contentvideo.removeAll(con);
+		contentaudio.removeAll(con);
+		 model.addAttribute("con", con);
+		 model.addAttribute("contentvideolist",contentvideolist );
+		  model.addAttribute("contentvideo",contentvideo );
+		model.addAttribute("contentaudiolist",contentaudiolist );
+	 model.addAttribute("contentaudio",contentaudio );
 		model.addAttribute("contentlist", contentlist);
-		model.addAttribute("categories", categories);
-		model.addAttribute("cat", cat);
-		model.addAttribute("con", con);
-        editView.addObject("section",section);
-		return editView;
+		  model.addAttribute("categories", categories);
+		 model.addAttribute("cat", cat);
+		  editView.addObject("section",section);
+		 return editView;
 		
 	}
 

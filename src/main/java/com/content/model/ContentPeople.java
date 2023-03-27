@@ -21,7 +21,7 @@ import javax.persistence.GenerationType;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@ToString
+
 public class ContentPeople {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,8 +29,7 @@ public class ContentPeople {
     private String person_type;
 
     @ManyToOne(cascade=CascadeType.MERGE)
-    @JoinColumn(name = "peope_id" )
-  
+    @JoinColumn(name = "peope_id" ) 
     private PeopleLibrary people_id;
     @ManyToOne(cascade=CascadeType.ALL)
 

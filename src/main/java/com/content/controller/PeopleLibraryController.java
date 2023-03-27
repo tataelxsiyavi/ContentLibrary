@@ -21,12 +21,18 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.content.dao.ContentPeopleRepo;
 import com.content.dao.PeopleLibraryRepo;
 import com.content.enumclass.AssetType;
 import com.content.model.AssetLibrary;
+import com.content.model.ContentLibrary;
+import com.content.model.ContentPeople;
 import com.content.model.PeopleLibrary;
+import com.content.service.ContentLibraryService;
+import com.content.service.ContentPeopleService;
 import com.content.service.PeopleLibraryService;
 import com.content.util.AppConstants;
 
@@ -37,6 +43,12 @@ public class PeopleLibraryController {
 	PeopleLibraryService peopleservice;
 	@Autowired
 	PeopleLibraryRepo peoplerepo;
+	@Autowired
+	ContentPeopleService contentpeopleservice;
+	@Autowired
+	ContentPeopleRepo contentrepo;
+	
+	
 	DecimalFormat df=new DecimalFormat();
 
 	@GetMapping("/peoplelibrary")
@@ -132,12 +144,7 @@ public class PeopleLibraryController {
 
 	
 
-	@GetMapping("/peoplelibrary/{id}")
-	public String deletePeople(@PathVariable long id) {
-		peopleservice.deletePeople(id);
-		return "redirect:/peoplelibrary";
-
-	}
+	
 	@GetMapping("/updatepeople/{id}")
 	public String updatePeoplePage(Model model,@PathVariable long id) {
 		PeopleLibrary peoplelibrary=peoplerepo.findById(id).get();
@@ -215,6 +222,20 @@ public class PeopleLibraryController {
 		 peopleservice.updatePeople(people);
 		 return "redirect:/peoplelibrary";
 		
+
+	}
+	@GetMapping("/peoplelibrary/{id}")
+	public String deletePeople(@PathVariable long id,RedirectAttributes redir) {
+		List<ContentPeople>content=contentrepo.findPeopleByIdInContentPeople(id);
+
+		if(content.size()>0) {
+			redir.addFlashAttribute("Perror","People cannot delete...");
+		}
+		else {
+			peopleservice.deletePeople(id);
+		}
+		
+		return "redirect:/peoplelibrary";
 
 	}
 

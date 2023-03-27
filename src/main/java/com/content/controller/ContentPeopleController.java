@@ -15,7 +15,7 @@ import com.content.model.PeopleLibrary;
 import com.content.service.ContentPeopleService;
 import com.content.service.PeopleLibraryService;
 
-@RestController
+@Controller
 //@Controller
 public class ContentPeopleController {
 

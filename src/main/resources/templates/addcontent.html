@@ -2,1006 +2,1461 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
 <head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-  <title>Dashboard </title>
-  <meta content="" name="description">
-  <meta content="" name="keywords">
+<title>Dashboard</title>
+<meta content="" name="description">
+<meta content="" name="keywords">
 
-  <!-- Favicons -->
-  <link th:href="@{/assets/img/favicon.png}" rel="icon">
-  <link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
+<!-- Favicons -->
+<link th:href="@{/assets/img/favicon.png}" rel="icon">
+<link th:href="@{/assets/img/apple-touch-icon.png}"
+	rel="apple-touch-icon">
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.gstatic.com" rel="preconnect">
-  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
-  <!-- check box-->
-  
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-  
+<!-- Google Fonts -->
+<link href="https://fonts.gstatic.com" rel="preconnect">
+<link
+	href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	rel="stylesheet">
+<!-- check box-->
 
-  <!-- Vendor CSS Files -->
-  <link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/quill/quill.bubble.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/remixicon/remixicon.css}" rel="stylesheet">
-  <link th:href="@{/assets/vendor/simple-datatables/style.css}" rel="stylesheet">
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+<script
+	src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
 
-  <!-- Template Main CSS File -->
-  <link th:href="@{/assets/css/style.css}" rel="stylesheet">
-  <link rel="stylesheet" th:href="@{/css/maincss.css}">
-  <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
-  <script th:src="@{/js/script.js}"></script>
+
+<!-- Vendor CSS Files -->
+<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/bootstrap-icons/bootstrap-icons.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/boxicons/css/boxicons.min.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/quill/quill.snow.css}" rel="stylesheet">
+<link th:href="@{/assets/vendor/quill/quill.bubble.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/remixicon/remixicon.css}"
+	rel="stylesheet">
+<link th:href="@{/assets/vendor/simple-datatables/style.css}"
+	rel="stylesheet">
+
+<!-- Template Main CSS File -->
+<link th:href="@{/assets/css/style.css}" rel="stylesheet">
+<link rel="stylesheet" th:href="@{/css/maincss.css}">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<script th:src="@{/js/script.js}"></script>
 <script th:src="@{/js/checkvalidfilernot.js}"></script>
 <script>
-function addons1(){
-    document.querySelector('.addons').style.display="none";
-    document.querySelector('.addons-1').style.display="block";
+		function addons1() {
+			document.querySelector('.addons').style.display = "none";
+			document.querySelector('.addons-1').style.display = "block";
 
+		}
+
+		function loadFile1(event) {
+			document.querySelector("#thumbnailError").innerHTML = "";
+
+			console.log(event);
+
+			console.log(event.target.files[0].type);
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+			if (eventFileType === "image") {
+				var banner_image = document.getElementById('thumbnail_output');
+				banner_image.src = URL.createObjectURL(event.target.files[0])
+			}
+			else {
+				document.querySelector("#thumbnailError").innerHTML = "Invalid thumbnail file format...."
+				document.querySelector("#thumbnail_fileselect").value='';
+				return false;
+			}
+		};
+		
+		
+
+		function loadFileMedia(event) {
+
+			document.querySelector("#mediaError").innerHTML = "";
+
+			console.log(event);
+
+			var type = document.querySelector('#contenttype').value;
+
+
+			console.log(event.target.files[0].type);
+
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+			if (type === "audio") {
+				
+				
+				if (type.toLowerCase() === eventFileType) {
+					var audiomedia_audio = document.getElementById('audio_output');
+					audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
+				}
+
+				else {
+					document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+						document.querySelector("#media_fileselect").value='';
+					return false;
+				}
+
+			}
+
+
+			else {
+				
+				
+				if (type.toLowerCase() === eventFileType) {
+					var media_video = document.getElementById('media_output');
+					media_video.src = URL.createObjectURL(event.target.files[0]);
+				}
+
+				else {
+					document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+						document.querySelector("#media_fileselect").value='';
+					return false;
+				}
+			}
+
+
+
+		};
+
+
+		function loadFilePreview(event) {
+			document.querySelector("#previewError").innerHTML = "";
+
+			console.log(event);
+
+			var type = document.querySelector('#contenttype').value;
+
+
+			console.log(event.target.files[0].type);
+
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+
+			if (type.toLowerCase() === eventFileType) {
+				var preview_video = document.getElementById('preview_output');
+				preview_video.src = URL.createObjectURL(event.target.files[0]);
+			}
+
+			else {
+				document.querySelector("#previewError").innerHTML = "Invalid Preview file format....";
+				document.querySelector("#media_fileselect").value='';
+				return false;
+			}
+
+
+
+		};
+
+		function loadFileBanner(event) {
+			document.querySelector("#bannerError").innerHTML = "";
+
+			console.log(event);
+
+			console.log(event.target.files[0].type);
+			var eventFileType = event.target.files[0].type.split("/")[0];
+
+			if (eventFileType === "image") {
+				var banner_image = document.getElementById('banner_output');
+				banner_image.src = URL.createObjectURL(event.target.files[0])
+			}
+			else {
+				document.querySelector("#bannerError").innerHTML = "Invalid Banner file format...."
+				document.querySelector("#banner_fileselect").value='';
+				return false;
+			}
+		};
+
+
+		var expanded = false;
+
+		function showCheckboxes() {
+			var checkboxes = document.querySelector('.checkboxes');
+			if (!expanded) {
+				checkboxes.style.display = "block";
+				expanded = true;
+			} else {
+				checkboxes.style.display = "none";
+				expanded = false;
+			}
+		}
+
+	</script>
+<script>
+		$('select').selectpicker();
+	</script>
+
+
+<script th:inline="javascript">
+
+		let peopleArr = []
+		const displayTable1 = () => {
+			var rollType = document.querySelector("#persontype").value;
+			var peopleName = $('#peoplecheckbox').find(":selected").text();
+			var peopleid = document.querySelector('#peoplecheckbox').value;
+			var peopleData = {
+				roll: rollType,
+				name: peopleName,
+				id: peopleid
+			}
+
+
+
+			peopleArr.push(peopleData);
+
+
+
+			let rollNamesArr = peopleArr.map((data) => {
+				return data.roll;
+			});
+
+
+			document.querySelector("#one").value = rollNamesArr;
+
+
+			console.log(rollNamesArr);
+
+
+			let namesArr = peopleArr.map((data) => {
+				return data.id;
+			});
+
+			document.querySelector("#two").value = namesArr;
+
+
+			console.log(namesArr);
+
+
+			const peopleList = peopleArr.map((people, index) => {
+				return `<tr style="width: 500px; display: flex; justify-content: space-between;"><td ><input type="hidden"  th:value="${people.roll}"><span>${people.roll}</span></td><td><input type="hidden"  th:name="peoples" th:value="${people.id}"> <span>${people.name}</span></td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
+			});
+			var finalPeopleList = "";
+			peopleList.forEach((p) => {
+				finalPeopleList = finalPeopleList + p;
+			})
+			document.querySelector("#displayTable").innerHTML = finalPeopleList;
+		}
+		function deleteClick(event) {
+
+			let rowId = event.target.id;
+
+			let uId = rowId.split("-")[1];
+			console.log(uId);
+
+
+			peopleArr.splice(uId, 1);
+
+
+			displayFinalList();
+		}
+
+
+		function displayFinalList() {
+
+
+			let rollNamesArr = peopleArr.map((data) => {
+				return data.roll;
+			});
+
+
+			console.log(rollNamesArr);
+
+
+			let namesArr = peopleArr.map((data) => {
+				return data.name;
+			});
+
+
+			console.log(namesArr);
+
+
+
+			const peopleList = peopleArr.map((people, index) => {
+				return `<tr><td>${people.roll}</td><td>${people.name}</td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
+			});
+			var finalPeopleList = "";
+			peopleList.forEach((p) => {
+				finalPeopleList = finalPeopleList + p;
+			})
+			document.querySelector("#displayTable").innerHTML = finalPeopleList;
+		}
+		
+		
+		//additional
+		
+		
+		function fileupolad(){
+         
+        var type = document.getElementById('additional-type').value;
+        var fileInput = document.getElementById('additional_fileselect');
+        var filePath = fileInput.value;
+if(type == "pdf"){
+        var allowedExtensions = /(\.pdf)$/i;
+        if(!allowedExtensions.exec(filePath)){
+		document.getElementById('additionalError').innerHTML="Please upload file having extensions .pdf only.";
+
+        fileInput.value = '';
+        return false;
+    }else{
+			document.getElementById('additionalError').innerHTML='';
+		}
 }
-
-function loadFile1(event) {
-document.querySelector("#thumbnailError").innerHTML = "";
-	
-	console.log(event);
-
-	console.log(event.target.files[0].type);
-	var eventFileType = event.target.files[0].type.split("/")[0];
-	
-	if(eventFileType === "image"){
-		var thumbnail_image = document.getElementById('thumbnail_output');
-		thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
-	}
-	else{
-		document.querySelector("#thumbnailError").innerHTML="Invalid Thumbnail file format...."
-	}
-	
-	
-	
-};
-
-function loadFileMedia(event) {
-	
-	document.querySelector("#mediaError").innerHTML = "";
-	
-	console.log(event);
-	
-	var type=document.querySelector('#contenttype').value;
-	
-	
-	console.log(event.target.files[0].type);
-	
-	var eventFileType = event.target.files[0].type.split("/")[0];
-	
-	if(type === "audio") {
-		
-		if(type.toLowerCase() === eventFileType){
-			var audiomedia_audio = document.getElementById('audio_output');
-			audiomedia_audio.src = URL.createObjectURL(event.target.files[0]);
-		}
-		
-		else {
-			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
-		}
-		
-	}
-	
-	
-	else{
-		
-		if(type.toLowerCase() === eventFileType){
-		 var media_video = document.getElementById('media_output');
-		 media_video.src = URL.createObjectURL(event.target.files[0]);
-		}
-		
-		else {
-			document.querySelector("#mediaError").innerHTML = "Invalid Media format...."
+else if(type == "video") {
+		var allowedExtensions = /(\.mp4|\.wmv|\.mov|\.flv)$/i;
+        if(!allowedExtensions.exec(filePath)){
+        document.getElementById('additionalError').innerHTML="Please upload file having extensions  mp4, wmv, mov, flv, vob, m4v, mkv only.";
+        fileInput.value = '';
+        return false;
+		}else{
+			document.getElementById('additionalError').innerHTML='';
 		}
 	}
+ else if(type == "audio") {
+	    var allowedExtensions = /(\.mp3|\.wav|\.mpeg)$/i;
  
+        if(!allowedExtensions.exec(filePath)){
+        document.getElementById('additionalError').innerHTML="Please upload file having extensions mp3, wav, aac, aiff, m4a, m4b, m4p, dvf, raw,wma, webm only.";
+        fileInput.value = '';
+        return false;
+		}else{
+			document.getElementById('additionalError').innerHTML='';
+		}
+	
+}
+ 
+}
+		
+		 function uploadFromLibrary(){
+			    document.querySelector("#media-upload").style.display="none";
+			    document.querySelector(".upload-from-medialibrary").style.display="flex";
+			    
+			  }
+			  function uploadFromComputer(){
+			    document.querySelector("#media-upload").style.display="block";
+			    document.querySelector(".upload-from-medialibrary").style.display="none";
+			    
+			  }
+			  function uploadpreviewFromLibrary(){
+				  document.querySelector("#preview-upload").style.display="none";
+				    document.querySelector(".upload-from-previewlibrary").style.display="flex";
+			  }
+			  function uploadpreviewFromComputer(){
+				  document.querySelector("#preview-upload").style.display="block";
+				    document.querySelector(".upload-from-previewlibrary").style.display="none";
+			  }
+			  function uploadbannerFromLibrary(){
+				  document.querySelector("#banner-upload").style.display="none";
+				    document.querySelector(".upload-from-bannerlibrary").style.display="flex";
+			  }
+			  function uploadbannerFromComputer(){
+				  document.querySelector("#banner-upload").style.display="block";
+				    document.querySelector(".upload-from-bannerlibrary").style.display="none";
+			  }
+			  function uploadadditionalFromLibrary(){
+				  document.querySelector("#additional-upload").style.display="none";
+				    document.querySelector(".upload-from-additionallibrary").style.display="flex";
+			  }
+			  function uploadadditionalFromComputer(){
+				  document.querySelector("#additional-upload").style.display="block";
+				    document.querySelector(".upload-from-additionallibrary").style.display="none";
+			  }
+			  function uploadthumbnailFromLibrary(){
+
+				    document.querySelector("#thumbnail-upload").style.display="none";
+				    document.querySelector(".upload-from-thumbnaillibrary").style.display="flex";
+			  }
+			  function uploadthumbnailFromComputer(){
+
+				    document.querySelector("#thumbnail-upload").style.display="block";
+				    document.querySelector(".upload-from-thumbnaillibrary").style.display="none";
+			  }
+			  
+			  
+			  
+			  
+			  
+	</script>
+
+<script th:inline="javascript">
 
 
-};
+		function requiredFields() {
+
+			var contenttype1 = document.getElementById("contenttype").value;
+			var contentformat1 = document.getElementById("contentformat").value;
+			var contentgroup1 = document.getElementById("contentgroup").value;
+			var contentname1 = document.getElementById("contentname").value;
+			var perma_link1 = document.getElementById("perma_link").value;
+			var category_type1 = document.getElementById("category_type").value;
+			var validForm = true;
+			//console.log(contentformat1);
+
+			if (contenttype1 === "") {
+				document.querySelector("#contenttype_Error").innerHTML = "The Content type field is required";
+				validForm = false;
+			}
+			if (contentformat1 === "") {
+				document.querySelector("#contentformat_Error").innerHTML = "The Content Format field is required";
+				validForm = false;
+			}
+			if (contentgroup1 === "") {
+				document.querySelector("#contentgroup_Error").innerHTML = "The Content Group field is required";
+				validForm = false;
+			}
+			if (contentname1 === "") {
+				document.querySelector("#contentname_Error").innerHTML = "The Content Name field is required";
+				validForm = false;
+			}
+			if (perma_link1 === "") {
+				document.querySelector("#perma_link_Error").innerHTML = "The Permalink field is required";
+				validForm = false;
+			}
+			if (category_type1 === "") {
+				document.querySelector("#category_type_Error").innerHTML = "The Category field is required";
+				validForm = false;
+			}
+
+			return validForm;
+
+		}
+		
+		
+		
+		
+		function frommediaLibOnCLick(e) {
+			let imgElement = e.target;
+			console.log(imgElement);
+			let inputElement = imgElement.nextElementSibling;
+			console.log(inputElement);
+			console.log(inputElement.getAttribute("value"));
+			let divvalues=inputElement.getAttribute("value");
+			
+			let fileselect=document.querySelector("#media_fileselect").value ;
+		fileselect =divvalues;
+			console.log("file value :"+fileselect);
+			e.target.focus();
+					}
+		function frompreviewLibOnCLick(e) {
+			console.log(e.target.children[0].files)
+			e.target.focus();
+					}
+		function frombannerLibOnCLick(e) {
+			console.log(e.target.children[0].files)
+			e.target.focus();
+					}
+		function fromadditionalLibOnCLick(e) {
+			console.log(e.target.children[0].files)
+			e.target.focus();
+					}
+		function fromthumbnailLibOnCLick(e) {
+			console.log(e.target.children[0].files)
+			e.target.focus();
+					}
 
 
-function loadFilePreview(event) {
-document.querySelector("#previewError").innerHTML = "";
-	
-	console.log(event);
-	
-	var type=document.querySelector('#contenttype').value;
-	
-	
-	console.log(event.target.files[0].type);
-	
-	var eventFileType = event.target.files[0].type.split("/")[0];
-	
-	
-		if(type.toLowerCase() === eventFileType) {
-		var preview_video = document.getElementById('preview_output');
-	preview_video.src = URL.createObjectURL(event.target.files[0]);
-	}
+	</script>
 
-	else{
-		document.querySelector("#previewError").innerHTML="Invalid Preview file format...."
-	}
-	
-	
-  
-};
 
-function loadFileBanner(event) {
-document.querySelector("#bannerError").innerHTML = "";
-	
-	console.log(event);
-
-	console.log(event.target.files[0].type);
-	var eventFileType = event.target.files[0].type.split("/")[0];
-	
-	if(eventFileType === "image"){
-  var banner_image = document.getElementById('banner_output');
-	banner_image.src = URL.createObjectURL(event.target.files[0])
-	}
-	else{
-		document.querySelector("#bannerError").innerHTML="Invalid Banner file format...."
-	}
-};
-
-  
-var expanded = false;
-
-function showCheckboxes() {
- var checkboxes = document.querySelector('.checkboxes');
- if (!expanded) {
-   checkboxes.style.display = "block";
-   expanded = true;
- } else {
-   checkboxes.style.display = "none";
-   expanded = false;
- }
-}  
-
-   </script>
-   <script>
-        $('select').selectpicker();
-    </script>
-    
-    
-    <script th:inline="javascript">
-    
-   let peopleArr = [] 
-    const displayTable1 = () => {   
-    	var rollType = document.querySelector("#persontype").value;
-      var peopleName = $('#peoplecheckbox').find(":selected").text();
-    var peopleid=document.querySelector('#peoplecheckbox').value;
-      var peopleData = {
-        roll: rollType,
-        name: peopleName,
-         id:peopleid
-      }
-    
-    
-    
-      peopleArr.push(peopleData);
-    
-    
-    
-     let rollNamesArr = peopleArr.map((data) => {
-    	 return data.roll;
-     });
-     
-     
-     document.querySelector("#one").value = rollNamesArr;
-     
-     
-     console.log(rollNamesArr);
-     
-     
-     let namesArr = peopleArr.map((data) => {
-    	 return data.id;
-     });
-     
-     document.querySelector("#two").value=namesArr;
-     
-     
-     console.log(namesArr);
-    
-    
-      const peopleList = peopleArr.map((people, index) => {
-        return `<tr style="width: 500px; display: flex; justify-content: space-between;"><td ><input type="hidden"  th:value="${people.roll}"><span>${people.roll}</span></td><td><input type="hidden"  th:name="peoples" th:value="${people.id}"> <span>${people.name}</span></td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
-      });
-      var finalPeopleList = "";
-      peopleList.forEach((p) => {
-        finalPeopleList = finalPeopleList + p;
-      })
-      document.querySelector("#displayTable").innerHTML = finalPeopleList;
-    }
-    function deleteClick(event){
-    	
-    	let rowId = event.target.id;
-    	 
-    	let uId = rowId.split("-")[1];
-    	console.log(uId);
-    	
-    	
-    	peopleArr.splice(uId, 1);
-    	
-    	
-    	displayFinalList();
-    }
-    
-    
-    function displayFinalList(){
-    	
-    	
-    	let rollNamesArr = peopleArr.map((data) => {
-       	 return data.roll;
-        });
-        
-        
-        console.log(rollNamesArr);
-        
-        
-        let namesArr = peopleArr.map((data) => {
-       	 return data.name;
-        });
-        
-        
-        console.log(namesArr);
-    	
-    	
-    	
-    	const peopleList = peopleArr.map((people, index) => {
-    	        return `<tr><td>${people.roll}</td><td>${people.name}</td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
-    	      });
-    	      var finalPeopleList = "";
-    	      peopleList.forEach((p) => {
-    	        finalPeopleList = finalPeopleList + p;
-    	      })
-    	      document.querySelector("#displayTable").innerHTML = finalPeopleList;
-    }
-    
-    
-    
-    
-    
-   
-	   
-	   
-	   
-	   
-  
-    
-    </script>
 <style>
 .multiselect {
-  width: 200px;
+	width: 200px;
 }
 
 .selectBox {
-  position: relative;
+	position: relative;
 }
 
 .selectBox select {
-  width: 100%;
-  font-weight: bold;
+	width: 100%;
+	font-weight: bold;
 }
 
 .overSelect {
-  position: absolute;
-  left: 0;
-  right: 0;
-  top: 0;
-  bottom: 0;
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	bottom: 0;
 }
 
 .checkboxes {
-  display: none;
-  border: 1px #dadada solid;
-  margin-left: 30px;
-  width: 200px;
-  
+	display: none;
+	border: 1px #dadada solid;
+	margin-left: 30px;
+	width: 200px;
 }
 
 .checkboxes label {
-  display: block;
+	display: block;
 }
 
 .checkboxes label:hover {
-  background-color: #1e90ff;
-}
-.checkboxes input{
-  padding: 15px;
-  margin: 10px;
+	background-color: #1e90ff;
 }
 
-
+.checkboxes input {
+	padding: 15px;
+	margin: 10px;
+}
 </style>
 </head>
 
 <body>
 
-  <!-- ======= Header ======= -->
-  <header id="header" class="header fixed-top d-flex align-items-center">
+	<!-- ======= Header ======= -->
+	<header id="header" class="header fixed-top d-flex align-items-center">
 
-    <div class="d-flex align-items-center justify-content-between">
-      <a href="@{/}" class="logo d-flex align-items-center">
-        <img src="assets/img/logo.png" alt="">
-        <span class="d-none d-lg-block">FEE Admin</span>
-      </a>
-      <i class="bi bi-list toggle-sidebar-btn"></i>
-    </div><!-- End Logo -->
+		<div class="d-flex align-items-center justify-content-between">
+			<a th:href="@{/}" class="logo d-flex align-items-center"> <img
+				src="assets/img/logo.png" alt=""> <span
+				class="d-none d-lg-block">FEE Admin</span>
+			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
+		</div>
+		<!-- End Logo -->
 
-    <div class="search-bar" >
-      <form class="search-form d-flex align-items-center" method="POST" action="#">
-        <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-        <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-      </form>
-    </div><!-- End Search Bar -->
+		<!-- <div class="search-bar">
+			<form class="search-form d-flex align-items-center" method="POST" action="#">
+				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
+				<button type="submit" title="Search"><i class="bi bi-search"></i></button>
+			</form>
+		</div><!-- End Search Bar -->
 
-    <nav class="header-nav ms-auto">
-      <ul class="d-flex align-items-center">
+		<nav class="header-nav ms-auto">
+			<ul class="d-flex align-items-center">
 
-        <li class="nav-item d-block d-lg-none">
-          <a class="nav-link nav-icon search-bar-toggle " href="#">
-            <i class="bi bi-search"></i>
-          </a>
-        </li><!-- End Search Icon-->
+				<li class="nav-item d-block d-lg-none"><a
+					class="nav-link nav-icon search-bar-toggle " href="#"> <i
+						class="bi bi-search"></i>
+				</a></li>
+				<!-- End Search Icon-->
 
-        <li class="nav-item dropdown">
+				<li class="nav-item dropdown"><a class="nav-link nav-icon"
+					href="#" data-bs-toggle="dropdown"> <i class="bi bi-bell"></i>
+						<span class="badge bg-primary badge-number">4</span>
+				</a>
+				<!-- End Notification Icon -->
+				<li class="nav-item dropdown"><a th:href="@{/UserHome}"
+					target="_blank" class="nav-link nav-icon"> Website <i
+						class="bi bi-box-arrow-up-right"></i>
+				</a></li>
+				<!-- End Messages Nav -->
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown">
-            <i class="bi bi-bell"></i>
-            <span class="badge bg-primary badge-number">4</span>
-          </a><!-- End Notification Icon -->
+				<li class="nav-item dropdown pe-3"><a
+					class="nav-link nav-profile d-flex align-items-center pe-0"
+					href="#" data-bs-toggle="dropdown"> <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
+						<span class="d-none d-md-block dropdown-toggle ps-2">Vidhya
+							J S</span>
+				</a>
+				<!-- End Profile Iamge Icon -->
 
-         
-       
+					<ul
+						class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+						<li class="dropdown-header">
+							<h6>Vidhya</h6> <span>Web Designer</span>
+						</li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-        <li class="nav-item dropdown">
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="users-profile.html"> <i class="bi bi-person"></i> <span>My
+									Profile</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
-            <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="users-profile.html"> <i class="bi bi-gear"></i> <span>Account
+									Settings</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-          
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="pages-faq.html"> <i class="bi bi-question-circle"></i>
+								<span>Need Help?</span>
+						</a></li>
+						<li>
+							<hr class="dropdown-divider">
+						</li>
 
-        </li><!-- End Messages Nav -->
+						<li><a class="dropdown-item d-flex align-items-center"
+							href="#"> <i class="bi bi-box-arrow-right"></i> <span>Sign
+									Out</span>
+						</a></li>
 
-        <li class="nav-item dropdown pe-3">
+					</ul>
+					<!-- End Profile Dropdown Items --></li>
+				<!-- End Profile Nav -->
 
-          <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-            <!-- <img src="assets/img/profile-img.jpg" alt="Profile" class="rounded-circle"> -->
-            <span class="d-none d-md-block dropdown-toggle ps-2">Vidhya J S</span>
-          </a><!-- End Profile Iamge Icon -->
+			</ul>
+		</nav>
+		<!-- End Icons Navigation -->
 
-          <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-            <li class="dropdown-header">
-              <h6>Vidhya</h6>
-              <span>Web Designer</span>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+	</header>
+	<!-- End Header -->
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>My Profile</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+	<!-- ======= Sidebar ======= -->
+	<aside id="sidebar" class="sidebar">
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                <i class="bi bi-gear"></i>
-                <span>Account Settings</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+		<ul class="sidebar-nav" id="sidebar-nav">
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                <i class="bi bi-question-circle"></i>
-                <span>Need Help?</span>
-              </a>
-            </li>
-            <li>
-              <hr class="dropdown-divider">
-            </li>
+			<li class="nav-item"><a class="nav-link " th:href="@{/}"> <i
+					class="bi bi-grid"></i> <span>Dashboard</span>
+			</a></li>
+			<!-- End Dashboard Nav -->
 
-            <li>
-              <a class="dropdown-item d-flex align-items-center" href="#">
-                <i class="bi bi-box-arrow-right"></i>
-                <span>Sign Out</span>
-              </a>
-            </li>
 
-          </ul><!-- End Profile Dropdown Items -->
-        </li><!-- End Profile Nav -->
+			<li class="nav-item"><a class="nav-link collapsed"
+				data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
+					<i class="bi bi-menu-button-wide"></i><span>Content
+						Management</span><i class="bi bi-chevron-down ms-auto"></i>
+			</a>
+				<ul id="components-nav" class="nav-content collapse "
+					data-bs-parent="#sidebar-nav">
+					<li><a th:href="@{/contentlibrary}"> <i
+							class="bi bi-circle"></i><span>Contents Library</span>
+					</a></li>
+					<li><a th:href="@{/assetlibrary}"> <i class="bi bi-circle"></i><span>Asset
+								Library</span>
+					</a></li>
+					<li><a th:href="@{/playlistlibrary}"> <i
+							class="bi bi-circle"></i><span>Playlist Library</span>
+					</a></li>
+					<li><a th:href="@{/featuredsections}"> <i
+							class="bi bi-circle"></i><span>Featured Sections</span>
+					</a></li>
+					<li><a th:href="@{/contnentsettings}"> <i
+							class="bi bi-circle"></i><span>Content Settings</span>
+					</a></li>
 
-      </ul>
-    </nav><!-- End Icons Navigation -->
+				</ul></li>
+			<!-- End CMS Nav -->
 
-  </header><!-- End Header -->
+		</ul>
 
-  <!-- ======= Sidebar ======= -->
-  <aside id="sidebar" class="sidebar">
+	</aside>
+	<!-- End Sidebar-->
 
-    <ul class="sidebar-nav" id="sidebar-nav">
+	<main id="main" class="main">
 
-      <li class="nav-item">
-        <a class="nav-link " href="index.html">
-          <i class="bi bi-grid"></i>
-          <span>Dashboard</span>
-        </a>
-      </li><!-- End Dashboard Nav -->
-      
+		<div class="pagetitle">
+			<h1>Content Management</h1>
+			<nav>
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/contentlibrary}">Content
+							Library</a></li>
+					<li class="breadcrumb-item active">Add Content</li>
 
-      <li class="nav-item">
-        <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-          <i class="bi bi-menu-button-wide"></i><span>Content Management</span><i class="bi bi-chevron-down ms-auto"></i>
-        </a>
-        <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
-          <li>
-            <a th:href="@{/contentlibrary}">
-              <i class="bi bi-circle"></i><span>Contents Library</span>
-            </a>
-          </li>
-          <li>
-            <a th:href="@{/assetlibrary}">
-              <i class="bi bi-circle"></i><span>Asset Library</span>
-            </a>
-          </li>
-          <li>
-            <a th:href="@{/playlistlibrary}">
-              <i class="bi bi-circle"></i><span>Playlist Library</span>
-            </a>
-          </li>
-          <li>
-            <a th:href="@{/featuredsections}">
-              <i class="bi bi-circle"></i><span>Featured Sections</span>
-            </a>
-          </li>
-          <li>
-            <a th:href="@{/contnentsettings}">
-              <i class="bi bi-circle"></i><span>Content Settings</span>
-            </a>
-          </li>
-          
-        </ul>
-      </li><!-- End CMS Nav -->
-
-                 </ul>
-
-  </aside><!-- End Sidebar-->
-
-  <main id="main" class="main">
-
-    <div class="pagetitle">
-      <h1>Content Management</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
-          <li class="breadcrumb-item active">Content Library</li>
-         
-        </ol>
-      </nav>
-    </div>
+				</ol>
+			</nav>
+		</div>
 
 
 
-    <section class="section dashboard" >
-      <div class="row">
-        
-            
-           
-         <!--  Modal   -->
-    <form  id="uploadForm"  th:action="@{/addcontent1}" th:object="${contentlibrary}" method="POST" enctype="multipart/form-data">
-<div class="add-contents"    >
-  <div class="left" style="float:left; width:60%; margin-top: 10px; ">
- 
-    <label for="contenttype" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Type<span style="color:red;">*</span></label>&nbsp;
-    <select th:name="content_type" id="contenttype" onchange="previewnone()" style="height:30px; width: 250px;  "> <!---->
-      <option value="select">Select a content type</option>
-      <option th:value="video">Video</option>
-      <option th:value="audio">Audio</option>
-    </select><br>
-    <label for="contentformat" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Format<span style="color:red;">*</span></label>&nbsp;
-    <select th:name="content_format" id="contentformat"  style="height:30px; width: 250px;  ">
-      <option value="select">Select a content format</option>
-      <option th:value="video">Video</option>
-      <option th:value="audio">Audio</option>
-    </select><br>
-    <label for="contentgroup" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Group<span style="color:red;">*</span></label>&nbsp;
-    <select th:name="content_group"  id="contentgroup" style="height:30px; width: 250px;  ">
-      <option th:value="web_series">Web series</option>
-      <option th:value="video">Video</option>
-      <option th:value="audio">Audio</option>
-    </select>
-       <br>
-      <label for="contentname" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Name<span style="color:red;">*</span></label>&nbsp;
-      <input type="text" id="contentname" th:name="content_name" style="height:30px; width: 250px;"placeholder="Enter content name"  required ><br>
-      <label for="perma_link"style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span style="color:red;" >*</span></label>&nbsp;
-      <input type="text" id="perma_link" th:name="permalink" style="height:30px; width: 250px;"placeholder="Permalink" ><br>
-      <label for="category_type" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Content Category<span style="color:red;">*</span></label>&nbsp;
-      <select th:name="category_id" id="category_type" style="height:30px;width: 250px; ">
-       <option value="select">Select a content format</option>
-        <option th:each=" categories:${categories}"
-              th:text="${categories.category_name}"
-              th:value="${categories.category_id}" >
-         </option>
-        
-      </select>
-      <br/>
-      <label for="content_story" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Description</label>&nbsp;
-      <input type="text" id="content_story" th:name="story" style="height:80px; width: 250px;margin-top:2%;"placeholder="Type here" ><br>
-      <label for="searchtags" style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Search Tags</label>&nbsp;
-      <input type="text" id="searchtags" th:name="search_tags" style="height:30px; width: 250px;"placeholder="Add a tag" ><br>
-      
-     
-      <!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
+		<section class="section dashboard">
+			<div class="row">
 
-      <div class="link1"  style="display: flex;">
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaymedia()">Media</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaybanner()">Banner</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displaypeople()">People</div>&nbsp;&nbsp;
-        <div style="color: rgba(134, 5, 255, 0.895);margin-right: 20px;" onclick="displayaddons()">Add Ons</div>&nbsp;&nbsp;
-      </div>
-<!-- Audio -->
-<div class="audiomedia" style="display: none;">
-<div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px; ">
-   <div style="float:left; ">
-          <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
-          <div onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 300px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
-           <a   style="font-size: 13px;text-align: center;">+ Add file</a>
-           <audio id="audio_output" controls    style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-top: 15px;" ></audio>
-           
-          </div>
-          
-      </div>
- </div>
- <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : Audio files</p>
-</div>
 
-      <!-- Media -->
-    <div class="media"  ><!--style="display: none;"-->
-      
-      <div  style="display: flex; justify-content:space-around; width: 70%;margin-left:  50px; ">
-       
-       
-        <div style="float:left; ">
-           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Primary Media</p>  
-           <span onclick="document.getElementById('media').style.display='block'" class="w3-button w3-white" style="padding: 20px ;height: 90px;width: 200px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px ; position: relative;">
-            <a  style="font-size: 13px;text-align: center;">+ Add file</a>
-            <!--  -->
-            <video id="media_output" controls  width="150" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 20px;margin-top: 13px;" ></video>
-            
-            </span>
-            
-       </div>  
-       
-       <div  id="preview-part" style="float:right;">
-           <p style="font-size: 12px; white-space: nowrap;margin-top: 5px; margin-bottom: 5px;margin-left: 1px;">Preview</p>  
-           <span onclick="document.getElementById('preview').style.display='block'" class="w3-button w3-white" style="padding: 20px;height: 90px;width: 150px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px;position: relative;">
-            <a  style="font-size: 13px; text-align: center; ">+ Add file</a>
-            <video id="preview_output" controls  width="120" height="60" style="position: absolute; top: 0; left: 0; opacity: 0.5;margin-left: 10px;margin-top: 13px;margin-right:10px" /></video>
-            </span> 
-       </div> 
-      </div>
-         <p style="width: auto; font-size: 12px; margin-left: 53px; width: 70%;  text-align:center; margin-top:10px; margin-right: 0;">Supported file : Video files</p>
-        
-    </div>
-<!-- Banner -->
-    <div class="banner" style="display: none; height: auto;" > <!-- block-->
-      <div  style=" justify-content:space-around; width: 70%;margin-left:  100px;">
-        <div style="float:left; width: 80%;">
-           <p style="font-size: 12px; white-space: nowrap;margin-top:1%;margin-bottom: 2px;">Website</p>  
-           <span onclick="document.getElementById('banner').style.display='block'" class="w3-button w3-white" style=" padding: 20px ;height: 70px;width: 170px;margin-left:0;margin-top:1%;margin-bottom:1%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
-            <a >+ Add file</a>
-            <img id="banner_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
-            
-            </span>
-       </div>  
-      </div>
-      <p style="width: auto; font-size: 12px;  width: 70%;  text-align:center; margin-right: 0;">Resolution : 1600X560 px</p>
-      <p style="width: auto; font-size: 12px;  width: 70%;   margin-left: 95px;">Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
-        
-    </div>
-    <!-- People -->
-    
-    <div class="people" style="display: none;"  ><!-- th:each=" cont: ${contentPeople}"-->
-    
-   
-       
-        <select  class="selectpicker" id="persontype"   ><!-- th:name="'contentPeople['+${contStat.index}+'].person_type'"  -->
-        <option value="select">Select Person Type</option>
-        <option th:value="Director">Director</option>
-        <option th:value="Actor">Actor</option>
-         <option th:value="Music_Director">Music Director</option>
-        </select>&nbsp; &nbsp;
-       
-         <!-- <input type="checkbox" style="width:20px;"  th:name="peoples"
+
+				<!--  Modal   -->
+				<form id="uploadForm" th:action="@{/addcontent1}"
+					th:object="${contentlibrary}" method="POST"
+					enctype="multipart/form-data" onsubmit="return requiredFields()">
+					<div class="add-contents">
+						<div class="left"
+							style="float: left; width: 60%; margin-top: 10px;">
+
+							<label for="contenttype"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Content
+								Type<span style="color: red;">*</span>
+							</label>&nbsp; <select th:name="content_type" id="contenttype"
+								onchange="previewnone()" style="height: 30px; width: 250px;">
+								<!---->
+								<option value="">Select a content type</option>
+								<option th:value="video">Video</option>
+								<option th:value="audio">Audio</option>
+							</select><br>
+							<p style="color: red; margin-left: 165px;" id="contenttype_Error"></p>
+
+							<label for="contentformat"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Content
+								Format<span style="color: red;">*</span>
+							</label>&nbsp; <select th:name="content_format" id="contentformat"
+								style="height: 30px; width: 250px;">
+								<option value="">Select a content format</option>
+								<option th:value="video">Video</option>
+								<option th:value="audio">Audio</option>
+							</select><br>
+							<p style="color: red; margin-left: 165px;"
+								id="contentformat_Error"></p>
+
+							<label for="contentgroup"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Group<span
+								style="color: red;">*</span></label>&nbsp; <select
+								th:name="content_group" id="contentgroup"
+								style="height: 30px; width: 250px;">
+								<option value="">Select a group type</option>
+								<option th:value="video">Video</option>
+								<option th:value="audio">Audio</option>
+								<option th:value="web_series">Web series</option>
+							</select> <br>
+							<p style="color: red; margin-left: 165px;"
+								id="contentgroup_Error"></p>
+
+							<label for="contentname"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Content
+								Name<span style="color: red;">*</span>
+							</label>&nbsp; <input type="text" id="contentname" th:name="content_name"
+								style="height: 30px; width: 250px;"
+								placeholder="Enter content name"><br>
+							<p style="color: red; margin-left: 165px;" id="contentname_Error"></p>
+
+							<label for="perma_link"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Permalink<span
+								style="color: red;">*</span></label>&nbsp; <input type="text"
+								id="perma_link" th:name="permalink"
+								style="height: 30px; width: 250px;" placeholder="Permalink"><br>
+							<p style="color: red; margin-left: 165px;" id="perma_link_Error"></p>
+
+							<label for="category_type"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Content
+								Category<span style="color: red;">*</span>
+							</label>&nbsp; <select th:name="category_id" id="category_type"
+								style="height: 30px; width: 250px;">
+								<option value="">Select a content format</option>
+								<option th:each=" categories:${categories}"
+									th:text="${categories.category_name}"
+									th:value="${categories.category_id}"></option>
+							</select> <br />
+							<p style="color: red; margin-left: 165px;"
+								id="category_type_Error"></p>
+
+							<label for="content_story"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Description</label>&nbsp;
+							<input type="text" id="content_story" th:name="story"
+								style="height: 80px; width: 250px; margin-top: 2%;"
+								placeholder="Type here"><br> <label
+								for="searchtags"
+								style="margin-top: 5%; width: 139px; margin-left: 3%; font-weight: 500;">Search
+								Tags</label>&nbsp; <input type="text" id="searchtags"
+								th:name="search_tags" style="height: 30px; width: 250px;"
+								placeholder="Add a tag"><br>
+
+
+							<!-- <button type="submit" style="border: none; background: none;padding:6px 12px; border-radius: 5px;color: aliceblue; background-color:  #18A0FB;white-space: nowrap;">+ Add</button> -->
+
+							<div class="link1"   style="display: flex;">
+								<div id="mediaid" style="color: #6c757d; margin-right: 20px;"
+									onclick="displaymedia()">Media</div>
+								&nbsp;&nbsp;
+								<div id="bannerid" style="color: #6c757d; margin-right: 20px;"
+									onclick="displaybanner()">Banner</div>
+								&nbsp;&nbsp;
+								<div id="peopleid" style="color: #6c757d; margin-right: 20px;"
+									onclick="displaypeople()">People</div>
+								&nbsp;&nbsp;
+								<div id="addonsid" style="color: #6c757d; margin-right: 20px;"
+									onclick="displayaddons()">Add Ons</div>
+								&nbsp;&nbsp;
+
+
+							</div>
+							<!-- Audio -->
+							<div class="audiomedia" style="display: none;">
+								<div
+									style="display: flex; justify-content: space-around; width: 70%; margin-left: 50px;">
+									<div style="float: left;">
+										<p
+											style="font-size: 12px; white-space: nowrap; margin-top: 5px; margin-bottom: 5px; margin-left: 1px;">
+											Primary Media</p>
+										<div
+											onclick="document.getElementById('media').style.display='block'"
+											class="w3-button w3-white"
+											style="padding: 20px; height: 90px; width: 300px; margin-left: 0; margin-top: 1%; margin-bottom: 1%; border-style: dashed; border-color: #18A0FB; border-radius: 5px; position: relative;">
+											<a style="font-size: 13px; text-align: center;">+ Add
+												file</a>
+											<audio id="audio_output" controls
+												style="position: absolute; top: 0; left: 0; opacity: 0.5; margin-top: 15px;"></audio>
+
+										</div>
+
+									</div>
+								</div>
+								<p
+									style="width: auto; font-size: 12px; margin-left: 53px; width: 70%; text-align: center; margin-top: 10px; margin-right: 0;">
+									Supported file : Audio files</p>
+							</div>
+
+							<!-- Media -->
+							<div class="media">
+								<!--style="display: none;"-->
+
+								<div
+									style="display: flex; justify-content: space-around; width: 70%; margin-left: 50px;">
+
+
+									<div style="float: left;">
+										<p
+											style="font-size: 12px; white-space: nowrap; margin-top: 5px; margin-bottom: 5px; margin-left: 1px;">
+											Primary Media</p>
+										<span
+											onclick="document.getElementById('media').style.display='block'"
+											class="w3-button w3-white"
+											style="padding: 20px; height: 90px; width: 200px; margin-left: 0; margin-top: 1%; margin-bottom: 1%; border-style: dashed; border-color: #18A0FB; border-radius: 5px; position: relative;">
+											<a style="font-size: 13px; text-align: center;">+ Add
+												file</a> <!--  --> <video id="media_output" controls width="150"
+												height="60"
+												style="position: absolute; top: 0; left: 0; opacity: 0.5; margin-left: 20px; margin-top: 13px;"></video>
+
+										</span>
+
+									</div>
+
+									<div id="preview-part" style="float: right;">
+										<p
+											style="font-size: 12px; white-space: nowrap; margin-top: 5px; margin-bottom: 5px; margin-left: 1px;">
+											Preview</p>
+										<span
+											onclick="document.getElementById('preview').style.display='block'"
+											class="w3-button w3-white"
+											style="padding: 20px; height: 90px; width: 150px; margin-left: 0; margin-top: 1%; margin-bottom: 1%; border-style: dashed; border-color: #18A0FB; border-radius: 5px; position: relative;">
+											<a style="font-size: 13px; text-align: center;">+ Add
+												file</a> <video id="preview_output" controls width="120"
+												height="60"
+												style="position: absolute; top: 0; left: 0; opacity: 0.5; margin-left: 10px; margin-top: 13px; margin-right: 10px" /></video>
+										</span>
+									</div>
+								</div>
+								<p
+									style="width: auto; font-size: 12px; margin-left: 53px; width: 70%; text-align: center; margin-top: 10px; margin-right: 0;">
+									Supported file : Video files</p>
+
+							</div>
+							<!-- Banner -->
+							<div class="banner" style="display: none; height: auto;">
+								<!-- block-->
+								<div
+									style="justify-content: space-around; width: 70%; margin-left: 100px;">
+									<div style="float: left; width: 80%;">
+										<p
+											style="font-size: 12px; white-space: nowrap; margin-top: 1%; margin-bottom: 2px;">
+											Website</p>
+										<span
+											onclick="document.getElementById('banner').style.display='block'"
+											class="w3-button w3-white"
+											style="padding: 20px; height: 70px; width: 170px; margin-left: 0; margin-top: 1%; margin-bottom: 1%; border-style: dashed; border-color: #18A0FB; border-radius: 5px; position: relative;">
+											<a>+ Add file</a> <img id="banner_output" width="200"
+											style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+
+										</span>
+									</div>
+								</div>
+								<p
+									style="width: auto; font-size: 12px; width: 70%; text-align: center; margin-right: 0;">
+									Resolution : 1600X560 px</p>
+								<p
+									style="width: auto; font-size: 12px; width: 70%; margin-left: 95px;">Supported
+									file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+
+							</div>
+							<!-- People -->
+
+							<div class="people" style="display: none;">
+								<!-- th:each=" cont: ${contentPeople}"-->
+
+
+
+								<select class="selectpicker" id="persontype">
+									<!-- th:name="'contentPeople['+${contStat.index}+'].person_type'"  -->
+									<option value="select">Select Person Type</option>
+									<option th:value="Director">Director</option>
+									<option th:value="Actor">Actor</option>
+									<option th:value="Music_Director">Music Director</option>
+								</select>&nbsp; &nbsp;
+
+								<!-- <input type="checkbox" style="width:20px;"  th:name="peoples"
          th:each="list: ${peoplelist}"
           th:value="${list.people_id}"
          th:text="${list.people_name}"
          /> -->
-        
-         
-         <select id="peoplecheckbox" class="selectpicker"   ><!-- th:name="'contentPeople['+${contStat.index}+'].people_id'"   -->
-          <option value="select">Select Person</option>
-      <option  th:each="list: ${peoplelist}"
-               th:value="${list.people_id}"
-              th:text="${list.people_name}"
-      ></option>
-      
-    </select>
-    <input type="hidden" id="one" th:name="person_type">
-    <input type="hidden"  id="two" th:name="people">
-    <input type="button" id="add" value="+ add" onclick="displayTable1()" style=" height:25px;
-        width: 80px;
-        margin-left: 30px;
-        margin-top: 20px;
-        border:none ; 
-        color: aliceblue;
-        background-color:  #18A0FB;
-        border-radius: 5px;">
-    
-       
-         
-          </div>
-          <div id="tabledisplay"> <table id="displayTable">
-       </table> </div>
-          
-      
-       
-          
-   
-   
-                   
-      <!-- <span id="addons-1-upload" style="padding:5px;margin:10px;margin-top:18px;" > &nbsp;+ Add</span>--> 
-    
-
-    <!-- Add Ons-->
-    <div class="addons" style="display: none;"><!-- block-->
-      <p>Add Supportive Video/Audio/PDF File to this content</p>
-      <label onclick="addons1()" style="background: none;border: none;" ><i class="bi bi-plus-circle-fill"> </i>&nbsp;Add new file</label>
-    </div>
-    <div class ="addons-1" style="display: none;">
-      <h6>Label Name</h6>
-      <p>Media Type</p>
-      <select th:name="additional_asset_type" id="additional-type">
-        <option th:value="video">Video</option>
-        <option th:value="audio">Audio</option>
-        <option th:value="pdf">PDF</option>
-        </select>
-                  
-      <span id="addons-1-upload" onclick="document.getElementById('additional').style.display='block'">Upload</span>
-      <span  id="addons-1-cancel" onclick="displayNone()">Cancel</span><!--     ////////   -->
-
-      
-
-    </div>
-   
-
-    </div>            
-
-
-
-
-
-  <div class="right" style="float: right;width: 40%;">
-<h2 style="font-size:20px;">Thumbnail</h2>
-
-  <div class="link">
-      <a href="#" style="color: rgba(134, 5, 255, 0.895);">web</a>
-      </div>
- 
-    
-   <br>
-    <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;">Resolution : 288X424 px</p>   
-    <div class="w3-container">
-      <span onclick="document.getElementById('thumbnail').style.display='block'" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
-        <a style="font-size: 13px; text-align: center;">+ Add file</a>
-        <img id="thumbnail_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
-        </span>
-    <p style="font-size: 12px;white-space: nowrap;margin-top:8%;"> Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
-
-    
-
-    <div id="media" class="w3-modal" >
-
-      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-
-        <div class="w3-container">
-
-          <span onclick="document.getElementById('media').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-          <h4>Upload</h4>
-          <p id="mediaError" style="color: red;"></p>
-          <div class="row">
-            <div>
-              <nav>
-                  <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-
-                    <li class="breadcrumb-item">Choose From Library</li>
-                  </ol>
-                </nav>
-              </div>
-             
-                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
-                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                <div>
-                  <label for="media_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="video/*,audio/*"  th:name="media_assets" id="media_fileselect"
-														onchange="loadFileMedia(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;"> 
-                </div>
-                </fieldset>
-                <div id="mediavideo" style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
-                <div id="mediaaudio" style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp3, wav, aac, aiff, m4a, m4b, m4p, dvf, raw, wma, webm, flac, ogg, mpeg )</div>
-              </div>
-                
-        </div>
-      </div>
-
-    </div><!-- end pop up    media -->
-    <div id="preview" class="w3-modal" >
-
-      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-
-        <div class="w3-container">
-
-          <span onclick="document.getElementById('preview').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-          <h4>Upload</h4>
-           <p id="previewError" style="color: red;"></p>
-          <div class="row">
-            <div>
-              <nav>
-                  <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-
-                    <li class="breadcrumb-item">Choose From Library</li>
-                  </ol>
-                </nav>
-              </div>
-             
-                <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
-                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                <div>
-                  <label for="preview_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="video/*" th:name="preview_assets" class="preview_fileselect" id="preview_fileselect"
-														onchange="loadFilePreview(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
-                </div>
-                </fieldset>
-                <div    style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi, 3gp, mpg, mxf )</div>
-                
-              </div>
-                
-        </div>
-      </div>
-
-    </div><!-- end pop up  preview-->
-    <div id="banner" class="w3-modal" >
-
-      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-
-        <div class="w3-container">
-
-          <span onclick="document.getElementById('banner').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-          <h4>Upload</h4>
-           <p id="bannerError" style="color: red;"></p>
-          <div class="row">
-            <div>
-              <nav>
-                  <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-
-                    <li class="breadcrumb-item">Choose From Library</li>
-                  </ol>
-                </nav>
-              </div>
-             
-                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
-                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                <div>
-                  <label for="banner_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                   <input type="file" accept="image/*" th:name="banner_assets" id="banner_fileselect"
-														onchange="loadFileBanner(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
-                </div>
-                </fieldset>
-                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, jpeg, png, gif, svg, jfif )</div>
-                
-              </div>
-                
-        </div>
-      </div>
-
-    </div><!-- end pop up  banner -->
-    <div id="additional" class="w3-modal" >
-
-      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-
-        <div class="w3-container">
-
-          <span onclick="document.getElementById('additional').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-          <h4>Upload</h4>
-           <p id="additionalError" style="color: red;"></p>
-          <div class="row">
-            <div>
-              <nav>
-                  <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-
-                    <li class="breadcrumb-item">Choose From Library</li>
-                  </ol>
-                </nav>
-              </div>
-             
-                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
-                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                <div>
-                  <label for="additional_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file"  th:name="additional_assets" id="additional_fileselect"
-														onchange="loadFile(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
-                </div>
-                </fieldset>
-                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Upload given media type file</div>
-                
-              </div>
-                
-        </div>
-      </div>
-
-    </div><!-- end pop up additional-->
-    <div id="thumbnail" class="w3-modal" >
-
-      <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
-
-        <div class="w3-container">
-
-          <span onclick="document.getElementById('thumbnail').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-
-          <h4>Upload</h4>
-           <p id="thumbnailError" style="color: red;"></p>
-          <div class="row">
-            <div>
-              <nav>
-                  <ol class="breadcrumb">
-
-                    <li class="breadcrumb-item"><a href="#">Upload From Computer</a></li>
-
-                    <li class="breadcrumb-item">Choose From Library</li>
-                  </ol>
-                </nav>
-              </div>
-             
-                 <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
-                <input type="hidden" id="MAX_FILE_SIZE" name="MAX_FILE_SIZE" value="300000" />
-                <div>
-                  <label for="thumbnail_fileselect" style="margin-left:25%;margin-top:11%;color: #18A0FB;">Browse, or Drag & drop your file here</label>
-                  <input type="file" accept="image/*" th:name="thumbnail_assets" id="thumbnail_fileselect"
-														onchange="loadFile1(event)" style="cursor: pointer; margin-left:30%;margin-top:10px;margin-bottom:30px;">
-                </div>
-                </fieldset>
-                <div style="font-size: 12px;margin-left:0%; white-space: nowrap;color: grey;">Supported file : ( jpg, png, jpeg, gif, svg, jfif)</div>
-                
-              </div>
-                
-        </div>
-      </div>
-
-    </div><!-- end pop up thumbnail-->
-
-  </div>
-  </div>
-  
-</div>
-
-
-<!-- cancel and save buttons-->
-<div class="cancel-save-btn" >
-   <button type="button"  style="background-color: #fff;color: rgb(31, 29, 29); border:1px solid rgb(33, 33, 33);  padding:8px 16px; border-radius: 5px;"><a th:href="@{/contentlibrary}" style="color:black;">Cancel</a></button>&nbsp;&nbsp;&nbsp;
-  <button type="submit" value="contentsave">Save</button>
-
-</div>
-</form>
-
-
-
-
-<!-- End General Form Elements -->
-<!-- modal end-->
-        <!-- Left side columns -->
-        <div class="col-lg-8">
-          <div class="row">
-        </div>
-        </div>
-      </div>
-  
-    </section>
-
-   
-           
-
-  </main><!-- End #main -->
-
-
-
-
-
-  <!-- ======= Footer ======= -->
-  <footer id="footer" class="footer">
-    <div class="copyright">
-      &copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights Reserved
-    </div>
-    <div class="credits">
-    
-      Designed by <a href="">Devil</a>
-    </div>
-  </footer><!-- End Footer -->
-
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-      
-      <script>
-  var type=document.querySelector('#contenttype').value;
-  if(type=='audio'){
-  	 document.querySelector('.media').style.display="none";
-   document.querySelector('.audiomedia').style.display="block";
-   document.querySelector('#mediavideo').style.display="none";
-   document.querySelector('#mediaaudio').style.display="block";
-   
-  }
-  else {
-  	document.querySelector('.media').style.display="block";
-  document.querySelector('.audiomedia').style.display="none";
-   document.querySelector('#mediaaudio').style.display="none";
-    document.querySelector('#mediavideo').style.display="block";
-  }
-  
-  function displayNone(){
-	  document.querySelector('.addons-1').style.display="none";
-	  document.querySelector('.addons').style.display="block";
-  }
-  
-  
-  </script>
-      
-      
-      
-      
-      
-  <!-- Vendor JS Files -->
-  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
-  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
-  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
-  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
-  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
-  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
-  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
-  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
-
-  <!-- Template Main JS File -->
-  <script th:src="@{/assets/js/main.js}"></script>
+
+
+								<select id="peoplecheckbox" class="selectpicker">
+									<!-- th:name="'contentPeople['+${contStat.index}+'].people_id'"   -->
+									<option value="select">Select Person</option>
+									<option th:each="list: ${peoplelist}"
+										th:value="${list.people_id}" th:text="${list.people_name}"></option>
+
+								</select> <input type="hidden" id="one" th:name="person_type"> <input
+									type="hidden" id="two" th:name="people"> <input
+									type="button" id="add" value="+ add" onclick="displayTable1()"
+									style="height: 25px; width: 80px; margin-left: 30px; margin-top: 20px; border: none; color: aliceblue; background-color: #18A0FB; border-radius: 5px;">
+
+
+
+							</div>
+							<div id="tabledisplay">
+								<table id="displayTable">
+								</table>
+							</div>
+
+
+
+
+
+
+
+							<!-- <span id="addons-1-upload" style="padding:5px;margin:10px;margin-top:18px;" > &nbsp;+ Add</span>-->
+
+
+							<!-- Add Ons-->
+							<div class="addons" style="display: none;">
+								<!-- block-->
+								<p>Add Supportive Video/Audio/PDF File to this content</p>
+								<label onclick="addons1()"
+									style="background: none; border: none;"><i
+									class="bi bi-plus-circle-fill"> </i>&nbsp;Add new file</label>
+							</div>
+							<div class="addons-1" style="display: none;">
+								<h6>Label Name</h6>
+								<p>Media Type</p>
+								<select th:name="additional_asset_type" id="additional-type">
+									<option th:value="video">Video</option>
+									<option th:value="audio">Audio</option>
+									<option th:value="pdf">PDF</option>
+								</select> <span id="addons-1-upload"
+									onclick="document.getElementById('additional').style.display='block'">Upload</span>
+								<span id="addons-1-cancel" onclick="displayNone()">Cancel</span>
+								<!--     ////////   -->
+
+
+
+							</div>
+
+
+						</div>
+
+
+
+
+
+						<div class="right" style="float: right; width: 40%;">
+							<h2 style="font-size: 20px;">Thumbnail</h2>
+
+							<div class="link">
+								<a href="#" style="color: rgba(134, 5, 255, 0.895);">web</a>
+							</div>
+
+
+							<br>
+							<p
+								style="font-size: 12px; white-space: nowrap; margin-bottom: 1px; margin-left: 15px;">
+								Resolution : 288X424 px</p>
+							<div class="w3-container">
+								<span
+									onclick="document.getElementById('thumbnail').style.display='block'"
+									class="w3-button w3-white"
+									style="padding: 35px; padding-top: 37px; height: 120px; width: 160px; margin-left: 0; margin-top: 4%; border-style: dashed; border-color: #18A0FB; border-radius: 5px; position: relative;">
+									<a style="font-size: 13px; text-align: center;">+ Add file</a>
+									<img id="thumbnail_output" width="200"
+									style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
+								</span>
+								<p style="font-size: 12px; white-space: nowrap; margin-top: 8%;">
+									Supported file : ( jpg, png, jpeg, gif, svg, jfif )</p>
+
+
+
+								<div id="media" class="w3-modal">
+
+									<div class="w3-modal-content"
+										style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+
+										<div class="w3-container">
+
+											<span
+												onclick="document.getElementById('media').style.display='none'"
+												class="w3-button w3-display-topright">&times;</span>
+
+											<h4>Upload</h4>
+											<p id="mediaError" style="color: red;"></p>
+											<div class="row">
+												<div>
+													<nav>
+														<ol class="breadcrumb">
+
+															<li class="breadcrumb-item"><a 
+																onclick="uploadFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadFromLibrary();"> Choose From Library</a></li>
+
+														</ol>
+													</nav>
+												</div>
+												<div class="upload-from-medialibrary"  style="display:none;">
+												<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												<div id="video-thumb"  style="flex-wrap: wrap;">
+													<div  th:each="videoasset : ${videoasset}" th:if="${videoasset.asset_type}==${videoasset.asset_type.Video}" onclick="frommediaLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														
+														<img   th:src="@{/img/video-thumb.jpg} " style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${videoasset.asset_id}" style="display: none;"/>
+														<p th:text="${videoasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														
+														
+													</div></div>
+													<div id="audio-thumb"  style="height: 60px; width: 15%;">
+													<div th:each="audioasset : ${audioasset}" th:if="${audioasset.asset_type}==${audioasset.asset_type.Audio}" onclick="frommediaLibOnCLick(event)"  style="border: 1px solid #ccc;  height: 100%; width: 100%; border-radius: 5px; margin:15px; word-wrap:break-word;" >
+													<img  th:src="@{/img/mp3-thumb.jpg} " style="height: 100%; width: 100%; margin: 2px; " >
+													<input type="hidden"  th:value="${audioasset.asset_id}" style="display: none;"/>
+														<p th:text="${audioasset.asset_name}" style="height: 100%; width: 100%;font-size:8px; font-weight:lighter;"></p>
+														
+														
+													</div></div></fieldset>
+												</div>
+												<div id="media-upload">
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
+														<input type="hidden" id="MAX_FILE_SIZE"
+															name="MAX_FILE_SIZE" value="300000" />
+														<div>
+															<label for="media_fileselect"
+																style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
+																or Drag & drop your file here</label> <input type="file"
+																accept="video/*,audio/*" th:name="media_assets"
+																id="media_fileselect" onchange="loadFileMedia(event)"
+																style="cursor: pointer; margin-left: 30%; margin-top: 10px; margin-bottom: 30px;">
+														</div>
+													</fieldset>
+													<div id="mediavideo"
+														style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+														Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi,
+														3gp, mpg, mxf )</div>
+													<div id="mediaaudio"
+														style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+														Supported file : ( mp3, wav, aac, aiff, m4a, m4b, m4p,
+														dvf, raw, wma, webm, flac, ogg, mpeg )</div>
+												</div>
+											</div>
+
+										</div>
+									</div>
+
+								</div>
+								<!-- end pop up    media -->
+								<div id="preview" class="w3-modal">
+
+									<div class="w3-modal-content"
+										style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+
+										<div class="w3-container">
+
+											<span
+												onclick="document.getElementById('preview').style.display='none'"
+												class="w3-button w3-display-topright">&times;</span>
+
+											<h4>Upload</h4>
+											<p id="previewError" style="color: red;"></p>
+											<div class="row">
+												<div>
+													<nav>
+														<ol class="breadcrumb">
+
+															<li class="breadcrumb-item"><a 
+																onclick="uploadpreviewFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadpreviewFromLibrary();"> Choose From Library</a></li>
+
+														</ol>
+													</nav>
+												</div>
+												<div class="upload-from-previewlibrary" style="display: none;">
+													<div
+														style="border:1px solid #ccc; display: inline-block; height: 60px; width: 15%; border-radius: 5px; margin-top: 5%;" onclick="frompreviewLibOnCLick(event)">
+														<input type="file" style="display: none;"/>
+														
+													</div>
+												</div>
+												<div id="preview-upload">
+
+												<fieldset
+													style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
+													<input type="hidden" id="MAX_FILE_SIZE"
+														name="MAX_FILE_SIZE" value="300000" />
+													<div>
+														<label for="preview_fileselect"
+															style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
+															or Drag & drop your file here</label> <input type="file"
+															accept="video/*" th:name="preview_assets"
+															class="preview_fileselect" id="preview_fileselect"
+															onchange="loadFilePreview(event)"
+															style="cursor: pointer; margin-left: 30%; margin-top: 10px; margin-bottom: 30px;">
+													</div>
+												</fieldset>
+												<div
+													style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+													Supported file : ( mp4, wmv, mov, flv, vob, m4v, mkv, avi,
+													3gp, mpg, mxf )</div>
+
+											</div></div>
+
+										</div>
+									</div>
+
+								</div>
+								<!-- end pop up  preview-->
+								<div id="banner" class="w3-modal">
+
+									<div class="w3-modal-content"
+										style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+
+										<div class="w3-container">
+
+											<span
+												onclick="document.getElementById('banner').style.display='none'"
+												class="w3-button w3-display-topright">&times;</span>
+
+											<h4>Upload</h4>
+											<p id="bannerError" style="color: red;"></p>
+											<div class="row">
+												<div>
+													<nav>
+														<ol class="breadcrumb">
+
+															<li class="breadcrumb-item"><a 
+																onclick="uploadbannerFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadbannerFromLibrary();"> Choose From Library</a></li>
+
+														</ol>
+													</nav>
+												</div>
+												<div class="upload-from-bannerlibrary" style="display: none;">
+													<div
+														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="frombannerLibOnCLick(event)">
+														<input type="file" style="display: none;"/>
+														video
+													</div>
+												</div>
+												<div id="banner-upload">
+
+												<fieldset
+													style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
+													<input type="hidden" id="MAX_FILE_SIZE"
+														name="MAX_FILE_SIZE" value="300000" />
+													<div>
+														<label for="banner_fileselect"
+															style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
+															or Drag & drop your file here</label> <input type="file"
+															accept="image/*" th:name="banner_assets"
+															id="banner_fileselect" onchange="loadFileBanner(event)"
+															style="cursor: pointer; margin-left: 30%; margin-top: 10px; margin-bottom: 30px;">
+													</div>
+												</fieldset>
+												<div
+													style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+													Supported file : ( jpg, jpeg, png, gif, svg, jfif )</div>
+
+											</div></div>
+
+										</div>
+									</div>
+
+								</div>
+								<!-- end pop up  banner -->
+								<div id="additional" class="w3-modal"
+									onchange='return fileupolad()'>
+
+									<div class="w3-modal-content"
+										style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+
+										<div class="w3-container">
+
+											<span
+												onclick="document.getElementById('additional').style.display='none'"
+												class="w3-button w3-display-topright">&times;</span>
+
+											<h4>Upload</h4>
+											<p id="additionalError" style="color: red;"></p>
+											<div class="row">
+												<div>
+													<nav>
+														<ol class="breadcrumb">
+
+															<li class="breadcrumb-item"><a 
+																onclick="uploadadditionalFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadadditionalFromLibrary();"> Choose From Library</a></li>
+
+														</ol>
+													</nav>
+												</div>
+                                             <div class="upload-from-additionallibrary" style="display: none;">
+													<div
+														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="fromadditionalLibOnCLick(event)">
+														<input type="file" style="display: none;"/>
+														video
+													</div>
+												</div>
+												<div id="additional-upload">
+												<fieldset
+													style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
+													<input type="hidden" id="MAX_FILE_SIZE"
+														name="MAX_FILE_SIZE" value="300000" />
+													<div>
+														<label for="additional_fileselect"
+															style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
+															or Drag & drop your file here</label> <input type="file"
+															th:name="additional_assets" id="additional_fileselect"
+															onchange="loadFile(event)"
+															style="cursor: pointer; margin-left: 30%; margin-top: 10px; margin-bottom: 30px;">
+													</div>
+												</fieldset>
+												<div
+													style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+													Upload given media type file</div>
+
+											</div></div>
+
+										</div>
+									</div>
+
+								</div>
+								<!-- end pop up additional-->
+								<div id="thumbnail" class="w3-modal">
+
+									<div class="w3-modal-content"
+										style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+
+										<div class="w3-container">
+
+											<span
+												onclick="document.getElementById('thumbnail').style.display='none'"
+												class="w3-button w3-display-topright">&times;</span>
+
+											<h4>Upload</h4>
+											<p id="thumbnailError" style="color: red;"></p>
+											<div class="row">
+												<div>
+													<nav>
+														<ol class="breadcrumb">
+
+															<li class="breadcrumb-item"><a 
+																onclick="uploadthumbnailFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadthumbnailFromLibrary();"> Choose From Library</a></li>
+
+														</ol>
+													</nav>
+												
+												</div>
+												<div class="upload-from-thumbnaillibrary" style="display: none;">
+													<div
+														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="fromthumbnailLibOnCLick(event)">
+														<input type="file" style="display: none;"/>
+														video
+													</div>
+												</div>
+												<div id="thumbnail-upload">
+
+												<fieldset
+													style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
+													<input type="hidden" id="MAX_FILE_SIZE"
+														name="MAX_FILE_SIZE" value="300000" />
+													<div>
+														<label for="thumbnail_fileselect"
+															style="margin-left: 25%; margin-top: 11%; color: #18A0FB;">Browse,
+															or Drag & drop your file here</label> <input type="file"
+															accept="image/*" th:name="thumbnail_assets"
+															id="thumbnail_fileselect" onchange="loadFile1(event)"
+															style="cursor: pointer; margin-left: 30%; margin-top: 10px; margin-bottom: 30px;">
+													</div>
+												</fieldset>
+												<div
+													style="font-size: 12px; margin-left: 0%; white-space: nowrap; color: grey;">
+													Supported file : ( jpg, png, jpeg, gif, svg, jfif)</div>
+
+											</div></div>
+
+										</div>
+									</div>
+
+								</div>
+								<!-- end pop up thumbnail-->
+
+							</div>
+						</div>
+
+					</div>
+
+
+					<!-- cancel and save buttons-->
+					<div class="cancel-save-btn">
+						<button type="button"
+							style="background-color: #fff; color: rgb(31, 29, 29); border: 1px solid rgb(33, 33, 33); padding: 8px 16px; border-radius: 5px;">
+							<a th:href="@{/contentlibrary}" style="color: black;">Cancel</a>
+						</button>
+						&nbsp;&nbsp;&nbsp;
+						<button type="submit" value="contentsave">Save</button>
+
+					</div>
+				</form>
+
+
+
+
+				<!-- End General Form Elements -->
+				<!-- modal end-->
+				<!-- Left side columns -->
+				<div class="col-lg-8">
+					<div class="row"></div>
+				</div>
+			</div>
+
+		</section>
+
+
+
+
+	</main>
+	<!-- End #main -->
+
+
+
+
+
+	<!-- ======= Footer ======= -->
+	<footer id="footer" class="footer">
+		<div class="copyright">
+			&copy; Copyright <strong><span>FeeAdmin</span></strong>. All Rights
+			Reserved
+		</div>
+		<div class="credits">
+
+			Designed by <a href="">Devil</a>
+		</div>
+	</footer>
+	<!-- End Footer -->
+
+	<a href="#"
+		class="back-to-top d-flex align-items-center justify-content-center"><i
+		class="bi bi-arrow-up-short"></i></a>
+
+	<script>
+		var type = document.querySelector('#contenttype').value;
+		document.querySelector("#video-thumb").style.display="flex";
+		document.querySelector("#audio-thumb").style.display="none";
+		if (type == 'audio') {
+			document.querySelector("#video-thumb").style.display="none";
+			document.querySelector("#audio-thumb").style.display="flex";
+			document.querySelector('.media').style.display = "none";
+			document.querySelector('.audiomedia').style.display = "block";
+			document.querySelector('#mediavideo').style.display = "none";
+			document.querySelector('#mediaaudio').style.display = "block";
+
+		}
+		else {
+			document.querySelector("#video-thumb").style.display="flex";
+			document.querySelector("#audio-thumb").style.display="none";
+			document.querySelector('.media').style.display = "block";
+			document.querySelector('.audiomedia').style.display = "none";
+			document.querySelector('#mediaaudio').style.display = "none";
+			document.querySelector('#mediavideo').style.display = "block";
+		}
+
+		function displayNone() {
+			document.querySelector('.addons-1').style.display = "none";
+			document.querySelector('.addons').style.display = "block";
+		}
+
+
+	</script>
+	<script>
+		const contenttype1 = document.querySelector("#contenttype");
+		var contentformat1 = document.getElementById("contentformat");
+		var contentgroup1 = document.getElementById("contentgroup");
+		var contentname1 = document.getElementById("contentname");
+		var perma_link1 = document.getElementById("perma_link");
+		var category_type1 = document.getElementById("category_type");
+
+		contenttype1.addEventListener("change", (e) => {
+			
+			
+
+			if (e.target.value !== "") document.querySelector("#contenttype_Error").innerHTML = "";
+			
+			if(e.target.value === "audio") {
+				document.querySelector("#video-thumb").style.display="none";
+				document.querySelector("#audio-thumb").style.display="flex";
+			} 
+			
+			if(e.target.value === "video") {
+				document.querySelector("#video-thumb").style.display="flex";
+				document.querySelector("#audio-thumb").style.display="none";
+			}
+		})
+
+		contentformat.addEventListener("change", (e) => {
+
+			if (e.target.value !== "") document.querySelector("#contentformat_Error").innerHTML = "";
+		})
+
+
+		contentgroup.addEventListener("change", (e) => {
+
+			if (e.target.value !== "") document.querySelector("#contentgroup_Error").innerHTML = "";
+		})
+
+
+		contentname.addEventListener("change", (e) => {
+
+			if (e.target.value !== "") document.querySelector("#contentname_Error").innerHTML = "";
+		})
+
+		perma_link.addEventListener("change", (e) => {
+
+			if (e.target.value !== "") document.querySelector("#perma_link_Error").innerHTML = "";
+		})
+
+		category_type.addEventListener("change", (e) => {
+
+			if (e.target.value !== "") document.querySelector("#category_type_Error").innerHTML = "";
+		})
+
+	</script>
+
+
+
+
+
+	<!-- Vendor JS Files -->
+	<script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+	<script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+	<script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+	<script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+	<script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+	<script
+		th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+	<script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+	<script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
+
+	<!-- Template Main JS File -->
+	<script th:src="@{/assets/js/main.js}"></script>
 
 </body>
 

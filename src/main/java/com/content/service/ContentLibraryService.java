@@ -83,11 +83,11 @@ public class ContentLibraryService {
 	
 	// primary file
 	public String storePrimaryFile(MultipartFile primarymedia) throws IOException {
-		 if
-		 (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-		 ||
-		 primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+//		 if
+//		 (!(primarymedia.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+//		 ||
+//		 primarymedia.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+//		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f = new File(primarymedia.getOriginalFilename());
 		f.createNewFile();
 		FileOutputStream fout = new FileOutputStream(f);
@@ -116,8 +116,8 @@ public class ContentLibraryService {
 
 	// Preview
 	public String storePreviewFile(MultipartFile preview) throws IOException {
-		 if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
-		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+//		 if (!preview.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT))
+//		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f1 = new File(preview.getOriginalFilename());
 		f1.createNewFile();
 		FileOutputStream fout1 = new FileOutputStream(f1);
@@ -143,10 +143,10 @@ public class ContentLibraryService {
 
 	// banner
 	public String storeBannerFile(MultipartFile banner) throws IOException {
-		 if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-		 || banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-		 || banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+//		 if (!(banner.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+//		 || banner.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+//		 || banner.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+//		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f2 = new File(banner.getOriginalFilename());
 		f2.createNewFile();
 
@@ -181,13 +181,13 @@ public class ContentLibraryService {
 
 	// additional file
 	public String storeAdditionalFile(MultipartFile additionalfile) throws IOException {
-		 if
-		 (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
-		 ||
-		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
-		 ||
-		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
-		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+//		 if
+//		 (!(additionalfile.getOriginalFilename().endsWith(AppConstants.PDF_FILE_FORMAT)
+//		 ||
+//		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP4_FILE_FORMAT)
+//		 ||
+//		 additionalfile.getOriginalFilename().endsWith(AppConstants.MP3_FILE_FORMAT)))
+//		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f3 = new File(additionalfile.getOriginalFilename());
 		f3.createNewFile();
 
@@ -215,10 +215,10 @@ public class ContentLibraryService {
 
 	// Thumb nail file
 	public String storeTumbnailFile(MultipartFile tumbnail) throws IOException {
-		 if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
-		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
-		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
-		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
+//		 if (!(tumbnail.getOriginalFilename().endsWith(AppConstants.PNG_FILE_FORMAT)
+//		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPEG_FILE_FORMAT)
+//		 || tumbnail.getOriginalFilename().endsWith(AppConstants.JPG_FILE_FORMAT)))
+//		 throw new FileStorageException(AppConstants.INVALID_FILE_FORMAT);
 		File f4 = new File(tumbnail.getOriginalFilename());
 		f4.createNewFile();
 

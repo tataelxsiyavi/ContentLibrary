@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Video</title>
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+    <div class="Nav">
+        <div class="Logo-div">
+            <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
+            <p class="Logo-name">Cloud</p>
+        </div>
+        <div class="links">
+            <a th:href="@{/UserHome}"><ul>Home</ul></a>
+            <a th:href="@{/UserVideo}" style="color: #f4ce24;text-decoration: none;"><ul>Video</ul></a>
+            <a th:href="@{/UserAudio}"><ul>Audio</ul></a>
+            <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
+            <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
+        </div>
+    </div>
+    <div class="video-cards">
+      <p class="title">Latest Video</p>
+      <div class="hero-container" >
+        <div class="main-container" th:each="content: ${contentlist}" th:if="${content.content_type=='video'}">
+        <div class="poster-container">
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+    </div>
+        
+    </div>
+    </div>
+    <footer>
+        <div>
+          <a href="">Contact Us</a>
+          <a href="">Terms and Conditions</a>
+          <a href="">Privacy and Cookies</a>
+          <a href="">Privacy Options</a>
+          <a href="">Help</a>
+        </div>  
+        <p>Copyright @ TATA Elxsi 2023</p>
+    </footer>
+</body>
+</html>

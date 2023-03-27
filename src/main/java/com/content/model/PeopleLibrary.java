@@ -29,7 +29,7 @@ public class PeopleLibrary {
 	private String bio;
 //	private String profile_picture;
 @OneToMany(mappedBy="people_id")
-private List<PeopleLibrary>peopleLibrary;
+private List<ContentPeople>contentPeople;
 
 	@OneToOne(cascade = {CascadeType.ALL})
 	@JoinColumn()

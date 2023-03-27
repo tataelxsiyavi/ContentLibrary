@@ -42,4 +42,9 @@ public class ContentPeopleService {
 		
 		return contentpeoplerepo.save(content);
 	}
+	
+	public void deleteContentPeopleById(long id) {
+		contentpeoplerepo.deleteById(id);
+		
+	}
 }

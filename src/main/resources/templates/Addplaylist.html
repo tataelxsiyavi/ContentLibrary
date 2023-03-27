@@ -10,14 +10,20 @@
 	<meta content="" name="keywords">
 
 	<!-- Favicons -->
-	<link href="assets/img/favicon.png" rel="icon">
-	<link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<link th:href="@{/assets/img/favicon.png}" rel="icon">
+	<link th:href="@{/assets/img/apple-touch-icon.png}" rel="apple-touch-icon">
 
 	<!-- Google Fonts -->
 	<link href="https://fonts.gstatic.com" rel="preconnect">
-	<link
-		href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Nunito:300,300i,400,400i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i"
 		rel="stylesheet">
+	<!-- check box-->	
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
+
 
 	<!-- Vendor CSS Files -->
 	<link th:href="@{/assets/vendor/bootstrap/css/bootstrap.min.css}" rel="stylesheet">
@@ -31,16 +37,9 @@
 	<!-- Template Main CSS File -->
 	<link th:href="@{/assets/css/style.css}" rel="stylesheet">
 	<link rel="stylesheet" th:href="@{/css/MainV.css}">
-
-
 	<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 	
-	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/css/bootstrap-select.css" />
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.bundle.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.13.1/js/bootstrap-select.min.js"></script>
-
+	
     <script>$('select').selectpicker();</script>
 
 	<script type="text/javascript">
@@ -119,13 +118,29 @@
 		}
 
 		function loadFileThumbnail(event) {
+			 var fileInput = document.getElementById('thumbnail_fileselect');
+             var filePath = fileInput.value;
+             var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+             if(!allowedExtensions.exec(filePath)){
+             fileInput.value = '';
+             return false;
+             }else{
 			var thumbnail_image = document.getElementById('thumbnail_output');
 			thumbnail_image.src = URL.createObjectURL(event.target.files[0]);
+		}
 		};
 
 		function loadFileBanner(event) {
+			 var fileInput = document.getElementById('banner_fileselect');
+             var filePath = fileInput.value;
+             var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+             if(!allowedExtensions.exec(filePath)){
+             fileInput.value = '';
+             return false;
+             }else{
 			var banner_image = document.getElementById('banner_output');
 			banner_image.src = URL.createObjectURL(event.target.files[0])
+			}
 		};
 		
 		 function bannerOpen() {
@@ -143,76 +158,70 @@
     document.querySelector("#bannerfield").style.display = "none";
   }
   
-  
-  
+  function fileValidation1(){
+    var fileInput = document.getElementById('thumbnail_fileselect');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+ 
+    if(!allowedExtensions.exec(filePath)){
+		document.getElementById('format_error1').innerHTML="Please upload file having extensions .jpeg/.jpg/.png/.gif only.";
 
-	</script>
+        fileInput.value = '';
+        return false;
+    }
+}
+  function fileValidation2(){
+    var fileInput = document.getElementById('banner_fileselect');
+    var filePath = fileInput.value;
+    var allowedExtensions = /(\.jpg|\.jpeg|\.png|\.gif)$/i;
+ 
+    if(!allowedExtensions.exec(filePath)){
+		document.getElementById('format_error2').innerHTML="Please upload file having extensions .jpeg/.jpg/.png/.gif only.";
+
+        fileInput.value = '';
+        return false;
+    }
+    else{
+		document.getElementById('format_error2').innerHTML="";
+    return true;
+	}
+}
+  	</script>
+  	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 	
 	<script th:inline="javascript">
-	function PlaylistType(){
-	  var playlist_Type = document.querySelector('#playlist_type').value;
-	  
-	  
-	  if(playlist_Type === "" || playlist_Type === null){
-		  document.querySelector("#playlistType_Error").innerHTML="Playlist Type cannot be empty";
-		  return false;
-	  }
-	  else if(playlist_Type !== "" && playlist_Type !== null){
-		  document.querySelector("#playlistType_Error").innerHTML="";
-		  return false;
-	  }
-	  
-	  else{
-	     return true;
-	  }
-  }
-	 
-	 function Title(){
-		 var title = document.querySelector('#title1').value;
-		 
-	  if(title === null || title ===""){
-		  document.querySelector('#title_Error').innerHTML="Title cannot be empty";
-		  return false;
-	  }
-	  else if(title !== null && title!==""){
-		  document.querySelector('#title_Error').innerHTML="";
-		  return false;
-	  }
-	  else{
-		  return true;
-	  }
-	 }
-	 
-	function Permalink(){
-		var permalink = document.querySelector('#permalink').value;
-		 
-	  if(permalink === null || permalink ===""){
-		  document.querySelector('#permalink_Error').innerHTML="Permalink cannot be empty";
-		  return false;
-	  }
-	  else if(permalink !== null && permalink!==""){
-		  document.querySelector('#permalink_Error').innerHTML="";
-		  return false;
-	  }
-	  else{
-		  return true;
-	  }
-	}
-	function Category(){
-		var CategoryId = document.querySelector('#category_id1').value;
-		 
-	  if(CategoryId === null || CategoryId ===""){
-		  document.querySelector('#category_Error').innerHTML="Category cannot be empty";
-		  return false;
-	  }
-	  else if(CategoryId !== null && CategoryId!==""){
-		  document.querySelector('#category_Error').innerHTML="";
-		  return false;
-	  }
-	  else{
-		  return true;
-	  }
-	}
+	
+	
+	function requiredFields(){
+        var title = document.getElementById("title1").value;
+        var playlist_Type = document.getElementById("playlisttype1").value;
+        var permalink = document.getElementById("permalink1").value;
+        var categoryId = document.getElementById("categoryid1").value;
+        var validForm = true;
+        if(playlist_Type === ""){
+			document.querySelector("#playlisttype_Error").innerHTML = "The Playlist Type field is required";
+			validForm = false;
+		}
+		
+		if(title === ""){
+			document.querySelector("#title_Error").innerHTML = "The Playlist Name field is required";
+			validForm = false;
+		}
+		
+		if(permalink === ""){
+			document.querySelector("#permalink_Error").innerHTML = "The Permalink field is required";
+			validForm = false;
+		}
+		
+		if(categoryId === ""){
+			document.querySelector("#category_Error").innerHTML = "The Category field is required";
+			validForm = false;
+		}
+		return validForm;
+}
+      
+      
 	</script>
 	
 
@@ -232,7 +241,7 @@
 			<i class="bi bi-list toggle-sidebar-btn"></i>
 		</div><!-- End Logo -->
 
-		<div class="search-bar">
+		<!--  --<div class="search-bar">
 			<form class="search-form d-flex align-items-center" method="POST" action="#">
 				<input type="text" name="query" placeholder="Search" title="Enter search keyword">
 				<button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -260,10 +269,9 @@
 
 				<li class="nav-item dropdown">
 
-					<a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
-						<i class="bi bi-box-arrow-up-right"></i>
-						<!-- <span class="badge bg-success badge-number"></span> -->
-					</a><!-- End Messages Icon -->
+					<a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
+            <i class="bi bi-box-arrow-up-right"></i>
+                      </a>
 
 
 
@@ -388,7 +396,7 @@
 			<h1>Content Management</h1>
 			<nav>
 				<ol class="breadcrumb">
-					<li class="breadcrumb-item"><a th:href="@{/index}">Home</a></li>
+					<li class="breadcrumb-item"><a th:href="@{/}">Home</a></li>
 					<li class="breadcrumb-item active"><a th:href="@{/playlistlibrary}">Playlist Library</a></li>
 					<li class="breadcrumb-item active">Add Playlist</li>
 				</ol>
@@ -406,35 +414,35 @@
 					</div>
 					<div class="left">
 					<div class="alert alert-danger" role="alert" style="text-align: center;color:black;" th:text="${error}" th:if="${error}"></div>
-						<form th:action="@{/playlistlibrary}"  th:object="${playlist}" method="POST"	enctype="multipart/form-data"  >
+						<form id="playlistLibForm" th:action="@{/playlistlibrary}"  th:object="${playlist}" method="POST"	enctype="multipart/form-data"  onsubmit="return requiredFields()" >
 							<div class="add-contents">
 								<div class="left" style="float:left; width:60%; margin-top: 10px; ">
 									<label for="playlist_type"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Type<span style="color:red;">*</span></label>&nbsp;
-									<select th:name="playlist_type" id="playlist_type" style="height:33.5px; width: 220px; margin-left:2px;" onblur="PlaylistType();" >
-										<option value=""  >Select a playlist type</option>
+									<select th:name="playlist_type" id="playlisttype1" onchange="valueChange(this)" style="height:33.5px; width: 220px; margin-left:-2px;">
+										<option value="">Select a playlist type</option>
 										<option th:value="video">Video</option>
 										<option th:value="audio">Audio</option>
 									</select><br>
-									<p style="color:red;margin-left: 165px;" id="playlistType_Error"></p>
+									<p style="color:red;margin-left: 165px;" id="playlisttype_Error"></p>
 									<label for="title"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Title<span
 											style="color:red;">*</span></label>&nbsp;
 									<input type="text" id="title1"  th:name="title" style="height:33.5px; width: 220px;"
-										placeholder="Enter a name" onblur="Title();"  >
+										placeholder="Enter a name" onblur="required();"  >
 									<br>
 									<p style="color:red;margin-left: 165px;" id="title_Error"></p>									
 									<label for="permalink"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Permalink<span
 											style="color:red;">*</span></label>&nbsp;
-									<input type="text" id="permalink"  th:name="permalink"
+									<input type="text" id="permalink1"  th:name="permalink"
 										style="height:33.5px; width: 220px;" placeholder="Permalink" onblur="Permalink();">
 									<br>
 									<p style="color:red;margin-left: 165px;" id="permalink_Error"></p>
 									<label for="category_id"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Category<span
 											style="color:red;">*</span></label>&nbsp;
-									<select th:name="category_id"  id="category_id1" style="height:33.5px;width: 220px; " onblur="Category();" >
+									<select th:name="category_id"  id="categoryid1" style="height:33.5px;width: 220px; " onblur="Category();" >
 										<option value="" id="playlist_type">Select a category</option>
 										<option th:each=" categories:${categories}"
 											th:text="${categories.category_name}" th:value="${categories.category_id}" >
@@ -451,16 +459,29 @@
 									<input type="text" id="searchtags" th:name="search_tags"
 										style="height:33.5px; width: 220px;" placeholder="Add a tag"><br>
 										
+										
 										<label for="content_Id"
 										style="margin-top:5%;width: 139px; margin-left: 3%;font-weight: 500;">Playlist Items</label>&nbsp;
-										<select class="selectpicker" th:name="content_Id" th:value="${content_Id}" multiple>
-									<!--select th:name="content_Id" id="content_Id" style="height:30px;width: 250px;"-->
-									<option th:each="con:${con}" th:text="${con.content_nmae}" th:value="${con.content_id}" selected></option>
-										<option th:each=" list:${contentlist}"
-											th:text="${list.content_name}" th:value="${list.content_id}">
-										</option>
-									</select>
-									<br />
+										
+										<span class="contentDiv" style="display:block;margin-top:4%;margin-left: 2%;">
+										<select class="selectpicker"  th:name="content_Id"  multiple>																	
+										<option class="content" th:each=" list1:${contentlist}" th:text="${list1.content_name}" th:value="${list1.content_id}" ></option>
+										</select>
+										</span>
+										
+										<span class="videoDiv" style="display:none;margin-top:4%;margin-left: 2%;">
+										<select class="selectpicker"  th:name="content_Id"  multiple>																	
+										<option class="video-content" th:each=" list1:${contentvideolist}" th:text="${list1.content_name}" th:value="${list1.content_id}" ></option>
+										</select>
+										</span>
+										
+										<span class="audioDiv" style="display:none;margin-top:4%;margin-left: 2%;">
+										<select class="selectpicker"  th:name="content_Id"  multiple>
+										<option class="audio-content" th:each=" list1:${contentaudiolist}" th:text="${list1.content_name}" th:value="${list1.content_id}" ></option>
+										</select>
+										</span>	
+																	
+									    <br />
 
 										</div>
 							</div>
@@ -468,12 +489,12 @@
 							<!-- Left side columns -->
 
 <div class="right" style="float: right;width: 40%;margin-top:-56%;margin-left:60%;">
-    <h2 class="thumbnail" style="font-size:20px;margin-left:5%; cursor: pointer;" onclick="thumbnailOpen()">Thumbnail</h2>
+    <h2 class="thumbnail" style="font-size:20px;margin-left:5%; cursor: pointer;" onclick="thumbnailOpen()" >Thumbnail</h2>
     <h2 class="banner" style="font-size:20px;margin-left:45%;margin-top:-10%; cursor: pointer;" onclick="bannerOpen()">Banner</h2>
       <div><p href="#" style="margin-left:5%;">website</p></div>
        <br>
           
-        <div class="w3-container">
+         <div class="w3-container">
           <span onclick="document.getElementById('thumbnail').style.display='block'" id="thumbnailfield" class="w3-button w3-white" style="padding: 35px ;padding-top:37px;height: 120px;width: 160px;margin-left:0;margin-top:4%;margin-top:-2%;border-style: dashed;border-color:#18A0FB;border-radius:5px; position: relative;">
         <a style="font-size: 13px; text-align: center;">+ Add file</a>
         <img id="thumbnail_output" width="200" style="position: absolute; top: 0; left: 0; opacity: 0.5;" />
@@ -488,7 +509,7 @@
             
             <p style="font-size: 12px; white-space: nowrap;margin-bottom: 1px;margin-left: 15px;" id="res-text">Resolution : 288X424 px</p> 
             
-           <div id="banner" class="w3-modal" >
+           <div id="banner" class="w3-modal" onchange="return fileValidation2()">
 
       <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
@@ -507,6 +528,7 @@
                     <li class="breadcrumb-item">Choose From Library</li>
                   </ol>
                 </nav>
+                <p id="format_error2" style="color: red;font-size: 12px;"></p>
               </div>
              
                  <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
@@ -526,7 +548,7 @@
 
     </div><!-- end pop up  banner -->
     
-    <div id="thumbnail" class="w3-modal" >
+    <div id="thumbnail" class="w3-modal" onchange="return fileValidation1()">
 
       <div class="w3-modal-content" style="height:70%;width:50%;margin-left:36%;margin-top:5%;border-radius:10px;">
 
@@ -545,6 +567,7 @@
                     <li class="breadcrumb-item">Choose From Library</li>
                   </ol>
                 </nav>
+                <p id="format_error1" style="color: red;font-size: 12px;"></p>
               </div>
              
                  <fieldset style="border:dashed;border-color:#18A0FB;height:100%;width:96%;border-radius: 5px;margin:10px;">
@@ -569,7 +592,7 @@
   
 </div>
     <div style="margin-top:65%;margin-left:80%;">
-      <!--button type="Cancel" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{Saveplaylist}">Cancel</a></button-->
+      <button type="button" value="Cancel" style="background-color:lightgray;border:none;border-radius:5px;height: 30px;width:80px;"><a th:href="@{playlistlibrary}">Cancel</a></button>
       <button type="submit"  value="Save" style="background-color:#18A0FB;border:none;color: white;border-radius:5px;height: 30px;width:80px;">Save</button>           
     </div>
     <!-- cancel and save buttons-->
@@ -592,17 +615,90 @@
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
   <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  
+  <script th:inline="javascript">
+  
+  
+    function valueChange(objCombo){
+        if (objCombo.value ==="video"){
+            document.querySelector('.audioDiv').style.display="none";
+            document.querySelector('.contentDiv').style.display="none";
+	        document.querySelector('.videoDiv').style.display="block";
+        } 
+        else if (objCombo.value ==="audio"){
+            document.querySelector('.audioDiv').style.display="block";
+	        document.querySelector('.videoDiv').style.display="none";
+	        document.querySelector('.contentDiv').style.display="none";
+        }
+        else{
+			document.querySelector('.audioDiv').style.display="none";
+	        document.querySelector('.videoDiv').style.display="none";
+	        document.querySelector('.contentDiv').style.display="block";
+		}
+        
+    }
+</script>
+ 
+   <script>
+  	 const playlistType = document.querySelector("#playlisttype1");
+  	 var title = document.getElementById("title1");
+        var permalink = document.getElementById("permalink1");
+        var categoryId = document.getElementById("categoryid1");
+  	  
+     playlistType.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#playlisttype_Error").innerHTML = "";
+	 })
+	 
+	 title.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#title_Error").innerHTML = "";
+	 })
+	 
+	 
+	  permalink.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#permalink_Error").innerHTML = "";
+	 })
+	 
+	 
+	  categoryId.addEventListener("change", (e) => {
+		 
+		 if(e.target.value !== "") document.querySelector("#category_Error").innerHTML = "";
+	 })
+	 
+	 
+	 document.querySelector("#video-content").addEventListener("change", (e) => {
+		 
+		 let PlaylistType = document.querySelector("#playlisttype1").value;
+		 
+		 console.log(PlaylistType)
+		 
+		 if(PlaylistType === "video") {
+			let videoOpts = Array.from(document.querySelectorAll(".audio-options"));
+			videoOpts.forEach( opt => {
+				console.log(opt)
+				opt.style.display = "none";
+				opt.setAttribute("hidden", "hidden");
+				});
+			 }
+			 
+		 else if(e.target.value === "audio") document.querySelectorAll(".video-options").setAttribute("hidden", "hidden");
+	 })
+  </script>
+  
+  
 
 </body>
 

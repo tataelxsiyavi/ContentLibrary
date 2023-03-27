@@ -130,7 +130,7 @@ else {
       <i class="bi bi-list toggle-sidebar-btn"></i>
     </div><!-- End Logo -->
 
-    <div class="search-bar" >
+    <!--  --<div class="search-bar" >
       <form class="search-form d-flex align-items-center" method="POST" action="#">
         <input type="text" name="query" placeholder="Search" title="Enter search keyword">
         <button type="submit" title="Search"><i class="bi bi-search"></i></button>
@@ -158,10 +158,9 @@ else {
 
         <li class="nav-item dropdown">
 
-          <a class="nav-link nav-icon" href="#" data-bs-toggle="dropdown"> Website
+         <a th:href="@{/UserHome}" target="_blank" class="nav-link nav-icon"  > Website
             <i class="bi bi-box-arrow-up-right"></i>
-            <!-- <span class="badge bg-success badge-number"></span> -->
-          </a><!-- End Messages Icon -->
+                      </a>
 
           
 
@@ -305,10 +304,10 @@ else {
             <div class="inside-content-header">
                 <h2 class="breadcrumb-item active" style="font-family: cursive;">Image Library</h2>
                 <div class="inside-search-content">
-                     <!--  <form action="/action_page.php">
-                      <input type="text" placeholder="Search.." name="search">
-                      <button type="submit"><i class="bi bi-search"></i></button>
-                    </form>-->
+                    
+                    <input type="text" id="search-input" placeholder="Search.." name="search">
+                      <button type="button"><i class="bi bi-search"></i></button>
+               
                 </div>
                 <div class="inside-button-content">
                     <button type="submit" onclick="document.getElementById('id01').style.display='block'" ><span class="bi bi-upload">Upload Image</span></button>
@@ -356,16 +355,16 @@ else {
             <table>
                 <thead class ="thead-class">
                     <tr height="40">
-                        <th width="420"> File Name</th>
-                        <th width="280">Properties</th>
-                        <th width="110">&nbsp;</th>
+                        <td width="420"> File Name</th>
+                        <td width="280">Properties</td>
+                        <td width="110">&nbsp;</td>
                     </tr>
                 </thead>
-                <tbody>
-                    <tr  th:each="asset : ${assetlist}"  th:if="${asset.asset_type}==${asset.asset_type.Image}" >
-                        <th  height="100" width="420"  style="display: flex; flex-direction:row; margin-top:10px;  font-size:15px; font-weight:lighter;"><img th:src="@{${asset.asset_filepath}}" alt="${asset.asset_name}" height="100px" width="75px" /><p th:text="${asset.asset_name}" style=" margin-left:8px; margin-top:33px; font-size:12px; font-weight:lighter; word-wrap: break-word; width:230px;"></p></th>
-                        <th  style="font-size:15px;  font-weight:lighter;">File Size: [[${asset.asset_size}]] <i class="bi bi-info-circle-fill"></i></th>
-                        <th  ><a th:href="@{${asset.asset_filepath}}"><i class="bi bi-download"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/assetlibraryDelete3(asset_id=${asset.asset_id})}"><i class="bi bi-trash3-fill"></i></a></th>
+                <tbody id="table-content">
+                    <tr class="tr-data" th:each="asset : ${assetlist}"  th:if="${asset.asset_type}==${asset.asset_type.Image}" >
+                        <td  height="100" width="420"  style="display: flex; flex-direction:row; margin-top:10px;  font-size:15px; font-weight:lighter;"><img th:src="@{${asset.asset_filepath}}" alt="${asset.asset_name}" height="100px" width="75px" /><p th:text="${asset.asset_name}" style=" margin-left:8px; margin-top:33px; font-size:12px; font-weight:lighter; word-wrap: break-word; width:230px;"></p></th>
+                        <td  style="font-size:15px;  font-weight:lighter;">File Size: [[${asset.asset_size}]] <i class="bi bi-info-circle-fill"></i></th>
+                        <td  ><a th:href="@{${asset.asset_filepath}}"><i class="bi bi-download"></i></a>&nbsp;&nbsp;&nbsp;&nbsp;<a th:href="@{/assetlibraryDelete3(asset_id=${asset.asset_id})}"><i class="bi bi-trash3-fill"></i></a></th>
                     </tr>
                 </tbody>
             </table>
@@ -393,19 +392,61 @@ else {
 
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
 
-  <!-- Vendor JS Files -->
-  <script src="assets/vendor/apexcharts/apexcharts.min.js"></script>
-  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="assets/vendor/chart.js/chart.umd.js"></script>
-  <script src="assets/vendor/echarts/echarts.min.js"></script>
-  <script src="assets/vendor/quill/quill.min.js"></script>
-  <script src="assets/vendor/simple-datatables/simple-datatables.js"></script>
-  <script src="assets/vendor/tinymce/tinymce.min.js"></script>
-  <script src="assets/vendor/php-email-form/validate.js"></script>
+ <!-- Vendor JS Files -->
+  <script th:src="@{/assets/vendor/apexcharts/apexcharts.min.js}"></script>
+  <script th:src="@{/assets/vendor/bootstrap/js/bootstrap.bundle.min.js}"></script>
+  <script th:src="@{/assets/vendor/chart.js/chart.umd.js}"></script>
+  <script th:src="@{/assets/vendor/echarts/echarts.min.js}"></script>
+  <script th:src="@{/assets/vendor/quill/quill.min.js}"></script>
+  <script th:src="@{/assets/vendor/simple-datatables/simple-datatables.js}"></script>
+  <script th:src="@{/assets/vendor/tinymce/tinymce.min.js}"></script>
+  <script th:src="@{/assets/vendor/php-email-form/validate.js}"></script>
 
   <!-- Template Main JS File -->
-  <script src="assets/js/main.js"></script>
+  <script th:src="@{/assets/js/main.js}"></script>
+  <script>
 
+  const searchInput = document.querySelector("#search-input");
+  const tRows = document.querySelectorAll(".tr-data");
+  const tableBody = document.querySelector("#table-content");
+  
+
+   
+   console.log(searchInput.value);
+   
+   document.querySelector("#search-input").addEventListener("change", (e) => {
+	   
+	   let tableRows = "";
+	   
+	  let searchValue = e.target.value;
+	  searchValue = searchValue.toLowerCase();
+	  // console.log(tRows);
+	  
+	  tRows.forEach((data) => {
+		  
+		  console.log(data.children[0].children[1].innerText)
+		  
+		  let tdValue = data.children[0].children[1].innerText.toLowerCase();
+		  
+		//  console.log(tdValue.includes(searchValue));
+		 
+		  if(tdValue.includes(searchValue))  tableRows += data.outerHTML;
+	  })
+	  
+	  
+	  console.log(tableRows);
+	  
+	  tableBody.innerHTML = tableRows;
+	 
+	  
+	  
+   }); 
+   
+   /* function searchInput(event) {
+	   console.log(event);
+   } */
+  
+  </script>
 </body>
 
 </html>
