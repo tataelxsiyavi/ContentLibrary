@@ -61,16 +61,15 @@ public class ContentLibraryController {
 	ContentLibraryRepo contentrepo;
 	@Autowired
 	FeaturedSectionRepo sectionrepo;
-@Autowired
-PlaylistLibraryRepo playlistrepo;
+	@Autowired
+	PlaylistLibraryRepo playlistrepo;
 	@Autowired
 	PeopleLibraryService peopleservice;
 	@Autowired
 	ContentPeopleService contentpeopleservice;
 	@Autowired
 	ContentPeopleRepo contentpeoplerepo;
-	
-	
+
 	@Autowired
 	AssetLibraryService assetservice;
 	@Autowired
@@ -89,6 +88,7 @@ PlaylistLibraryRepo playlistrepo;
 		model.addAttribute("contentlist", contentlist);
 		return "contentlibrary";
 	}
+
 	@GetMapping("/UserHome")
 	public String userHomePage(Model model) {
 		List<ContentLibrary> contentlist = contentrepo.findAll();
@@ -97,41 +97,55 @@ PlaylistLibraryRepo playlistrepo;
 		model.addAttribute("contentlist", contentlist);
 		return "UserHome";
 	}
+
 	@GetMapping("/UserVideo")
 	public String userVideoPage(Model model) {
 		List<ContentLibrary> contentlist = contentrepo.findAll();
 		model.addAttribute("contentlist", contentlist);
 		return "UserVideo";
 	}
+
 	@GetMapping("/UserAudio")
 	public String userAudioPage(Model model) {
 		List<ContentLibrary> contentlist = contentrepo.findAll();
 		model.addAttribute("contentlist", contentlist);
 		return "UserAudio";
 	}
+
 	@GetMapping("/addcontent")
 	public String addContentPage(Model model) {
 		List<Category> categories = categoryrepo.findAll();
 		List<PeopleLibrary> peoplelist = peoplerepo.findAll();
-		List<ContentLibrary> content=contentrepo.findAll();
-List<AssetLibrary> asset=assetrepo.findAll();
-model.addAttribute("asset", asset);
-List<AssetLibrary> assetVideo=new ArrayList<>();
-List<AssetLibrary> assetAudio=new ArrayList<>();
-for(int i=0;i<asset.size();i++) {
-	if(asset.get(i).getAsset_type().equals(AssetType.Video)) {
-		
-		assetVideo.add(asset.get(i));}
-	
-	else if(asset.get(i).getAsset_type().equals(AssetType.Audio)){
-		assetAudio.add(asset.get(i));
-	}
-    }
-model.addAttribute("videoasset", assetVideo);
-model.addAttribute("audioasset", assetAudio);
+		List<ContentLibrary> content = contentrepo.findAll();
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+         
+			
+				assetVideo.add(asset.get(i));
+			}
 
-System.out.println(" video asset"+assetVideo);
-System.out.println(" audio asset"+assetAudio);
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
+		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
+		
 
 		model.addAttribute("peoplelist", peoplelist);
 		model.addAttribute("contentlibrary", new ContentLibrary());
@@ -139,6 +153,7 @@ System.out.println(" audio asset"+assetAudio);
 		model.addAttribute("categories", categories);
 		return "addcontent";
 	}
+
 	@GetMapping("/description/{id}")
 	public String descriptionPage(Model model, @PathVariable long id) {
 		ContentLibrary content = contentrepo.findById(id).get();
@@ -158,8 +173,7 @@ System.out.println(" audio asset"+assetAudio);
 		}
 
 		List<ContentPeople> con = content.getContenpeople();
-		
-		
+
 		model.addAttribute("cat", cat);
 		model.addAttribute("con", con);
 		model.addAttribute("peoplelist", peoplelist);
@@ -193,7 +207,11 @@ System.out.println(" audio asset"+assetAudio);
 			@RequestParam(required = false, value = "thumbnail_assets") MultipartFile thumbnail_assets,
 			@RequestParam(required = false, value = "banner_assets") MultipartFile banner_assets,
 			@RequestParam("category_id") long category_id,
-			@RequestParam(required = false,value="mediaasset_id")Long mediaasset_id,
+			@RequestParam(required = false, value = "mediaasset_id") Long mediaasset_id,
+			@RequestParam(required = false, value = "addasset_id") Long addasset_id,
+			@RequestParam(required = false, value = "previewasset_id") Long previewasset_id,
+			@RequestParam(required = false, value = "bannerasset_id") Long bannerasset_id,
+			@RequestParam(required = false, value = "thumbnailasset_id") Long thumbnailasset_id,
 			@RequestParam(required = false, value = "person_type") List<String> person_type,
 			@RequestParam(required = false, value = "people") List<Long> people, RedirectAttributes redirAttrs)
 			throws Exception {
@@ -207,6 +225,9 @@ System.out.println(" audio asset"+assetAudio);
 		String pdf = "application/pdf";
 
 		AssetLibrary preview_asset = null;
+		if(preview_assets.isEmpty()&& previewasset_id!=null) {
+			preview_asset=assetrepo.findById(previewasset_id).get();
+		}
 		if (!preview_assets.isEmpty()) {
 
 			String preview_file = contentservice.storePreviewFile(preview_assets);
@@ -243,7 +264,9 @@ System.out.println(" audio asset"+assetAudio);
 
 		// media file
 		AssetLibrary media_asset = null;
-
+if(media_assets.isEmpty()&& mediaasset_id!=null) {
+	media_asset=assetrepo.findById(mediaasset_id).get();
+}
 		if (!media_assets.isEmpty()) {
 			String media_file = contentservice.storePrimaryFile(media_assets);
 			String media_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -274,7 +297,11 @@ System.out.println(" audio asset"+assetAudio);
 		}
 
 		// Additional file
+		
 		AssetLibrary additional_asset = null;
+		if(additional_assets.isEmpty()&& addasset_id!=null) {
+			additional_asset=assetrepo.findById(addasset_id).get();
+		}
 		if (!additional_assets.isEmpty()) {
 			String additional_file = contentservice.storeAdditionalFile(additional_assets);
 			String additional_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -310,6 +337,9 @@ System.out.println(" audio asset"+assetAudio);
 
 		// Thumb nail file
 		AssetLibrary thumbnail_asset = null;
+		if (thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
+			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		}
 		if (!thumbnail_assets.isEmpty()) {
 			String thumbnail_file = contentservice.storeTumbnailFile(thumbnail_assets);
 			String thumbnail_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -339,6 +369,9 @@ System.out.println(" audio asset"+assetAudio);
 
 		// banner file
 		AssetLibrary banner_asset = null;
+		if (banner_assets.isEmpty()&& bannerasset_id!=null) {
+			banner_asset=assetrepo.findById(bannerasset_id).get();
+		}
 		if (!banner_assets.isEmpty()) {
 			String banner_file = contentservice.storeBannerFile(banner_assets);
 			String banner_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -398,7 +431,8 @@ System.out.println(" audio asset"+assetAudio);
 
 				}
 
-				contentpeople.add(new ContentPeople(person_type.get(i), new PeopleLibrary(people.get(i)), contentlibrary));
+				contentpeople
+						.add(new ContentPeople(person_type.get(i), new PeopleLibrary(people.get(i)), contentlibrary));
 			}
 			contentlibrary.setContenpeople(contentpeople);
 
@@ -428,8 +462,38 @@ System.out.println(" audio asset"+assetAudio);
 
 			model.addAttribute("previd", previd);
 		}
-		List<ContentPeople> contentpeople=content.getContenpeople();
-		model.addAttribute("contentpeople",contentpeople );
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+         
+			
+				assetVideo.add(asset.get(i));
+			}
+
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
+		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
+		
+		List<ContentPeople> contentpeople = content.getContenpeople();
+		model.addAttribute("contentpeople", contentpeople);
+		
 
 		model.addAttribute("cat", cat);
 
@@ -443,10 +507,6 @@ System.out.println(" audio asset"+assetAudio);
 	@PostMapping(value = "/updatecontent1", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
 	@Transactional
 	public String updateContent(@RequestParam("content_id") long content_id, Model model,
-//			 @RequestParam("content_type") String content_type,
-//			 @RequestParam("content_format") String content_format,
-//			 @RequestParam("content_group") String content_group,
-
 			@RequestParam("content_name") String content_name, @RequestParam("permalink") String permalink,
 			@RequestParam(required = false, value = "story") String story,
 			@RequestParam(required = false, value = "search_tags") String search_tags,
@@ -456,6 +516,11 @@ System.out.println(" audio asset"+assetAudio);
 			@RequestParam(required = false, value = "additional_assets") MultipartFile additional_assets,
 			@RequestParam(required = false, value = "thumbnail_assets") MultipartFile thumbnail_assets,
 			@RequestParam(required = false, value = "banner_assets") MultipartFile banner_assets,
+			@RequestParam(required = false, value = "mediaasset_id") Long mediaasset_id,
+			@RequestParam(required = false, value = "addasset_id") Long addasset_id,
+			@RequestParam(required = false, value = "previewasset_id") Long previewasset_id,
+			@RequestParam(required = false, value = "bannerasset_id") Long bannerasset_id,
+			@RequestParam(required = false, value = "thumbnailasset_id") Long thumbnailasset_id,
 			@RequestParam(required = false, value = "category_id") long category_id,
 			@RequestParam(required = false, value = "additional_asset_type") String additional_asset_type,
 //			@RequestParam("content_people_id")List<Long>content_people_id,
@@ -471,6 +536,9 @@ System.out.println(" audio asset"+assetAudio);
 		String pdf = "application/pdf";
 
 		AssetLibrary preview_asset = null;
+		if (preview_assets.isEmpty()&& previewasset_id!=null) {
+			preview_asset=assetrepo.findById(previewasset_id).get();
+		}
 
 		if (!preview_assets.isEmpty()) {
 			String preview_file = contentservice.storePreviewFile(preview_assets);
@@ -508,6 +576,9 @@ System.out.println(" audio asset"+assetAudio);
 		// media file
 
 		AssetLibrary media_asset = null;
+		if(media_assets.isEmpty()&& mediaasset_id!=null) {
+			media_asset=assetrepo.findById(mediaasset_id).get();
+		}
 		if (!media_assets.isEmpty()) {
 			String media_file = contentservice.storePrimaryFile(media_assets);
 			String media_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -537,6 +608,9 @@ System.out.println(" audio asset"+assetAudio);
 		}
 		// Additional file
 		AssetLibrary additional_asset = null;
+		if (additional_assets.isEmpty()&& addasset_id!=null) {
+			additional_asset=assetrepo.findById(addasset_id).get();
+		}
 
 		if (!additional_assets.isEmpty()) {
 			String additional_file = contentservice.storeAdditionalFile(additional_assets);
@@ -573,6 +647,9 @@ System.out.println(" audio asset"+assetAudio);
 
 		// Thumb nail file
 		AssetLibrary thumbnail_asset = null;
+		if (thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
+			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		}
 
 		if (!thumbnail_assets.isEmpty()) {
 			String thumbnail_file = contentservice.storeTumbnailFile(thumbnail_assets);
@@ -607,6 +684,9 @@ System.out.println(" audio asset"+assetAudio);
 		// banner file
 
 		AssetLibrary banner_asset = null;
+		if (banner_assets.isEmpty()&& bannerasset_id!=null) {
+			banner_asset=assetrepo.findById(bannerasset_id).get();
+		}
 		if (!banner_assets.isEmpty()) {
 			String banner_file = contentservice.storeBannerFile(banner_assets);
 			String banner_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -696,34 +776,34 @@ System.out.println(" audio asset"+assetAudio);
 
 			}
 			PeopleLibrary peoples = peoplerepo.findById(people.get(i)).get();
-			
-			
-			if(!conpeople.get(i).getPerson_type().equals(person_type.get(i)) && !conpeople.get(i).getPeople_id().equals(peoples) ) {
-			
-			if(i<=conpeople.size()-1) {
-				
-				ContentPeople contentId = contentpeoplerepo.findById(conpeople.get(i).getContent_people_id()).get();
-//			List<PeopleLibrary> peop = new ArrayList<>();
 
-			if (people.get(i) != null) {
-				contentId.setPeople_id(peoples);
-			}
-			if (contentlibrary != null) {
-				contentId.setContent_id(contentlibrary);
-			}
-			if (person_type.get(i) != null) {
-				contentId.setPerson_type(person_type.get(i));
-			}
+//			if (!conpeople.get(i).getPerson_type().equals(person_type.get(i))
+//					&& !conpeople.get(i).getPeople_id().equals(peoples)) {
 
-			contentpeople.add(contentId);
-			}
-			else {
-				
-				contentpeople.add(new ContentPeople(person_type.get(i), peoples, contentlibrary));			
-			}
+				Optional<ContentPeople> peopleid=contentpeoplerepo.findContentPeopleBypeopleId(people.get(i));
+				Optional<ContentPeople> persontype=contentpeoplerepo.findContentPeopleByPersonType(person_type.get(i));
+				if( peopleid.isPresent() && persontype.isPresent()) {
+//					if (i <= conpeople.size() - 1) {
+					ContentPeople contentId = contentpeoplerepo.findById(conpeople.get(i).getContent_people_id()).get();
+//					if (people.get(i) != null) {
+						contentId.setPeople_id(peoples);
+//					}
+//					if (contentlibrary != null) {
+						contentId.setContent_id(contentlibrary);
+//					}
+//					if (person_type.get(i) != null) {
+						contentId.setPerson_type(person_type.get(i));
+//					}
 
-			
-		}}
+					contentpeople.add(contentId);}
+				 else {
+
+					contentpeople.add(new ContentPeople(person_type.get(i), peoples, contentlibrary));
+				}
+				}
+
+//			}
+//	}
 
 		if (contentpeople != null) {
 
@@ -735,26 +815,19 @@ System.out.println(" audio asset"+assetAudio);
 
 	}
 
-	
-
 	@GetMapping("/deleteContent/{id}")
-	public String deleteContentById(@PathVariable long id,RedirectAttributes redir) {
-		
-		List<PlaylistLibrary>playlist=playlistrepo.findCategoryByIdInPlaylist(id);
-		List<FeaturedSection> featured=sectionrepo.findCategoryByIdInFeatured(id);
-		
-		
+	public String deleteContentById(@PathVariable long id, RedirectAttributes redir) {
 
-		if( playlist.size()>0 || featured.size()>0) {
-			redir.addFlashAttribute("Perror","Content cannot delete...");
-		}
-		else {
+		List<PlaylistLibrary> playlist = playlistrepo.findContentByIdInPlaylist(id);
+		List<FeaturedSection> featured = sectionrepo.findContentByIdInFeatured(id);
+
+		if (playlist.size() > 0 || featured.size() > 0) {
+			redir.addFlashAttribute("Perror", "Content cannot delete...");
+		} else {
 			contentservice.deleteContentById(id);
 		}
-		
+
 		return "redirect:/contentlibrary";
 	}
-
-	
 
 }

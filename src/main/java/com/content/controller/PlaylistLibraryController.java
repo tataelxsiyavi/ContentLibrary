@@ -19,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.content.dao.AssetLibraryRepo;
 import com.content.dao.CategoryRepo;
 import com.content.dao.ContentLibraryRepo;
 import com.content.dao.PlaylistLibraryRepo;
@@ -55,6 +56,8 @@ public class PlaylistLibraryController {
 
 	@Autowired
 	CategoryRepo categoryrepo;
+	@Autowired
+	AssetLibraryRepo assetrepo;
 DecimalFormat df=new DecimalFormat();
 
 
@@ -83,7 +86,6 @@ DecimalFormat df=new DecimalFormat();
 		return "PlaylistDescription";
 	}
 	
-
 	@GetMapping("/Addplaylist")
 	public String addPlaylistPage(Model model) {
 		List<Category> categories = categoryrepo.findAll();
@@ -99,6 +101,34 @@ DecimalFormat df=new DecimalFormat();
 			
 		}
 		}
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+         
+			
+				assetVideo.add(asset.get(i));
+			}
+
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
+		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
 		model.addAttribute("contentvideolist",contentvideolist );
 		model.addAttribute("contentaudiolist",contentaudiolist );
 		model.addAttribute("contentlist", contentlist);
@@ -116,13 +146,18 @@ DecimalFormat df=new DecimalFormat();
 			@Nullable@RequestParam(required=false,value="search_tags") String search_tags,
 			@Nullable@RequestParam(required=false,value="thumbnail_assets") MultipartFile thumbnail_assets,
 			@Nullable@RequestParam(required=false,value="banner_assets") MultipartFile banner_assets,
+			@RequestParam(required = false, value = "bannerasset_id") Long bannerasset_id,
+			@RequestParam(required = false, value = "thumbnailasset_id") Long thumbnailasset_id,
 			@Nullable@RequestParam(required=false,value="content_Id") List<Long> content_Id,Model model, RedirectAttributes redirAttrs) throws Exception {
 
 		String image = "image/jpeg";
 		String image2 = "image/png";
 		
-		// thumbnail-------------------------------------------------------------------------------------------------------------
+	
 		AssetLibrary thumbnail_asset = null;
+		if(thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
+			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		}
 		if(!thumbnail_assets.isEmpty()) {
 			
 		String thumbnail_img = playlistservice.storeTumbnailFile(thumbnail_assets);
@@ -157,8 +192,11 @@ DecimalFormat df=new DecimalFormat();
 		}
 		
 
-		// banner-------------------------------------------------------------------------------------------------------------
+		
 		AssetLibrary banner_asset=null;
+		if(banner_assets.isEmpty()&& bannerasset_id!=null) {
+			banner_asset=assetrepo.findById(bannerasset_id).get();
+		}
 		if(!banner_assets.isEmpty()) {
 		
 		String banner_img = playlistservice.storeBannerFile(banner_assets);
@@ -203,11 +241,9 @@ DecimalFormat df=new DecimalFormat();
 		if (content_Id != null) {
 			contentids = new ArrayList<>();
 			for (int i = 0; i < content_Id.size(); i++) {
-				Optional<ContentLibrary> content_id = contentrepo.findById(content_Id.get(i));
-				if (content_id.isEmpty()) {
-					throw new Exception("Is empty contentID");
-				}
-				contentids.add(new ContentLibrary(content_Id.get(i)));
+				ContentLibrary content_id = contentrepo.findById(content_Id.get(i)).get();
+				
+				contentids.add(content_id);
 			}
 		} else {
 			contentids = null;
@@ -243,28 +279,49 @@ DecimalFormat df=new DecimalFormat();
 		List<ContentLibrary> con = playlist.getContentLibrary();
 		List<Category> categories = categoryrepo.findAll();
 		List<ContentLibrary> contentlist = contentrepo.findAll();
-		List<ContentLibrary> contentvideolist=new ArrayList<>();
-		List<ContentLibrary> contentaudiolist=new ArrayList<>();
+		List<ContentLibrary> contentvideolist1=new ArrayList<>();
+		List<ContentLibrary> contentaudiolist1=new ArrayList<>();
 		for(int i=0;i<contentlist.size();i++) {
 		if(contentlist.get(i).getContent_type().equals("video")) {
-			
-			for(int j=0;j<con.size();j++) {
-				if(con.get(j) != contentlist.get(i)) {
-			
-			 contentvideolist.add(contentlist.get(i));
-				}
-			}
+			 contentvideolist1.add(contentlist.get(i));	
 		}
 		else {		
-			for(int j=0;j<con.size();j++) {
-				if(con.get(j) != contentlist.get(i)) {
-			
-			 contentaudiolist.add(contentlist.get(i));
-				}
+			 contentaudiolist1.add(contentlist.get(i));	
 			}
 			
 		}
+		List<ContentLibrary> contentvideolist=new ArrayList<>(contentvideolist1);
+		List<ContentLibrary> contentaudiolist=new ArrayList<>(contentaudiolist1);
+		contentvideolist.removeAll(con);
+		contentaudiolist.removeAll(con);
+		
+		
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+				assetVideo.add(asset.get(i));
+			}
+
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
 		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
 		model.addAttribute("contentvideolist",contentvideolist );
 		model.addAttribute("contentaudiolist",contentaudiolist );
 		AssetLibrary thumbnail = playlist.getThumbnail_assets();
@@ -286,12 +343,17 @@ DecimalFormat df=new DecimalFormat();
 			@RequestParam(required=false,value="search_tags") String search_tags,
 			@RequestParam(required=false,value="thumbnail_assets") MultipartFile thumbnail_assets,
 			@RequestParam(required=false,value="banner_assets") MultipartFile banner_assets,
+			@RequestParam(required = false, value = "bannerasset_id") Long bannerasset_id,
+			@RequestParam(required = false, value = "thumbnailasset_id") Long thumbnailasset_id,
 			@RequestParam(required=false,value="content_Id") List<Long> content_Id) throws Exception {
 		String image = "image/jpeg";
 		String image2 = "image/png";
 		
 		// thumbnail-------------------------------------------------------------------------------------------------------------
 		AssetLibrary thumbnail_asset = null;
+		if(thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
+			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		}
 		if(!thumbnail_assets.isEmpty()) {
 			
 		String thumbnail_img = playlistservice.storeTumbnailFile(thumbnail_assets);
@@ -328,6 +390,10 @@ DecimalFormat df=new DecimalFormat();
 
 		// banner-------------------------------------------------------------------------------------------------------------
 		AssetLibrary banner_asset=null;
+		if(banner_assets.isEmpty()&& bannerasset_id!=null) {
+			
+			banner_asset=assetrepo.findById(bannerasset_id).get();
+		}
 		if(!banner_assets.isEmpty()) {
 		
 		String banner_img = playlistservice.storeBannerFile(banner_assets);
@@ -367,15 +433,11 @@ DecimalFormat df=new DecimalFormat();
 			if (content_Id != null) {
 				contentids = new ArrayList<>();
 				for (int i = 0; i < content_Id.size(); i++) {
-					Optional<ContentLibrary> content_id = contentrepo.findById(content_Id.get(i));
-					if (content_id.isEmpty()) {
-						throw new Exception("Is empty contentID");
-					}
-					contentids.add(new ContentLibrary(content_Id.get(i)));
+					ContentLibrary content_id = contentrepo.findById(content_Id.get(i)).get();
+					
+					contentids.add(content_id);
 				}
-			} else {
-				contentids = null;
-			}
+			} 
 
 			PlaylistLibrary playlist = playlistrepo.findById(playlist_id).get();
 

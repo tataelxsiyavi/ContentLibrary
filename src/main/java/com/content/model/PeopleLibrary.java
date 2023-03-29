@@ -31,7 +31,7 @@ public class PeopleLibrary {
 @OneToMany(mappedBy="people_id")
 private List<ContentPeople>contentPeople;
 
-	@OneToOne(cascade = {CascadeType.ALL})
+	@OneToOne()
 	@JoinColumn()
 	private AssetLibrary people_asset;
 

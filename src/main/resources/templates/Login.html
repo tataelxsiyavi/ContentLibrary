@@ -5,10 +5,22 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  
+  <script>
+  
+  
+  </script>
+  <style>
+  
+  
+  </style>
+  
 </head>
-<body >
-<div class="alert alert-danger" role="alert" style="margin-left:450px;margin-top:20px;color:black;width: 420px;" th:text="${Perror}" th:if="${Perror}"></div>
-  <div class="container" Style="margin-left: 500px;margin-top:40px;width: 250px;">
+<body  >
+<div class="alert alert-primary"  role="alert" style="background: #1bd5a2; text-align: center;margin-left:500px;margin-top:20px;color:black;width: 420px;" th:text="${success}"  th:if="${success}"></div>
+<div class="alert alert-danger" role="alert" style="margin-left:500px;margin-top:20px;color:black;width: 420px;" th:text="${Perror}" th:if="${Perror}"></div>
+<div Style="margin-left: 550px;margin-top:80px;width: 300px;border:1px solid gray;border-radius:3px;">
+  <div class="container" Style="width: 250px;padding:20px;padding-left:5px;" >
   
     <ul class="nav nav-tabs" >
       <li class="nav-item">
@@ -19,9 +31,9 @@
       </li>
     </ul>
     
-    <div class="tab-content" >
+    <div class="tab-content"  >
     
-      <div id="signup" class="tab-pane fade show active">
+      <div id="signup" class="tab-pane fade show active" >
         <h3>Signup</h3>
         <form id="signup-form" th:action="@{/registeruser}"method="POST"  >
           <div class="form-group">
@@ -44,7 +56,7 @@
             <input type="password" class="form-control" id="password" th:name="password" required style="width: 250px;">
             <span class="error" id="password-error"></span>
           </div>
-          <button type="submit" class="btn btn-primary">Signup</button>
+          <button type="submit" class="btn btn-primary" >Signup</button>
           </form>
       </div>
       <div id="login" class="tab-pane fade" >
@@ -65,8 +77,11 @@
         </form>
       </div>
     </div>
+    </div>
   </div>
-  
+  <script>
+ 
+  </script>
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>

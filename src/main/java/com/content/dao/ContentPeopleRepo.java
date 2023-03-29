@@ -1,6 +1,7 @@
 package com.content.dao;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Modifying;
@@ -16,4 +17,9 @@ public interface ContentPeopleRepo extends JpaRepository<ContentPeople, Long>{
 //	void deleteContentpeopleByPeopleId(@Param("id")long id );
 	@Query("SELECT e FROM ContentPeople e JOIN e.people_id  c WHERE c.people_id = :id")
 	List<ContentPeople> findPeopleByIdInContentPeople(@Param("id") long people_id);
+	@Query("SELECT e FROM ContentPeople e JOIN e.people_id  c WHERE c.people_id = :id")
+	Optional<ContentPeople> findContentPeopleBypeopleId(@Param("id") long people_id);
+	
+	@Query("Select e FROM ContentPeople e WHERE e.person_type = :persontype")
+	Optional<ContentPeople> findContentPeopleByPersonType(@Param("persontype") String persontype);
 }

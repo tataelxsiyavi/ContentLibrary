@@ -25,7 +25,7 @@ import javax.persistence.GenerationType;
 public class ContentPeople {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long content_people_id;
+    private Long content_people_id;
     private String person_type;
 
     @ManyToOne(cascade=CascadeType.MERGE)
@@ -52,7 +52,7 @@ public class ContentPeople {
 	public long getContent_people_id() {
 		return content_people_id;
 	}
-	public void setContent_people_id(long content_people_id) {
+	public void setContent_people_id(Long content_people_id) {
 		this.content_people_id = content_people_id;
 	}
 	public String getPerson_type() {

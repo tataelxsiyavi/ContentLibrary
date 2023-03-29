@@ -24,6 +24,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import com.content.dao.AssetLibraryRepo;
 import com.content.dao.ContentPeopleRepo;
 import com.content.dao.PeopleLibraryRepo;
 import com.content.enumclass.AssetType;
@@ -47,6 +48,8 @@ public class PeopleLibraryController {
 	ContentPeopleService contentpeopleservice;
 	@Autowired
 	ContentPeopleRepo contentrepo;
+	@Autowired
+	AssetLibraryRepo assetrepo;
 	
 	
 	DecimalFormat df=new DecimalFormat();
@@ -63,6 +66,34 @@ public class PeopleLibraryController {
 
 	@GetMapping("/addpeople")
 	public String addPeoplePage(Model model) {
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+         
+			
+				assetVideo.add(asset.get(i));
+			}
+
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
+		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
 
 		model.addAttribute("peoplelibrary", new PeopleLibrary());
 		return "addpeople";
@@ -71,12 +102,17 @@ public class PeopleLibraryController {
 	@PostMapping(value = "/addpeoplelibrary", consumes = MediaType.MULTIPART_FORM_DATA_VALUE) //
 	public String createPeople(
 			@RequestParam("people_name") String people_name,
+			@RequestParam(required=false,value="profileasset_id") Long profileasset_id,
 			@RequestParam("bio") String bio,
 			@RequestParam(required=false,value="profile_picture") MultipartFile profilePicture) throws Exception {
 		
 		
 		
 		AssetLibrary asset =null;
+		if(profilePicture.isEmpty() && profileasset_id!=null) {
+			asset=assetrepo.findById(profileasset_id).get();
+			
+		}
 		if(!profilePicture.isEmpty()) {
 		String profilePic = peopleservice.storeProfilePicture(profilePicture);
 		String ProfilePicUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)
@@ -148,14 +184,41 @@ public class PeopleLibraryController {
 	@GetMapping("/updatepeople/{id}")
 	public String updatePeoplePage(Model model,@PathVariable long id) {
 		PeopleLibrary peoplelibrary=peoplerepo.findById(id).get();
-		
+		List<AssetLibrary> asset = assetrepo.findAll();
+		model.addAttribute("asset", asset);
+		List<AssetLibrary> assetVideo = new ArrayList<>();
+		List<AssetLibrary> assetAudio = new ArrayList<>();
+		List<AssetLibrary> assetImage = new ArrayList<>();
+		List<AssetLibrary> assetFile = new ArrayList<>();
+		for (int i = 0; i < asset.size(); i++) {
+			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
+         
+			
+				assetVideo.add(asset.get(i));
+			}
+
+			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
+				assetAudio.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+				assetImage.add(asset.get(i));
+			}
+			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+				assetFile.add(asset.get(i));
+
+			}
+		}
+		model.addAttribute("videoasset", assetVideo);
+		model.addAttribute("audioasset", assetAudio);
+		model.addAttribute("imageasset", assetImage);
+		model.addAttribute("fileasset", assetFile);
 			model.addAttribute("people", peoplelibrary);
 	if(peoplelibrary.getBio()!=null) {
 		model.addAttribute("bio", peoplelibrary.getBio());
 	}
 	if(peoplelibrary.getPeople_asset()!=null) {
-	AssetLibrary asset=peoplelibrary.getPeople_asset();
-	Long assetid=asset.getAsset_id();
+	AssetLibrary asset1=peoplelibrary.getPeople_asset();
+	Long assetid=asset1.getAsset_id();
 	if(assetid!=null) {
 		model.addAttribute("people_asset", assetid);
 	}
@@ -170,11 +233,16 @@ public class PeopleLibraryController {
 	public String updateContent(
 			@RequestParam("people_id") long people_id,
 			@RequestParam("people_name") String people_name,
+			@RequestParam(required=false,value="profileasset_id") Long profileasset_id,
 			@RequestParam("bio") String bio,
 			@RequestParam("profile_picture") MultipartFile profilePicture,Model model) throws Exception {
 
 		
 		AssetLibrary asset=null;
+		if(profilePicture.isEmpty() && profileasset_id!=null) {
+			asset=assetrepo.findById(profileasset_id).get();
+			
+		}
 		if(!profilePicture.isEmpty()) {
 		String profilePic = peopleservice.storeProfilePicture(profilePicture);
 		String ProfilePicUri = ServletUriComponentsBuilder.fromCurrentContextPath().path(AppConstants.DOWNLOAD_PATH)

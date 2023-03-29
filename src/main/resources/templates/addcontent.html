@@ -294,7 +294,7 @@
 		}
 		
 		
-		//additional
+		//additional file upload
 		
 		
 		function fileupolad(){
@@ -303,6 +303,7 @@
         var fileInput = document.getElementById('additional_fileselect');
         var filePath = fileInput.value;
 if(type == "pdf"){
+	
         var allowedExtensions = /(\.pdf)$/i;
         if(!allowedExtensions.exec(filePath)){
 		document.getElementById('additionalError').innerHTML="Please upload file having extensions .pdf only.";
@@ -314,6 +315,7 @@ if(type == "pdf"){
 		}
 }
 else if(type == "video") {
+	 
 		var allowedExtensions = /(\.mp4|\.wmv|\.mov|\.flv)$/i;
         if(!allowedExtensions.exec(filePath)){
         document.getElementById('additionalError').innerHTML="Please upload file having extensions  mp4, wmv, mov, flv, vob, m4v, mkv only.";
@@ -324,6 +326,7 @@ else if(type == "video") {
 		}
 	}
  else if(type == "audio") {
+	  
 	    var allowedExtensions = /(\.mp3|\.wav|\.mpeg)$/i;
  
         if(!allowedExtensions.exec(filePath)){
@@ -365,6 +368,8 @@ else if(type == "video") {
 				    document.querySelector(".upload-from-bannerlibrary").style.display="none";
 			  }
 			  function uploadadditionalFromLibrary(){
+				  
+				  
 				  document.querySelector("#additional-upload").style.display="none";
 				    document.querySelector(".upload-from-additionallibrary").style.display="flex";
 			  }
@@ -439,32 +444,89 @@ else if(type == "video") {
 			let imgElement = e.target;
 			console.log(imgElement);
 			let inputElement = imgElement.nextElementSibling;
-			console.log(inputElement);
-			console.log(inputElement.getAttribute("value"));
+			//console.log(inputElement);
+			//console.log(inputElement.getAttribute("value"));
 			let divvalues=inputElement.getAttribute("value");
+			document.querySelector("#mediaasset_id_id").value= divvalues;
+			console.log(" from media id"+document.querySelector("#mediaasset_id_id").value);
+			document.getElementById('media').style.display='none'
 			
-			let fileselect=document.querySelector("#media_fileselect").value ;
-		fileselect =divvalues;
-			console.log("file value :"+fileselect);
 			e.target.focus();
 					}
 		function frompreviewLibOnCLick(e) {
-			console.log(e.target.children[0].files)
+			let imgElement = e.target;
+			console.log(imgElement);
+			let inputElement = imgElement.nextElementSibling;
+			//console.log(inputElement);
+			//console.log(inputElement.getAttribute("value"));
+			let divvalues=inputElement.getAttribute("value");
+			document.querySelector("#preview_id").value= divvalues;
+			console.log(" from preview id"+document.querySelector("#preview_id").value);
+			document.getElementById('preview').style.display='none'
 			e.target.focus();
 					}
 		function frombannerLibOnCLick(e) {
-			console.log(e.target.children[0].files)
+			let imgElement = e.target;
+			console.log(imgElement);
+			let inputElement = imgElement.nextElementSibling;
+			//console.log(inputElement);
+			//console.log(inputElement.getAttribute("value"));
+			let divvalues=inputElement.getAttribute("value");
+			document.querySelector("#banner_id").value= divvalues;
+			console.log(" from banner id"+document.querySelector("#banner_id").value);
+			document.getElementById('banner').style.display='none'
 			e.target.focus();
+			
 					}
 		function fromadditionalLibOnCLick(e) {
-			console.log(e.target.children[0].files)
+			let imgElement = e.target;
+			console.log(imgElement);
+			let inputElement = imgElement.nextElementSibling;
+			////console.log(inputElement);
+			//console.log(inputElement.getAttribute("value"));
+			let divvalues=inputElement.getAttribute("value");
+			document.querySelector("#add_id").value= divvalues;
+			console.log(" from additional id"+document.querySelector("#add_id").value);
+			document.getElementById('additional').style.display='none'
 			e.target.focus();
 					}
 		function fromthumbnailLibOnCLick(e) {
-			console.log(e.target.children[0].files)
+			let imgElement = e.target;
+			console.log(imgElement);
+			let inputElement = imgElement.nextElementSibling;
+			//console.log(inputElement);
+			//console.log(inputElement.getAttribute("value"));
+			let divvalues=inputElement.getAttribute("value");
+			document.querySelector("#thumbnail_id").value= divvalues;
+			console.log(" from thumbnail id"+ document.querySelector("#thumbnail_id").value);
+			document.getElementById('thumbnail').style.display='none'
+			
 			e.target.focus();
 					}
 
+		
+		
+		
+		//onchange additional
+		function addChange(){
+		var type = document.getElementById('additional-type').value;
+		  
+				  if(type == "pdf"){
+					  document.querySelector("#add-audio").style.display="none";
+					    document.querySelector("#add-video").style.display="none";
+					    document.querySelector("#add-file").style.display="flex";
+				  }
+				  if(type == "video"){
+					  document.querySelector("#add-audio").style.display="none";
+					    document.querySelector("#add-video").style.display="flex";
+					    document.querySelector("#add-file").style.display="none";
+				  }
+				  if(type=="audio"){
+					  document.querySelector("#add-audio").style.display="flex";
+					    document.querySelector("#add-video").style.display="none";
+					    document.querySelector("#add-file").style.display="none";
+				  }
+		}
 
 	</script>
 
@@ -936,7 +998,7 @@ else if(type == "video") {
 							<div class="addons-1" style="display: none;">
 								<h6>Label Name</h6>
 								<p>Media Type</p>
-								<select th:name="additional_asset_type" id="additional-type">
+								<select th:name="additional_asset_type" id="additional-type" onchange="addChange()" >
 									<option th:value="video">Video</option>
 									<option th:value="audio">Audio</option>
 									<option th:value="pdf">PDF</option>
@@ -1015,7 +1077,7 @@ else if(type == "video") {
 													<div  th:each="videoasset : ${videoasset}" th:if="${videoasset.asset_type}==${videoasset.asset_type.Video}" onclick="frommediaLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
 														
 														<img   th:src="@{/img/video-thumb.jpg} " style="height: 58px; width: 88px; margin: 2px; " >
-														<input type="hidden"  th:value="${videoasset.asset_id}" style="display: none;"/>
+														<input type="hidden"  th:value="${videoasset.asset_id}"  style="display: none;"/>
 														<p th:text="${videoasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
 														
 														
@@ -1023,12 +1085,13 @@ else if(type == "video") {
 													<div id="audio-thumb"  style="height: 60px; width: 15%;">
 													<div th:each="audioasset : ${audioasset}" th:if="${audioasset.asset_type}==${audioasset.asset_type.Audio}" onclick="frommediaLibOnCLick(event)"  style="border: 1px solid #ccc;  height: 100%; width: 100%; border-radius: 5px; margin:15px; word-wrap:break-word;" >
 													<img  th:src="@{/img/mp3-thumb.jpg} " style="height: 100%; width: 100%; margin: 2px; " >
-													<input type="hidden"  th:value="${audioasset.asset_id}" style="display: none;"/>
+													<input type="hidden" id="media_id" th:value="${audioasset.asset_id}"  style="display: none;"/>
 														<p th:text="${audioasset.asset_name}" style="height: 100%; width: 100%;font-size:8px; font-weight:lighter;"></p>
 														
 														
 													</div></div></fieldset>
 												</div>
+												<input type="hidden" th:name="mediaasset_id" id="mediaasset_id_id">
 												<div id="media-upload">
 													<fieldset
 														style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
@@ -1086,12 +1149,20 @@ else if(type == "video") {
 													</nav>
 												</div>
 												<div class="upload-from-previewlibrary" style="display: none;">
-													<div
-														style="border:1px solid #ccc; display: inline-block; height: 60px; width: 15%; border-radius: 5px; margin-top: 5%;" onclick="frompreviewLibOnCLick(event)">
-														<input type="file" style="display: none;"/>
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												<div   style="flex-wrap: wrap;">
+													<div  th:each="videoasset : ${videoasset}"  onclick="frompreviewLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
 														
-													</div>
+														<img   th:src="@{/img/video-thumb.jpg} " style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${videoasset.asset_id}"  style="display: none;"/>
+														
+														<p th:text="${videoasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														
+														
+													</div></div></fieldset>
 												</div>
+												<input type="hidden" id="preview_id" th:name="previewasset_id" >
 												<div id="preview-upload">
 
 												<fieldset
@@ -1147,12 +1218,20 @@ else if(type == "video") {
 													</nav>
 												</div>
 												<div class="upload-from-bannerlibrary" style="display: none;">
-													<div
-														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="frombannerLibOnCLick(event)">
-														<input type="file" style="display: none;"/>
-														video
-													</div>
+													
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												<div   style="display:flex;flex-wrap: wrap;">
+													<div  th:each="imageasset : ${imageasset}"  onclick="frombannerLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														
+														<img  th:src="@{${imageasset.asset_filepath}}" style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${imageasset.asset_id}"  style="display: none;"/>
+														<p th:text="${imageasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														
+														
+													</div></div></fieldset>
 												</div>
+												<input type="hidden" id="banner_id"  th:name="bannerasset_id" />
 												<div id="banner-upload">
 
 												<fieldset
@@ -1207,12 +1286,31 @@ else if(type == "video") {
 													</nav>
 												</div>
                                              <div class="upload-from-additionallibrary" style="display: none;">
-													<div
-														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="fromadditionalLibOnCLick(event)">
-														<input type="file" style="display: none;"/>
-														video
-													</div>
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												        <div id="add-video" style="display:flex;">
+												     	<div  th:each="videoasset : ${videoasset}"  onclick="fromadditionalLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														<img   th:src="@{/img/video-thumb.jpg} " style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${videoasset.asset_id}"  style="display: none;"/>
+														<p th:text="${videoasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														</div>
+														</div>
+														<div id="add-audio"  style="display:none;">
+													    <div th:each="audioasset : ${audioasset}" onclick="fromadditionalLibOnCLick(event)"  style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+													    <img  th:src="@{/img/mp3-thumb.jpg} " style="height: 58px; width: 88px; margin: 2px; " >
+													    <input type="hidden"  th:value="${audioasset.asset_id}"  style="display: none;"/>
+														<p th:text="${audioasset.asset_name}" style="height: 100%; width: 100%;font-size:8px; font-weight:lighter;"></p>
+														</div>
+														</div>
+														<div id="add-file" style="display:none;">
+														<div th:each="fileasset : ${fileasset}"  onclick="fromadditionalLibOnCLick(event)"  style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														<img  th:src="@{/img/file-placeholder.png} " style="height: 58px; width: 88px; margin: 2px; " >
+													    <input type="hidden"  th:value="${fileasset.asset_id}" style="display: none;"/>
+														<p th:text="${fileasset.asset_name}" style="height: 100%; width: 100%;font-size:8px; font-weight:lighter;"></p>
+														</div></div>
+														</fieldset>
 												</div>
+												<input type="hidden"  id="add_id" th:name="addasset_id" />
 												<div id="additional-upload">
 												<fieldset
 													style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
@@ -1266,12 +1364,19 @@ else if(type == "video") {
 												
 												</div>
 												<div class="upload-from-thumbnaillibrary" style="display: none;">
-													<div
-														style="border: 1px solid #ccc; display: inline-block; height: 100px; width: 25%; border-radius: 5px; margin-top: 5%;" onclick="fromthumbnailLibOnCLick(event)">
-														<input type="file" style="display: none;"/>
-														video
-													</div>
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												<div   style="display:flex;flex-wrap: wrap;">
+													<div  th:each="imageasset : ${imageasset}"  onclick="fromthumbnailLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														
+														<img  th:src="@{${imageasset.asset_filepath}}" style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${imageasset.asset_id}"  style="display: none;"/>
+														<p th:text="${imageasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														
+														
+													</div></div></fieldset>
 												</div>
+												<input type="hidden"  id="thumbnail_id" th:name="thumbnailasset_id" style="display: none;"/>
 												<div id="thumbnail-upload">
 
 												<fieldset

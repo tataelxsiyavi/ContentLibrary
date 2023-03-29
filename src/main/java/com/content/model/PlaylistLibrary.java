@@ -33,15 +33,15 @@ public class PlaylistLibrary {
 	private String description;
 	private String search_tags;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="thumbnail_asset_id")
 	private AssetLibrary thumbnail_assets;
 	
-	@OneToOne(cascade=CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="banner_asset_id")
 	private AssetLibrary banner_assets;
 	
-	@ManyToMany(cascade= CascadeType.MERGE)
+	@ManyToMany()
     @JoinColumn(name="content_id")
     private List<ContentLibrary> contentLibrary;
 	public PlaylistLibrary(String playlist_type, String title, String permalink, Category categories,

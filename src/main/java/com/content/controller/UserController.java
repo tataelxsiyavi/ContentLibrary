@@ -29,14 +29,15 @@ public class UserController {
 	public String registerUser(@RequestParam("username") String username,
 			@RequestParam("password") String password,
 			@RequestParam("Cpassword")String Cpassword,
-			@RequestParam("email")String email) {
+			@RequestParam("email")String email, RedirectAttributes redirAttrs) {
     	User user=new User();
     	user.setUserName(username);
     	user.setEmail(email);
     	user.setConfirmPassword(Cpassword);
     	user.setPassword(password);
     	userdao.save(user);
-		return "Login";
+    	redirAttrs.addFlashAttribute("success", "Signup Successfully..");
+		return "redirect:/register";
 	}
 	
 	@PostMapping("/loginuser")

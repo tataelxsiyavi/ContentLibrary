@@ -12,4 +12,7 @@ import com.content.model.PlaylistLibrary;
 public interface PlaylistLibraryRepo extends JpaRepository<PlaylistLibrary, Long> {
 	@Query("SELECT e FROM PlaylistLibrary  e WHERE e.categories.category_id = :id")
 	List<PlaylistLibrary> findCategoryByIdInPlaylist(@Param("id") long cate_id);
+	
+	@Query("SELECT e FROM PlaylistLibrary e JOIN e.contentLibrary  c WHERE c.content_id = :cid")
+	List<PlaylistLibrary> findContentByIdInPlaylist(@Param("cid") long con_id);
 }

@@ -295,20 +295,10 @@ public class AssetLibraryController {
 	@GetMapping("/assetlibraryDelete1")
 	public String deleteAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		List<ContentLibrary> content=contentrepo.findAll();
-		List<PlaylistLibrary> playlist=playlistrepo.findAll();
-		List<AssetLibrary> asset=assetrepo.findAll();
-		for(int i=0;i<content.size();i++) {
-			if( !content.get(i).getMedia_assets().equals(asset.get(i)) ) {
-				assetservice.deleteAssets(asset_id);
-				
-			}
-			
-		else {
-			redir.addFlashAttribute("Perror","asset cannot delete...");
-			
-		}}
 		
+		
+				assetservice.deleteAssets(asset_id);
+	
 		
 		
 		return "redirect:/assetlibrary";

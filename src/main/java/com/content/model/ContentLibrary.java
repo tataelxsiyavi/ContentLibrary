@@ -54,20 +54,20 @@ public class ContentLibrary {
 	@OneToMany(mappedBy="content_id",cascade =CascadeType.ALL)
 	private List<ContentPeople>contenpeople;
 
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="media_asset")
 	private AssetLibrary media_assets;
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="preview_asset",nullable=true)
 	private AssetLibrary preview_assets;
 	private String additional_asset_type;
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="additional_asset")
 	private AssetLibrary additional_assets;
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="thumbnail_asset")
 	private AssetLibrary thumbnail_assets;
-	@OneToOne(cascade =CascadeType.ALL)
+	@OneToOne()
 	@JoinColumn(name="banner_asset")
 	private AssetLibrary banner_assets;
 

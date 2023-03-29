@@ -70,6 +70,31 @@ function requiredFields(){
         }
         return validForm;
         }
+        
+        
+        // upload from library
+         function uploadbannerFromLibrary(){
+				  document.querySelector("#banner-upload").style.display="none";
+				    document.querySelector(".upload-from-bannerlibrary").style.display="flex";
+			  }
+			  function uploadbannerFromComputer(){
+				  document.querySelector("#banner-upload").style.display="block";
+				    document.querySelector(".upload-from-bannerlibrary").style.display="none";
+			  }
+			  function frombannerLibOnCLick(e) {
+					let imgElement = e.target;
+					console.log(imgElement);
+					let inputElement = imgElement.nextElementSibling;
+					//console.log(inputElement);
+					//console.log(inputElement.getAttribute("value"));
+					let divvalues=inputElement.getAttribute("value");
+					document.querySelector("#banner_id").value= divvalues;
+					console.log(" from profilepic id"+document.querySelector("#banner_id").value);
+					document.getElementById('profilepic').style.display='none'
+					e.target.focus();
+					
+							}
+        
 </script>
 
 </head>
@@ -285,7 +310,7 @@ function requiredFields(){
 						<div id="profilepic" class="w3-modal">
 
 							<div class="w3-modal-content"
-								style="height: 60%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
+								style="height: 70%; width: 50%; margin-left: 36%; margin-top: 5%; border-radius: 10px;">
 
 								<div class="w3-container">
 
@@ -303,13 +328,31 @@ function requiredFields(){
 											<nav>
 												<ol class="breadcrumb">
 
-													<li class="breadcrumb-item"><a href="#">Upload
-															From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadbannerFromComputer();">Upload From Computer</a></li>
+															<li class="breadcrumb-item"><a 
+																onclick="uploadbannerFromLibrary();"> Choose From Library</a></li>
 
-													<li class="breadcrumb-item">Choose From Library</li>
-												</ol>
+														</ol>
 											</nav>
 										</div>
+										<div class="upload-from-bannerlibrary" style="display: none;">
+													
+													<fieldset
+														style="border: dashed; border-color: #18A0FB; height: 270px; width: 650px; border-radius: 5px; margin: 10px;">
+												<div   style="display:flex;flex-wrap: wrap;">
+													<div  th:each="imageasset : ${imageasset}"  onclick="frombannerLibOnCLick(event)" style="border: 1px solid #ccc;  height: 60px; width: 90px; border-radius: 5px;margin:20px; word-wrap:break-word;" >
+														
+														<img  th:src="@{${imageasset.asset_filepath}}" style="height: 58px; width: 88px; margin: 2px; " >
+														<input type="hidden"  th:value="${imageasset.asset_id}"  style="display: none;"/>
+														<p th:text="${imageasset.asset_name}" style="height: 58px; width: 88px; font-size:8px; font-weight:lighter;" ></p>
+														
+														
+													</div></div></fieldset>
+												</div>
+												<input type="hidden" id="banner_id"  th:name="profileasset_id" />
+												
+												<div id="banner-upload">
 
 										<fieldset
 											style="border: dashed; border-color: #18A0FB; height: 100%; width: 96%; border-radius: 5px; margin: 10px;">
@@ -333,7 +376,7 @@ function requiredFields(){
 											file : ( jpg, jpeg, png, gif, svg, jfif )</div>
 
 									</div>
-
+</div>
 								</div>
 							</div>
 
