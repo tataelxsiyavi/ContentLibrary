@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 
@@ -26,12 +27,13 @@ public class PeopleLibrary {
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
 	private long people_id;
 	private String people_name;
+	@Lob
 	private String bio;
 //	private String profile_picture;
-@OneToMany(mappedBy="people_id")
+@OneToMany(mappedBy="people_id",cascade =CascadeType.ALL)
 private List<ContentPeople>contentPeople;
 
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn()
 	private AssetLibrary people_asset;
 

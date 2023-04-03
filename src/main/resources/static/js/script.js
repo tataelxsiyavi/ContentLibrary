@@ -150,7 +150,25 @@ function displaypeople() {
 	element2.classList.remove("linkid");
 	element3.classList.add("linkid");
 	element4.classList.remove("linkid");
-
+    document.querySelector("#contentpeopleTable").style.display = "flex";
+	document.querySelector(".people").style.display = "flex";
+	document.querySelector(".media").style.display = "none";
+	document.querySelector(".banner").style.display = "none";
+	document.querySelector(".addons").style.display = "none";
+	document.querySelector('.addons-1').style.display = "none"
+	document.querySelector('.audiomedia').style.display = "none";
+	document.querySelector('#tabledisplay').style.display = "block"
+}
+function displaypeople1() {
+	var element1 = document.getElementById("mediaid");
+	var element2 = document.getElementById("bannerid");
+	var element3 = document.getElementById("peopleid");
+	var element4 = document.getElementById("addonsid");
+	element1.classList.remove("linkid");
+	element2.classList.remove("linkid");
+	element3.classList.add("linkid");
+	element4.classList.remove("linkid");
+    
 	document.querySelector(".people").style.display = "flex";
 	document.querySelector(".media").style.display = "none";
 	document.querySelector(".banner").style.display = "none";

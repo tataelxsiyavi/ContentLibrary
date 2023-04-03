@@ -43,7 +43,7 @@ public class AssetLibraryController {
 	@Autowired
 	PlaylistLibraryRepo playlistrepo;
 	
-	DecimalFormat df=new DecimalFormat();
+	DecimalFormat df=new DecimalFormat("#.##");
 	
 	@GetMapping("/assetlibrary")
 	public String assetLibPage(Model model) {
@@ -295,9 +295,14 @@ public class AssetLibraryController {
 	@GetMapping("/assetlibraryDelete1")
 	public String deleteAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		
-		
-				assetservice.deleteAssets(asset_id);
+		List<ContentLibrary>media=contentrepo.findContentByMediaAssetId(asset_id);
+		List<ContentLibrary>preview=contentrepo.findContentByPreviewAssetId(asset_id);
+		if(media.size()>0||preview.size()>0) {
+			redir.addFlashAttribute("Perror", "Asset cannot delete...");
+		}else {
+			assetservice.deleteAssets(asset_id);
+		}
+				
 	
 		
 		
@@ -307,24 +312,39 @@ public class AssetLibraryController {
 	@GetMapping("/assetlibraryDelete2")
 	public String deleteAudioAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		
-		assetservice.deleteAssets(asset_id);
-		
+		List<ContentLibrary>media=contentrepo.findContentByMediaAssetId(asset_id);
+		if(media.size()>0) {
+			redir.addFlashAttribute("Perror", "Asset cannot delete...");
+		}else {
+			assetservice.deleteAssets(asset_id);
+		}
 		return "redirect:/audio";
 	}
 	
 	@GetMapping("/assetlibraryDelete3")
-	public String deleteImageAsset(@RequestParam(name="asset_id") long asset_id)
+	public String deleteImageAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		assetservice.deleteAssets(asset_id);
 		
+		List<ContentLibrary>banner=contentrepo.findContentByBannerAssetId(asset_id);
+		List<ContentLibrary>thumbnail=contentrepo.findContentByThumbnailAssetId(asset_id);
+		if(banner.size()>0||thumbnail.size()>0) {
+			redir.addFlashAttribute("Perror", "Asset cannot delete...");
+		}else {
+			assetservice.deleteAssets(asset_id);
+		}
 		return "redirect:/images";
 	}
 	
 	@GetMapping("/assetlibraryDelete4")
-	public String deleteFileAsset(@RequestParam(name="asset_id") long asset_id)
+	public String deleteFileAsset(@RequestParam(name="asset_id") long asset_id,RedirectAttributes redir)
 	{
-		assetservice.deleteAssets(asset_id);
+		List<ContentLibrary>file=contentrepo.findContentByFileAssetId(asset_id);
+		if(file.size()>0) {
+			redir.addFlashAttribute("Perror", "Asset cannot delete...");
+		}else {
+			assetservice.deleteAssets(asset_id);
+		}
+		
 		
 		return "redirect:/file";
 	}

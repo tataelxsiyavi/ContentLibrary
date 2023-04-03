@@ -302,6 +302,7 @@
         var type = document.getElementById('additional-type').value;
         var fileInput = document.getElementById('additional_fileselect');
         var filePath = fileInput.value;
+        var filename=fileInput.value.split("\\").pop()
 if(type == "pdf"){
 	
         var allowedExtensions = /(\.pdf)$/i;
@@ -312,6 +313,7 @@ if(type == "pdf"){
         return false;
     }else{
 			document.getElementById('additionalError').innerHTML='';
+			document.getElementById('filename').innerHTML="File Name : "+filename;
 		}
 }
 else if(type == "video") {
@@ -323,6 +325,7 @@ else if(type == "video") {
         return false;
 		}else{
 			document.getElementById('additionalError').innerHTML='';
+			document.getElementById('filename').innerHTML="File Name : "+filename;
 		}
 	}
  else if(type == "audio") {
@@ -335,6 +338,7 @@ else if(type == "video") {
         return false;
 		}else{
 			document.getElementById('additionalError').innerHTML='';
+			document.getElementById('filename').innerHTML="File Name : "+filename;
 		}
 	
 }
@@ -831,7 +835,7 @@ else if(type == "video") {
 									onclick="displaybanner()">Banner</div>
 								&nbsp;&nbsp;
 								<div id="peopleid" style="color: #6c757d; margin-right: 20px;"
-									onclick="displaypeople()">People</div>
+									onclick="displaypeople1()">People</div>
 								&nbsp;&nbsp;
 								<div id="addonsid" style="color: #6c757d; margin-right: 20px;"
 									onclick="displayaddons()">Add Ons</div>
@@ -946,10 +950,11 @@ else if(type == "video") {
 
 								<select class="selectpicker" id="persontype">
 									<!-- th:name="'contentPeople['+${contStat.index}+'].person_type'"  -->
-									<option value="select">Select Person Type</option>
+									<option value="">Select Person Type</option>
 									<option th:value="Director">Director</option>
 									<option th:value="Actor">Actor</option>
 									<option th:value="Music_Director">Music Director</option>
+									<option th:value="Singer">Singer</option>
 								</select>&nbsp; &nbsp;
 
 								<!-- <input type="checkbox" style="width:20px;"  th:name="peoples"
@@ -1006,7 +1011,7 @@ else if(type == "video") {
 									onclick="document.getElementById('additional').style.display='block'">Upload</span>
 								<span id="addons-1-cancel" onclick="displayNone()">Cancel</span>
 								<!--     ////////   -->
-
+                               <p id="filename" style="margin-top: 10px;"> </p>
 
 
 							</div>

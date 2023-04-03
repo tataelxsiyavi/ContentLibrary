@@ -60,11 +60,12 @@
           </div>
     </div>
     <div class="cards">
-      <p class="title">Latest Video & Audio</p>
+      <p class="title">Latest Video</p>
       <div class="hero-container" >
-        <div class="main-container" th:each="content: ${contentlist}">
+        <div class="main-container" th:each="content: ${contentlist}" th:if="${content.content_type=='video'}">
         <div class="poster-container">
-        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/noimage.png}" class="poster" />
         <p class="contentTitle" th:text="${content.content_name}"></p>
         </a>
         </div>
@@ -73,12 +74,13 @@
         
         </div>
     </div>
-    <!--div class="cards">
+    <div class="cards">
       <p class="title">Latest Audio</p>
       <div class="hero-container" >
         <div class="main-container"th:each="content: ${contentlist}" th:if="${content.content_type=='audio'}">
         <div class="poster-container" >
-        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/noimage.png}" class="poster" />
         <p class="contentTitle" th:text="${content.content_name}"></p>
         </a>
         </div>
@@ -86,22 +88,73 @@
         
         
         </div>
-    </div> -->
+    </div>
     <div class="cards">
-      <div th:each="section: ${section}">
+      <div th:each="section: ${section}" th:if="${section.section_Type=='Manual'}">
         <p class="title" th:text="${section.section_Name}" ></p>
       <div class="hero-container" >
         <div class="main-container" th:each="content: ${section.contentLibrary}" >
         <div class="poster-container" >
-        <a th:href="@{'/description/'+${content.content_id}}"><img th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/video-placeholder.jpg}" class="poster" />
         <p class="contentTitle" th:text="${content.content_name}"></p>
         </a>
         </div>
         </div>
-        
-        
         </div>
       </div>
+    </div>
+    
+    <div class="cards">
+      <!--div th:each="section: ${section}" th:if="${section.section_Type=='Automatic'}"-->
+      <div th:each="auto: ${sectionautomaticlist}"  th:if="${auto.content_Type=='video'}">
+        <p class="title" th:text="${auto.section_Name}" ></p>
+      <div class="hero-container" >
+        <div class="main-container" th:each="content: ${autovideo}"   >
+        <div class="poster-container"  >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/video-placeholder.jpg}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div>  
+        <!--div class="main-container" th:each="content: ${autoaudio}" th:if="${auto.content_Type=='audio'}"  >
+        <div class="poster-container"  >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/video-placeholder.jpg}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div-->      
+        </div>
+      </div>
+    <!--/div-->
+    </div>
+    
+    <div class="cards">
+      <!--div th:each="section: ${section}" th:if="${section.section_Type=='Automatic'}"-->
+      <div th:each="auto: ${sectionautomaticlist}" th:if="${auto.content_Type=='audio'}">
+        <p class="title" th:text="${auto.section_Name}" ></p>
+      <div class="hero-container" >
+        <div class="main-container" th:each="content: ${autoaudio}"   >
+        <div class="poster-container"  >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/video-placeholder.jpg}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div>  
+        <!--div class="main-container" th:each="content: ${autoaudio}" th:if="${auto.content_Type=='audio'}"  >
+        <div class="poster-container"  >
+        <a th:href="@{'/description/'+${content.content_id}}"><img th:if="${content.thumbnail_assets!=null}" th:src="${content.thumbnail_assets.asset_filepath}" class="poster" />
+        <img th:unless="${content.thumbnail_assets!=null}" th:src="@{/img/video-placeholder.jpg}" class="poster" />
+        <p class="contentTitle" th:text="${content.content_name}"></p>
+        </a>
+        </div>
+        </div-->      
+        </div>
+      </div>
+    <!--/div-->
     </div>
     <footer>
         <div>

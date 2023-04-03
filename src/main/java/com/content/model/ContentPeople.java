@@ -28,10 +28,10 @@ public class ContentPeople {
     private Long content_people_id;
     private String person_type;
 
-    @ManyToOne(cascade=CascadeType.MERGE)
+    @ManyToOne(cascade=CascadeType.PERSIST)
     @JoinColumn(name = "peope_id" ) 
     private PeopleLibrary people_id;
-    @ManyToOne(cascade=CascadeType.ALL)
+    @ManyToOne(cascade=CascadeType.PERSIST)
 
     @JoinColumn(name="content_id")
     private ContentLibrary content_id;

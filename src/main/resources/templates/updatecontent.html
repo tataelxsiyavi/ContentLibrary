@@ -279,7 +279,7 @@ function showCheckboxes() {
     	
     	
     	const peopleList = peopleArr.map((people, index) => {
-    	        return `<tr><td>${people.roll}</td><td>${people.name}</td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
+    	        return `<tr style="width: 500px; display: flex; justify-content: space-between;"><td>${people.roll}</td><td>${people.name}</td><td><span  onclick="deleteClick(event)"><i id=row-${index} class="bi bi-trash"></i></span></td></tr>`
     	      });
     	      var finalPeopleList = "";
     	      peopleList.forEach((p) => {
@@ -557,7 +557,7 @@ else if(type == "audio") {
 
 		<div class="d-flex align-items-center justify-content-between">
 			<a th:href="@{/}" class="logo d-flex align-items-center"> <img
-				src="assets/img/logo.png" alt=""> <span
+				th:src="@{/assets/img/logo.png}" alt=""> <span
 				class="d-none d-lg-block">FEE Admin</span>
 			</a> <i class="bi bi-list toggle-sidebar-btn"></i>
 		</div>
@@ -939,9 +939,10 @@ else if(type == "audio") {
 								<!-- flex-->
 								<select class="selectpicker" id="persontype">
 									<option value="">Select Person Type</option>
-									<option th:value="director">Director</option>
-									<option th:value="actor">Actor</option>
-									<option th:value="music_director">Music Director</option>
+									<option th:value="Director">Director</option>
+									<option th:value="Actor">Actor</option>
+									<option th:value="Music_Director">Music Director</option>
+									<option th:value="Singer">Singer</option>
 								</select>&nbsp; &nbsp; <select class="selectpicker" id="peoplecheckbox">
 									<option value="select">Select Person</option>
 									<option th:each="list: ${peoplelist}"
@@ -962,6 +963,14 @@ else if(type == "audio") {
 							</div>
 							<div id="tabledisplay">
 								<table id="displayTable">
+								</table>
+								 <table id="contentpeopleTable" style="display:none;">
+								<tr id="removepeople" style="width: 500px; display: flex; justify-content: space-between;" th:each="cont: ${contentpeople}">
+								<td th:text="${cont.person_type}"></td>
+								<td th:text="${cont.people_id.people_name}"></td>
+								<!--  --<td><a id="deleteBtn" th:attr="data-id=${cont.content_people_id}"><i class="bi bi-trash"></i></a></td>-->
+								<td><a th:onclick="'deleteRecord(\'' + ${cont.content_people_id} + '\')'">
+    <i class="bi bi-trash" ></i></a></td></tr>
 								</table>
 							</div>
 
@@ -1533,6 +1542,29 @@ else if(type == "audio") {
 	 })
 	 
   </script>
+  
+  
+  <!--  --<td><a id="deleteBtn" th:attr="data-id=${cont.content_people_id}"><i class="bi bi-trash"></i></a></td></tr>-->
+  <script th:inline="javascript">
+  
+    function deleteRecord(id) {
+    	console.log(id);
+        $.ajax({
+            type: 'POST',
+            url: "/deleteContentPeople/" + id,
+            success: function() {
+                $("#removepeople").remove(); // Remove the record from the UI
+            	// alert("deleting record.");
+            },
+            error: function(xhr, status, error) {
+                alert("Error deleting record.");
+            }
+        });
+    }
+
+    
+</script>
+  
 
 </body>
 

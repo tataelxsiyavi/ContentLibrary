@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToOne;
 
@@ -30,14 +31,15 @@ public class PlaylistLibrary {
 	@OneToOne(cascade=CascadeType.MERGE)
 	@JoinColumn(name="category_id")
 	private Category categories;
+	@Lob
 	private String description;
 	private String search_tags;
 	
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="thumbnail_asset_id")
 	private AssetLibrary thumbnail_assets;
 	
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="banner_asset_id")
 	private AssetLibrary banner_assets;
 	

@@ -75,7 +75,7 @@ public class ContentLibraryController {
 	@Autowired
 	AssetLibraryRepo assetrepo;
 
-	DecimalFormat df = new DecimalFormat("#.###");
+	DecimalFormat df = new DecimalFormat("#.##");
 
 	@GetMapping("/")
 	public String indexPage() {
@@ -93,6 +93,49 @@ public class ContentLibraryController {
 	public String userHomePage(Model model) {
 		List<ContentLibrary> contentlist = contentrepo.findAll();
 		List<FeaturedSection> section = sectionrepo.findAll();
+		List<FeaturedSection> sectionmanuallist = new ArrayList<>();
+		List<FeaturedSection> sectionautomaticlist = new ArrayList<>();
+		for (int i = 0; i < section.size(); i++) {
+			if (section.get(i).getSection_Type().equals("Manual")) {
+
+				sectionmanuallist.add(section.get(i));
+			} else {
+				sectionautomaticlist.add(section.get(i));
+			}
+		}
+		List<ContentLibrary> videocontent = new ArrayList<>();
+		List<ContentLibrary> audiocontent = new ArrayList<>();
+		for (int i = 0; i < contentlist.size(); i++) {
+			if (contentlist.get(i).getContent_type().equals("video")) {
+				videocontent.add(contentlist.get(i));
+			} else {
+				audiocontent.add(contentlist.get(i));
+			}
+		}
+
+		List<ContentLibrary> autovideo = new ArrayList<>();
+		List<ContentLibrary> autoaudio = new ArrayList<>();
+		for (int j = 0; j < sectionautomaticlist.size(); j++) {
+			if (sectionautomaticlist.get(j).getContent_Type().equals("video")) {
+				for (int k = 0; k < videocontent.size(); k++) {
+
+					if (sectionautomaticlist.get(j).getContent_Limit() < videocontent.size()) {
+						autovideo.add(videocontent.get(k));
+					}
+				}
+			} else {
+				for (int k = 0; k < audiocontent.size(); k++) {
+					//                     int size=contentlist.size();
+					if (sectionautomaticlist.get(j).getContent_Limit() < audiocontent.size()) {
+						autoaudio.add(audiocontent.get(k));
+					}
+				}
+			}
+		}
+		model.addAttribute("sectionmanuallist", sectionmanuallist);
+		model.addAttribute("sectionautomaticlist", sectionautomaticlist);
+		model.addAttribute("autovideo", autovideo);
+		model.addAttribute("autoaudio", autoaudio);
 		model.addAttribute("section", section);
 		model.addAttribute("contentlist", contentlist);
 		return "UserHome";
@@ -125,18 +168,15 @@ public class ContentLibraryController {
 		List<AssetLibrary> assetFile = new ArrayList<>();
 		for (int i = 0; i < asset.size(); i++) {
 			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
-         
-			
+
 				assetVideo.add(asset.get(i));
 			}
 
 			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
 				assetAudio.add(asset.get(i));
-			}
-			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+			} else if (asset.get(i).getAsset_type().equals(AssetType.Image)) {
 				assetImage.add(asset.get(i));
-			}
-			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+			} else if (asset.get(i).getAsset_type().equals(AssetType.File)) {
 				assetFile.add(asset.get(i));
 
 			}
@@ -145,7 +185,6 @@ public class ContentLibraryController {
 		model.addAttribute("audioasset", assetAudio);
 		model.addAttribute("imageasset", assetImage);
 		model.addAttribute("fileasset", assetFile);
-		
 
 		model.addAttribute("peoplelist", peoplelist);
 		model.addAttribute("contentlibrary", new ContentLibrary());
@@ -171,7 +210,10 @@ public class ContentLibraryController {
 
 			model.addAttribute("previd", previd);
 		}
-
+		AssetLibrary banner = content.getBanner_assets();
+		if (banner != null) {
+			model.addAttribute("bannerimage", banner.getAsset_filepath());
+		}
 		List<ContentPeople> con = content.getContenpeople();
 
 		model.addAttribute("cat", cat);
@@ -181,6 +223,21 @@ public class ContentLibraryController {
 
 		model.addAttribute("allcategories", categories);
 		return "description";
+	}
+	@GetMapping("/peopledesc/{id}")
+	public String peopleDesc(Model model, @PathVariable long id) {
+		
+		PeopleLibrary people=peoplerepo.findById(id).get();
+		List<ContentLibrary> conpeo=contentpeoplerepo.getContentLibraryByPeopleid(id);
+		
+		model.addAttribute("contents", conpeo);
+	    model.addAttribute("people", people);
+		model.addAttribute("peoplename",people.getPeople_name());
+//		model.addAttribute("profilepic", people.getPeople_asset().getAsset_filepath());
+		
+		
+		
+		return "peopledesc";
 	}
 
 	@GetMapping("/contnentsettings")
@@ -225,8 +282,8 @@ public class ContentLibraryController {
 		String pdf = "application/pdf";
 
 		AssetLibrary preview_asset = null;
-		if(preview_assets.isEmpty()&& previewasset_id!=null) {
-			preview_asset=assetrepo.findById(previewasset_id).get();
+		if (preview_assets.isEmpty() && previewasset_id != null) {
+			preview_asset = assetrepo.findById(previewasset_id).get();
 		}
 		if (!preview_assets.isEmpty()) {
 
@@ -264,9 +321,9 @@ public class ContentLibraryController {
 
 		// media file
 		AssetLibrary media_asset = null;
-if(media_assets.isEmpty()&& mediaasset_id!=null) {
-	media_asset=assetrepo.findById(mediaasset_id).get();
-}
+		if (media_assets.isEmpty() && mediaasset_id != null) {
+			media_asset = assetrepo.findById(mediaasset_id).get();
+		}
 		if (!media_assets.isEmpty()) {
 			String media_file = contentservice.storePrimaryFile(media_assets);
 			String media_file_Uri = ServletUriComponentsBuilder.fromCurrentContextPath()
@@ -297,10 +354,10 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		}
 
 		// Additional file
-		
+
 		AssetLibrary additional_asset = null;
-		if(additional_assets.isEmpty()&& addasset_id!=null) {
-			additional_asset=assetrepo.findById(addasset_id).get();
+		if (additional_assets.isEmpty() && addasset_id != null) {
+			additional_asset = assetrepo.findById(addasset_id).get();
 		}
 		if (!additional_assets.isEmpty()) {
 			String additional_file = contentservice.storeAdditionalFile(additional_assets);
@@ -337,8 +394,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 
 		// Thumb nail file
 		AssetLibrary thumbnail_asset = null;
-		if (thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
-			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		if (thumbnail_assets.isEmpty() && thumbnailasset_id != null) {
+			thumbnail_asset = assetrepo.findById(thumbnailasset_id).get();
 		}
 		if (!thumbnail_assets.isEmpty()) {
 			String thumbnail_file = contentservice.storeTumbnailFile(thumbnail_assets);
@@ -369,8 +426,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 
 		// banner file
 		AssetLibrary banner_asset = null;
-		if (banner_assets.isEmpty()&& bannerasset_id!=null) {
-			banner_asset=assetrepo.findById(bannerasset_id).get();
+		if (banner_assets.isEmpty() && bannerasset_id != null) {
+			banner_asset = assetrepo.findById(bannerasset_id).get();
 		}
 		if (!banner_assets.isEmpty()) {
 			String banner_file = contentservice.storeBannerFile(banner_assets);
@@ -423,16 +480,14 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 			contentlibrary.setThumbnail_assets(thumbnail_asset);
 			contentlibrary.setBanner_assets(banner_asset);
 			contentlibrary.setCategories(cate);
+			
 			List<ContentPeople> contentpeople = new ArrayList<>();
 			for (int i = 0; i < people.size(); i++) {
-				Optional<PeopleLibrary> peopleId = peopleservice.findPeopleById(people.get(i));
-				if (peopleId.isEmpty()) {
-					throw new Exception("People id is empty");
-
-				}
+				PeopleLibrary peopleId = peopleservice.findPeopleById(people.get(i)).get();
+				
 
 				contentpeople
-						.add(new ContentPeople(person_type.get(i), new PeopleLibrary(people.get(i)), contentlibrary));
+						.add(new ContentPeople(person_type.get(i), peopleId, contentlibrary));
 			}
 			contentlibrary.setContenpeople(contentpeople);
 
@@ -470,18 +525,15 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		List<AssetLibrary> assetFile = new ArrayList<>();
 		for (int i = 0; i < asset.size(); i++) {
 			if (asset.get(i).getAsset_type().equals(AssetType.Video)) {
-         
-			
+
 				assetVideo.add(asset.get(i));
 			}
 
 			else if (asset.get(i).getAsset_type().equals(AssetType.Audio)) {
 				assetAudio.add(asset.get(i));
-			}
-			else if(asset.get(i).getAsset_type().equals(AssetType.Image)) {
+			} else if (asset.get(i).getAsset_type().equals(AssetType.Image)) {
 				assetImage.add(asset.get(i));
-			}
-			else if(asset.get(i).getAsset_type().equals(AssetType.File)) {
+			} else if (asset.get(i).getAsset_type().equals(AssetType.File)) {
 				assetFile.add(asset.get(i));
 
 			}
@@ -490,9 +542,12 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		model.addAttribute("audioasset", assetAudio);
 		model.addAttribute("imageasset", assetImage);
 		model.addAttribute("fileasset", assetFile);
-		
+
 		List<ContentPeople> contentpeople = content.getContenpeople();
 		model.addAttribute("contentpeople", contentpeople);
+		for(int i=0;i<contentpeople.size();i++) {
+			model.addAttribute("conpeopid", contentpeople.get(i).getContent_people_id());
+		}
 		
 
 		model.addAttribute("cat", cat);
@@ -536,8 +591,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		String pdf = "application/pdf";
 
 		AssetLibrary preview_asset = null;
-		if (preview_assets.isEmpty()&& previewasset_id!=null) {
-			preview_asset=assetrepo.findById(previewasset_id).get();
+		if (preview_assets.isEmpty() && previewasset_id != null) {
+			preview_asset = assetrepo.findById(previewasset_id).get();
 		}
 
 		if (!preview_assets.isEmpty()) {
@@ -576,8 +631,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		// media file
 
 		AssetLibrary media_asset = null;
-		if(media_assets.isEmpty()&& mediaasset_id!=null) {
-			media_asset=assetrepo.findById(mediaasset_id).get();
+		if (media_assets.isEmpty() && mediaasset_id != null) {
+			media_asset = assetrepo.findById(mediaasset_id).get();
 		}
 		if (!media_assets.isEmpty()) {
 			String media_file = contentservice.storePrimaryFile(media_assets);
@@ -608,8 +663,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		}
 		// Additional file
 		AssetLibrary additional_asset = null;
-		if (additional_assets.isEmpty()&& addasset_id!=null) {
-			additional_asset=assetrepo.findById(addasset_id).get();
+		if (additional_assets.isEmpty() && addasset_id != null) {
+			additional_asset = assetrepo.findById(addasset_id).get();
 		}
 
 		if (!additional_assets.isEmpty()) {
@@ -647,8 +702,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 
 		// Thumb nail file
 		AssetLibrary thumbnail_asset = null;
-		if (thumbnail_assets.isEmpty()&& thumbnailasset_id!=null) {
-			thumbnail_asset=assetrepo.findById(thumbnailasset_id).get();
+		if (thumbnail_assets.isEmpty() && thumbnailasset_id != null) {
+			thumbnail_asset = assetrepo.findById(thumbnailasset_id).get();
 		}
 
 		if (!thumbnail_assets.isEmpty()) {
@@ -684,8 +739,8 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		// banner file
 
 		AssetLibrary banner_asset = null;
-		if (banner_assets.isEmpty()&& bannerasset_id!=null) {
-			banner_asset=assetrepo.findById(bannerasset_id).get();
+		if (banner_assets.isEmpty() && bannerasset_id != null) {
+			banner_asset = assetrepo.findById(bannerasset_id).get();
 		}
 		if (!banner_assets.isEmpty()) {
 			String banner_file = contentservice.storeBannerFile(banner_assets);
@@ -724,10 +779,7 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 		Category cate = new Category(category_id);
 
 		ContentLibrary contentlibrary = contentrepo.findById(content_id).get();
-//			contentlibrary.setContent_id(content_id);
-//			 contentlibrary.setContent_type(content_type);
-//			 contentlibrary.setContent_format(content_format);
-//			 contentlibrary.setContent_group(content_group);
+
 		if (content_name != null) {
 			contentlibrary.setContent_name(content_name);
 		}
@@ -766,44 +818,50 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 			contentlibrary.setCategories(categoryservice.updateCategory(cate));
 		}
 
-		List<ContentPeople> contentpeople = new ArrayList<>();
-
-		List<ContentPeople> conpeople = contentlibrary.getContenpeople();
-		for (int i = 0; i < people.size(); i++) {
-			Optional<PeopleLibrary> peopleId = peopleservice.findPeopleById(people.get(i));
-			if (peopleId.isEmpty()) {
-				throw new Exception("People id is empty");
-
-			}
-			PeopleLibrary peoples = peoplerepo.findById(people.get(i)).get();
-
-//			if (!conpeople.get(i).getPerson_type().equals(person_type.get(i))
-//					&& !conpeople.get(i).getPeople_id().equals(peoples)) {
-
-				Optional<ContentPeople> peopleid=contentpeoplerepo.findContentPeopleBypeopleId(people.get(i));
-				Optional<ContentPeople> persontype=contentpeoplerepo.findContentPeopleByPersonType(person_type.get(i));
-				if( peopleid.isPresent() && persontype.isPresent()) {
-//					if (i <= conpeople.size() - 1) {
-					ContentPeople contentId = contentpeoplerepo.findById(conpeople.get(i).getContent_people_id()).get();
-//					if (people.get(i) != null) {
-						contentId.setPeople_id(peoples);
-//					}
-//					if (contentlibrary != null) {
-						contentId.setContent_id(contentlibrary);
-//					}
-//					if (person_type.get(i) != null) {
-						contentId.setPerson_type(person_type.get(i));
-//					}
-
-					contentpeople.add(contentId);}
-				 else {
-
-					contentpeople.add(new ContentPeople(person_type.get(i), peoples, contentlibrary));
-				}
-				}
-
+//		List<ContentPeople> contentpeople = new ArrayList<>();
+//
+//		List<ContentPeople> conpeople = contentlibrary.getContenpeople();
+//		for (int i = 0; i < people.size(); i++) {
+//			Optional<PeopleLibrary> peopleId = peopleservice.findPeopleById(people.get(i));
+//			if (peopleId.isEmpty()) {
+//				throw new Exception("People id is empty");
 //			}
-//	}
+//			PeopleLibrary peoples = peoplerepo.findById(people.get(i)).get();
+//
+//			if (i <= conpeople.size() - 1) {
+//
+//				ContentPeople contentId = contentpeoplerepo.findById(conpeople.get(i).getContent_people_id()).get();
+//				if (people.get(i) != null) {
+//					contentId.setPeople_id(peoples);
+//				}
+//				if (contentlibrary != null) {
+//					contentId.setContent_id(contentlibrary);
+//				}
+//				if (person_type.get(i) != null) {
+//					contentId.setPerson_type(person_type.get(i));
+//				}
+////
+//				contentpeople.add(contentId);
+//
+//			} else {
+//				contentpeople.add(new ContentPeople(person_type.get(i), peoples, contentlibrary));
+//			}
+//
+////			if(!contentpeoplerepo.existsByPersonType(person_type.get(i)) && !contentpeoplerepo.existsByPeopleId(people.get(i))) {
+////				contentpeople.add(new ContentPeople(person_type.get(i), peoples, contentlibrary));
+////			}
+////			
+//
+//		}
+		List<ContentPeople> contentpeople = new ArrayList<>();
+		for (int i = 0; i < people.size(); i++) {
+			PeopleLibrary peopleId = peopleservice.findPeopleById(people.get(i)).get();
+			
+
+			contentpeople
+					.add(new ContentPeople(person_type.get(i), peopleId, contentlibrary));
+		}
+		contentlibrary.setContenpeople(contentpeople);
 
 		if (contentpeople != null) {
 
@@ -820,8 +878,9 @@ if(media_assets.isEmpty()&& mediaasset_id!=null) {
 
 		List<PlaylistLibrary> playlist = playlistrepo.findContentByIdInPlaylist(id);
 		List<FeaturedSection> featured = sectionrepo.findContentByIdInFeatured(id);
+		List<ContentPeople> contentPeople=contentpeoplerepo.findContentPeopleByContentId(id);
 
-		if (playlist.size() > 0 || featured.size() > 0) {
+		if (playlist.size() > 0 || featured.size() > 0 || contentPeople.size()>0) {
 			redir.addFlashAttribute("Perror", "Content cannot delete...");
 		} else {
 			contentservice.deleteContentById(id);

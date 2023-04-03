@@ -2,11 +2,16 @@ package com.content.controller;
 
 import java.util.List;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.content.model.ContentLibrary;
@@ -15,7 +20,8 @@ import com.content.model.PeopleLibrary;
 import com.content.service.ContentPeopleService;
 import com.content.service.PeopleLibraryService;
 
-@Controller
+//@Controller
+@RestController
 //@Controller
 public class ContentPeopleController {
 
@@ -29,31 +35,14 @@ public class ContentPeopleController {
 	public List<ContentPeople> getAllContentPeople(){
 		return contentpeopleservice.getAllContentPeople();
 	}
+	@PostMapping("/deleteContentPeople/{id}")
 	
-//	@PostMapping("/createcontentpeople")
-//	public String createContentPeople(@RequestParam("person_type")String person_type,
-//	        @RequestParam("people")Long  people,
-//	        @RequestParam("content_id")Long contentId) throws Exception {
-//		
-//		
-//		ContentLibrary conid=new ContentLibrary(contentId);
-//		
-//		
-//		ContentPeople con=new ContentPeople();
-//		con.setContent_id(conid);
-//		
-//			PeopleLibrary peo=peopleservice.findPeopleById(people).get();
-//			con.setPeople_id(peo);
-//		
-//		
-//			con.setPerson_type(person_type);
-//		
-//		 contentpeopleservice.create(con);
-//		
-//		
-//		 return "addcontent";
-//		
-//		
-//	}
+	public void deleteContentPeopleById(@PathVariable long id) {
+		
+		
+		contentpeopleservice.deleteContentPeopleById(id);
+		
+		
+	}
 	
 }

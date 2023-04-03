@@ -10,8 +10,8 @@
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 </head>
-<body>
-    <div class="Nav">
+<body >
+    <div class="Nav" >
         <div class="Logo-div">
             <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
             <p class="Logo-name">Cloud</p>
@@ -19,52 +19,68 @@
         <div class="links">
             <a th:href="@{/UserHome}"><ul>Home</ul></a>
             <a th:href="@{/UserVideo}"><ul>Video</ul></a>
-            <a th:href="@{/UserVideo}"><ul>Audio</ul></a>
+            <a th:href="@{/UserAudio}"><ul>Audio</ul></a>
             <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
             <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
         </div>
     </div>
-<div class="desc">
-    <div class="sample">
-        <img class="Thumbnail-photo" th:src="${contentlib.thumbnail_assets.asset_filepath}"  alt="">
+    <!-- th:style="'background-image: url(' + ${bannerimage} + '); z-index: -1;  opacity:0.2;  background-repeat: no-repeat; background-attachment: fixed;background-size: cover;'"  -->
+    
+<div class="desc"  >
+<img th:src="${bannerimage}" style="position:absolute;opacity:.3;background-size: cover;background-position: center;height:110%;width:100%;">
+    <div class="sample" style="position:relative;" >
+        <img class="Thumbnail-photo" th:if="${contentlib.thumbnail_assets!=null}" th:src="${contentlib.thumbnail_assets.asset_filepath}"  alt="">
+         <img class="Thumbnail-photo" th:unless="${contentlib.thumbnail_assets!=null}" th:src="@{/img/noimage.png}"  alt="thumnail not available">
     </div>
-    <div class="otherside">
+    <div class="otherside" style="position:relative;">
         <div class="left-container">
             <p class="heading" th:text="${contentlib.content_name}"></p>
         </div>
-        <div th:if="${contentlib.content_type=='video'}">
-            <video  class="file-source" th:src="${contentlib.media_assets.asset_filepath}" controls></video>
+        <div th:if="${contentlib.content_type=='video'}" style="margin-bottom:20px;position:relative;">
+            <video  class="file-source" th:if="${contentlib.media_assets!=null}" th:src="${contentlib.media_assets.asset_filepath}" controls></video>
+            <div th:unless="${contentlib.media_assets!=null}" ><p   style="text-align:center;color:white;padding:5px;"> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg> &nbsp;Video Not available</p></div>
+            
         </div>
-        <div th:if="${contentlib.content_type=='audio'}">
-            <audio class="audio-file-source" th:src="${contentlib.media_assets.asset_filepath}"  controls></audio>
+        <div th:if="${contentlib.content_type=='audio'}" style="position:relative;">
+            <audio class="audio-file-source" th:if="${contentlib.media_assets!=null}" th:src="${contentlib.media_assets.asset_filepath}"  controls></audio>
+           <div th:unless="${contentlib.media_assets!=null}" ><p   style="text-align:center;color:white;padding:5px;"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-exclamation-triangle-fill" viewBox="0 0 16 16">
+  <path d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z"/>
+</svg> &nbsp; Audio Not available </p></div>
         </div>
+        <div style="margin-bottom:20px;position:relative;" >
         <div class="description">
             <p class="description-title">Description : </p>
             <p class="description-content" th:text="${contentlib.story}" ></p>
         </div>
          <div class="people" th:if="${contentlib.content_type=='video'}">
             <div th:each="people : ${con}">
-            <p class="cast" th:if="${people.person_type=='Actor'}">Cast : [[${people.people_id.people_name}]]</p>
-            <p class="director" th:if="${people.person_type=='Director'}">Director : [[${people.people_id.people_name}]]</p>
-            <p class="director" th:if="${people.person_type=='Music_Director'}">Music Director : [[${people.people_id.people_name}]]</p>
+            <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="cast" th:if="${people.person_type=='Actor'}"  style="text-decoration:none;">Cast : [[${people.people_id.people_name}]]</a>
+             <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Director'}" style="text-decoration:none;">Director : [[${people.people_id.people_name}]]</a>
+             <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Music_Director'}" style="text-decoration:none;">Music Director : [[${people.people_id.people_name}]]</a>
+             <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Singer'}" style="text-decoration:none;">Singer : [[${people.people_id.people_name}]]</a>
             </div>
         </div>
         <div class="people" th:if="${contentlib.content_type=='audio'}">
             <div th:each="people : ${con}">
-             <p class="cast" th:if="${people.person_type=='Actor'}">Cast : [[${people.people_id.people_name}]]</p>
-            <p class="director" th:if="${people.person_type=='Director'}">Director : [[${people.people_id.people_name}]]</p>
-            <p class="director" th:if="${people.person_type=='Music_Director'}">Music Director : [[${people.people_id.people_name}]]</p>
+            <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="cast" th:if="${people.person_type=='Actor'}" style="text-decoration:none; ">Cast : [[${people.people_id.people_name}]]</a>
+             <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Director'}" style="text-decoration:none;">Director : [[${people.people_id.people_name}]]</a>
+            <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Music_Director'}" style="text-decoration:none;">Music Director : [[${people.people_id.people_name}]]</a>
+             <a th:href="@{'/peopledesc/'+${people.people_id.people_id}}" class="director" th:if="${people.person_type=='Singer'}" style="text-decoration:none;">Singer : [[${people.people_id.people_name}]]</a>
             </div>
         </div>
+        </div>
+       </div>
     </div>
-</div>
+
     <footer>
         <div>
-            <a href="">Contact Us</a>
-            <a href="">Terms and Conditions</a>
-             <a href="">Privacy and Cookies</a>
-             <a href="">Privacy Options</a>
-             <a href="">Help</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Terms and Conditions</a>
+             <a href="#">Privacy and Cookies</a>
+             <a href="#">Privacy Options</a>
+             <a href="#">Help</a>
         </div>
          <p>Copyright @ TATA Elxsi 2023</p>
         

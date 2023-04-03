@@ -247,7 +247,7 @@
                <tbody id="table-content">
                
                
-                 <tr  class="tr-data" style="display: flex;  height: 70px; margin-top:10px;" th:each="people: ${peoplelist}"><!-- -->
+                 <tr  class="tr-data" style="display: flex;  height: 100px; margin-top:10px;" th:each="people: ${peoplelist}"><!-- -->
                     
                         <td   th:if="${people.people_asset!=null}" th:each="profile:  ${people.people_asset}"style=" display: flex; flex-direction:row;"  >
                         <img th:src="@{${profile.asset_filepath}}" width="60px" height="60px" fill="currentColor"> 
@@ -260,8 +260,8 @@
                          
                         <td class="td-CName" th:text="${people.people_name}" style="margin-left: 10px;font-size: 12px; margin-top: 20px; margin-right: 100px; margin-bottom: 5px; width:60px ; " ></td><!-- Andrew  -->
                         
-                        <td   th:text="${people.bio}" style="width:50%; font-size: 12px; font-weight: 400; padding: 10px; " > </td><!-- -->
-                        <td  style="width:20%; padding: 10px;"><a th:href="@{'/updatepeople/'+${people.people_id}}"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;<a th:href="@{'/peoplelibrary/'+${people.people_id}}"><i class="bi bi-trash"></i></a></td><!--  -->
+                        <td   th:text="${people.bio}" style="width:50%; height:auto;font-size: 12px; font-weight: 400;  " > </td><!-- -->
+                        <td  style="width:20%; padding: 10px; margin-left:20px;"><a th:href="@{'/updatepeople/'+${people.people_id}}"><i class="bi bi-pencil-square"></i></a>&nbsp;&nbsp;<a th:href="@{'/peoplelibrary/'+${people.people_id}}"><i class="bi bi-trash"></i></a></td><!--  -->
                        
                 </tr>
                </tbody>

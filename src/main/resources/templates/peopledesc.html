@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>People Description</title>
+    <link rel="stylesheet" th:href="@{/css/Style.css}">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<div class="Nav">
+        <div class="Logo-div">
+            <img class="Logo" th:src="@{/img/Cloud.png}" alt="">
+            <p class="Logo-name">Cloud</p>
+        </div>
+        <div class="links">
+            <a th:href="@{/UserHome}"><ul>Home</ul></a>
+            <a th:href="@{/UserVideo}"><ul>Video</ul></a>
+            <a th:href="@{/UserAudio}"><ul>Audio</ul></a>
+            <a th:href="@{/UserPlaylist}"><ul>PlayList</ul></a>
+            <a th:href="@{/UserAbout}"><ul>About Us</ul></a>
+        </div>
+    </div>
+<div class="desc" >
+    <div class="sample" style="margin-top:70px;margin-bottom:80px;" >
+      <img class="Thumbnail-photo" th:if="${people.people_asset!=null}" th:src="${people.people_asset.asset_filepath}"  alt="Profile picture not available" style="height:250px;border-radius:50%;">
+         <img class="Thumbnail-photo" th:unless="${people.people_asset!=null}" th:src="@{/img/user-placeholder.jpg}"  alt="Profile picture not available" style=" height:250px;border-radius:50%;">
+    </div>
+    <div class="otherside" style="margin-top:120px;margin-bottom:80px;">
+        <div class="left-container" >
+            <p class="heading" th:text="${peoplename}"></p>
+            <div class="description" >
+             <p class="description-content" th:text="${people.bio}" ></p>
+           </div>
+        </div>
+       
+    </div>
+    </div>
+    <div style="margin-left:70px;">
+    <div>
+     <h4 style="color:white;">Video</h4>
+     <div style="display:flex;flex-direction:row;">
+   <div th:each="cons: ${contents}" style="margin-right:15px;" >
+         <a th:href="@{'/description/'+${cons.content_id}}"> <div th:if="${cons.content_type =='video'}" >
+       <img th:if="${cons.thumbnail_assets!=null}"  th:src="${cons.thumbnail_assets.asset_filepath}" width="120" height="150">
+         <img th:unless="${cons.thumbnail_assets!=null}"  th:src="@{/img/video-placeholder.jpg}" width="120" height="150">
+        <p  th:text="${cons.content_name}"  style="background-color:#343a40;color:white;width:120px;padding:5px;"></p>
+        </div></a>
+        </div>
+        </div>
+        </div>
+        <div>
+        <h4 style="color:white;">Audio</h4>
+        <div style="display:flex;flex-direction:row;">
+        <div th:each="cons: ${contents}" style="margin-right:15px;margin-left: 0;">
+        <a th:href="@{'/description/'+${cons.content_id}}"> <div th:unless="${cons.content_type =='video'}" >
+        <img th:if="${cons.thumbnail_assets!=null}"  th:src="${cons.thumbnail_assets.asset_filepath}" width="120" height="150">
+          <img th:unless="${cons.thumbnail_assets!=null}"  th:src="@{/img/audio-placeholder.jpg}" width="120" height="150">
+        <p  th:text="${cons.content_name}" style="background-color:#343a40;color:white;width:120px;padding:5px;"></p>
+        </div></a>
+        </div>
+        </div>
+        </div>
+        </div>
+        
+        
+
+    <footer>
+        <div>
+            <a href="">Contact Us</a>
+            <a href="">Terms and Conditions</a>
+             <a href="">Privacy and Cookies</a>
+             <a href="">Privacy Options</a>
+             <a href="">Help</a>
+        </div>
+         <p>Copyright @ TATA Elxsi 2023</p>
+        
+    </footer>
+
+</body>
+</html>

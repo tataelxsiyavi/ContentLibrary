@@ -46,7 +46,6 @@ public class ContentLibrary {
 	
 	private Category categories;
 	@Lob
-	
 	private String story;
 	private String search_tags;
 	
@@ -54,20 +53,20 @@ public class ContentLibrary {
 	@OneToMany(mappedBy="content_id",cascade =CascadeType.ALL)
 	private List<ContentPeople>contenpeople;
 
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="media_asset")
 	private AssetLibrary media_assets;
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="preview_asset",nullable=true)
 	private AssetLibrary preview_assets;
 	private String additional_asset_type;
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="additional_asset")
 	private AssetLibrary additional_assets;
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="thumbnail_asset")
 	private AssetLibrary thumbnail_assets;
-	@OneToOne()
+	@OneToOne(cascade =CascadeType.PERSIST)
 	@JoinColumn(name="banner_asset")
 	private AssetLibrary banner_assets;
 
